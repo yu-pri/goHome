@@ -1,0 +1,1 @@
+Private home automation on respberry PI
