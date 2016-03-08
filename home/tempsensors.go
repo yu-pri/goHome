@@ -35,16 +35,13 @@ func NewSensors() (*Sensors, error) {
   }, err
 }
 
-func (s Sensors)ReportInternalTemp () {
+func (s Sensors)InternalSensor () (float32, error) {
   err := s.Temp.Update()
   if (err != nil) {
-    log.Fatal(err)
+    return -100, err
   }
 
   temp, err := s.Temp.ReadSingleAlias("int");
-  if (err != nil) {
-    log.Fatal(err)
-  }
 
-  log.Println(temp.Celsius())
+  return temp.Celsius(), err
 }

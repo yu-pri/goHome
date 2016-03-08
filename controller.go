@@ -9,6 +9,14 @@ import (
   "time"
 )
 
+func reportInternalSensor(s *home.Sensors) {
+  v, err := s.InternalSensor();
+  if (err != nil) {
+    panic("ReadSensor: " + err.Error())
+  }
+  log.Println("\t", v);
+}
+
 func echoHandler(ws *websocket.Conn) {
   msg := make([]byte, 512)
   for {
@@ -29,12 +37,12 @@ func echoHandler(ws *websocket.Conn) {
   }
 }
 
-func schedule(what func(), delay time.Duration) chan bool {
+func schedule(what func(*home.Sensors), delay time.Duration, s *home.Sensors) chan bool {
   stop := make(chan bool)
 
   go func() {
     for {
-      what()
+      what(s)
       select {
         case <-time.After(delay):
         case <-stop:
@@ -54,7 +62,7 @@ func main() {
     panic("Sensors: " + err.Error())
   }
 
-  stop := schedule(sensors.ReportInternalTemp, 5*time.Second)
+  stop := schedule(reportInternalSensor, 600*time.Second, sensors)
 
   http.Handle("/echo", websocket.Handler(echoHandler))
   http.Handle("/", http.FileServer(http.Dir(".")))
