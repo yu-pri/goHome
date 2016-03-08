@@ -2,6 +2,7 @@ package home
 
 import (
   "log"
+  //"errors"
   //"os"
   //"time"
   //  "sync"
@@ -9,34 +10,41 @@ import (
   )
 
 var (
-  Sensors goDS18B20.ProbeGroup
+  //Sensors goDS18B20.ProbeGroup
 )
+
+type Sensors struct {
+  Temp goDS18B20.ProbeGroup
+}
 
 func init () {
   log.Println("init sensors")
-  Sensors, err := goDS18B20.New()
-  if (err != nil) {
-    log.Fatal(err)
-  }
-
-  err = Sensors.AssignAlias("int", "28-0315a14596ff");
-  if (err != nil) {
-    log.Fatal(err)
-  }
 
 }
 
-func ReportInternalTemp () {
-  err := Sensors.Update()
+func New() (*Sensors, error) {
+  s, err := goDS18B20.New()
+  if (err != nil) {
+    return nil, err
+  }
+
+  err = s.AssignAlias("int", "28-0315a14596ff");
+
+  return &Sensors{
+    Temp: *s,
+  }, err
+}
+
+func (s Sensors)ReportInternalTemp () {
+  err := s.Temp.Update()
   if (err != nil) {
     log.Fatal(err)
   }
 
-  temp, err := Sensors.ReadSingleAlias("int");
+  temp, err := s.Temp.ReadSingleAlias("int");
   if (err != nil) {
     log.Fatal(err)
   }
 
   log.Println(temp.Celsius())
-
 }
