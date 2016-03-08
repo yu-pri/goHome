@@ -6,7 +6,7 @@
 	<script src="jquery-2.1.4.min.js"></script>
 	<script>
       $(function() {
-        var ws = new WebSocket("ws://localhost:1234/echo");
+        var ws = new WebSocket("ws://192.168.1.20:1234/echo");
         ws.onmessage = function(e) {
           console.log("受信メッセージ:" + event.data);
         };
