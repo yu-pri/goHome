@@ -49,11 +49,16 @@ func schedule(what func(), delay time.Duration) chan bool {
 
 func main() {
 
-  stop := schedule(home.ReportInternalTemp, 5*time.Second)
+  sensors, err := home.NewSensors()
+  if err != nil {
+    panic("Sensors: " + err.Error())
+  }
+
+  stop := schedule(sensors.ReportInternalTemp, 5*time.Second)
 
   http.Handle("/echo", websocket.Handler(echoHandler))
   http.Handle("/", http.FileServer(http.Dir(".")))
-  err := http.ListenAndServe(":1234", nil)
+  err = http.ListenAndServe(":1234", nil)
   if err != nil {
     panic("ListenAndServe: " + err.Error())
   }

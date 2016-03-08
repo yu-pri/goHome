@@ -22,7 +22,7 @@ func init () {
 
 }
 
-func New() (*Sensors, error) {
+func NewSensors() (*Sensors, error) {
   s, err := goDS18B20.New()
   if (err != nil) {
     return nil, err
