@@ -12,6 +12,11 @@ import (
 
 var r = raspi.NewRaspiAdaptor("raspi")
 var relHeatMotor1 = gpio.NewLedDriver(r, "led", "11")
+var relHeatMotor2 = gpio.NewLedDriver(r, "led", "12")
+
+var relHeat1 = gpio.NewLedDriver(r, "led", "13")
+var relHeat2 = gpio.NewLedDriver(r, "led", "15")
+
  /*
 type Relays struct {
 
@@ -24,13 +29,6 @@ type Relays struct {
 
 func init () {
   log.Println("init relays")
-
-  relHeatMotor1.Off()
-  /*
-  r.RelHeatMotor2 := gpio.NewLedDriver(r, "led", "12")
-  r.RelHeat1 := gpio.NewLedDriver(r, "led", "13")
-  r.RelHeat2 := gpio.NewLedDriver(r, "led", "15")
-*/
 }
 
 func ToggleHeatMotor1 () {
