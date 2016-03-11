@@ -1,13 +1,8 @@
 package home
 
-type Config struct {
-  emailTo string
-  emailFrom string
-}
-
-func LoadConfiguration() Config {
-    var cfg Config
-    cfg.emailTo = "alPrihodko@gmail.com"
-    cfg.emailFrom = "alPrihodko@gmail.com"
-    return cfg
-}
+const (
+  emailFrom = "alPrihodko@gmail.com"
+  emailTo= "alPrihodko@gmail.com"
+  googleAccountName = "alPrihodko@gmail.com"
+  googleAPIKey = "ahvpiuembqkvszpi"
+)
