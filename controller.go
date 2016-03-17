@@ -10,6 +10,11 @@ import (
 	"golang.org/x/net/websocket"
 )
 
+/*
+SENSORS  Sensors exists
+*/
+const SENSORS = false
+
 func reportInternalSensor(s *home.Sensors) {
 	v, err := s.InternalSensor()
 	if err != nil {
@@ -60,13 +65,17 @@ func schedule(what func(*home.Sensors), delay time.Duration, s *home.Sensors) ch
 }
 
 func main() {
+	var stop chan bool
+	var err error
 
-	sensors, err := home.NewSensors()
-	if err != nil {
-		panic("Sensors: " + err.Error())
+	if SENSORS {
+		sensors, err := home.NewSensors()
+		if err != nil {
+			panic("Sensors: " + err.Error())
+		}
+
+		stop = schedule(reportInternalSensor, 60*time.Second, sensors)
 	}
-
-	stop := schedule(reportInternalSensor, 60*time.Second, sensors)
 
 	http.Handle("/echo", websocket.Handler(echoHandler))
 	http.Handle("/", http.FileServer(http.Dir(".")))
@@ -75,6 +84,8 @@ func main() {
 		panic("ListenAndServe: " + err.Error())
 	}
 
-	stop <- true
+	if stop != nil {
+		stop <- true
+	}
 
 }
