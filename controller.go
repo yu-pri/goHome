@@ -14,7 +14,7 @@ import (
 /*
 SENSORS  Sensors exists
 */
-const SENSORS = false
+const SENSORS = true
 
 type socketConns struct {
 	ws   map[int32]*websocket.Conn
