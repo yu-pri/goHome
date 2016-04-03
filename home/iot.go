@@ -17,7 +17,7 @@ func IOTReportValue(dev string, name string, v float32) error {
 	fmt.Println("URL:>", url)
 	var jsonStr = []byte(`{"value":` + fmt.Sprintf("%f", v) + "}")
 
-	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
+	req, err := http.NewRequest("PUT", url, bytes.NewBuffer(jsonStr))
 	if err != nil {
 		return err
 	}
