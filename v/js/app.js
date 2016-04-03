@@ -1,20 +1,143 @@
 
-var ws = new WebSocket("ws://localhost:1234/echo");
-var DataHandler = new Object();
+var N = function(){};
 
-ws.onmessage = function(e) {
-    console.log("received:" + event.data);
-    DataHandler.callback({message: "incoming " + event.data});
+N.ws = new WebSocket("ws://localhost:1234/echo");
+N.DataHandler = new Object();
+N.TempDataHandler = new Object();
+
+N.DataHandler.handle = function (msg) {
+  var o = JSON.parse(msg);
+  switch (o.Key) {
+    case "temperature":
+    N.TempDataHandler.callback(o);
+    break;
+  }
 };
 
-var Button = React.createClass({
+N.ws.onmessage = function(e) {
+    console.log("received:" + event.data);
+    N.DataHandler.handle(event.data);
+};
+
+
+
+
+jQuery(function($) {
+  var $bodyEl = $('body'),
+      $sidedrawerEl = $('#sidedrawer');
+
+
+  function showSidedrawer() {
+    // show overlay
+    var options = {
+      onclose: function() {
+        $sidedrawerEl
+          .removeClass('active')
+          .appendTo(document.body);
+      }
+    };
+
+    var $overlayEl = $(mui.overlay('on', options));
+
+    // show element
+    $sidedrawerEl.appendTo($overlayEl);
+    setTimeout(function() {
+      $sidedrawerEl.addClass('active');
+    }, 20);
+  }
+
+
+  function hideSidedrawer() {
+    $bodyEl.toggleClass('hide-sidedrawer');
+  }
+
+
+  $('.js-show-sidedrawer').on('click', showSidedrawer);
+  $('.js-hide-sidedrawer').on('click', hideSidedrawer);
+
+  var $titleEls = $('strong', $sidedrawerEl);
+
+  $titleEls
+    .next()
+    .hide();
+
+  $titleEls.on('click', function() {
+    $(this).next().slideToggle(200);
+  });
+});
+
+
+var Temperature = React.createClass({
+  getInitialState: function() {
+
+    return {temp1: this.props.temp1, temp2: this.props.temp2, temp3: this.props.temp3, temp4: this.props.temp4};
+  },
+
+  componentWillMount() {
+    N.TempDataHandler.callback = (data) => {
+      switch (data.Name) {
+        case "temp1":
+          this.setState({
+            temp1: data.Val
+          });
+          break;
+
+        case "temp2":
+          this.setState({
+            temp2: data.Val
+          });
+          break;
+
+        case "temp3":
+          this.setState({
+            temp3: data.Val
+          });
+          break;
+        case "temp4":
+          this.setState({
+            temp4: data.Val
+          });
+          break;
+      }
+    };
+  },
+
+  render: function() {
+
+    return (
+      <div>
+        <div className="mui-container-fluid" >
+          <span className="temp"> t (int):</span> {this.state.temp1}
+        </div>
+
+        <div className="mui-container-fluid" >
+          <span className="temp">t (out): </span>{this.state.temp2}
+        </div>
+
+        <div className="mui-container-fluid" >
+          <span className="temp"> Heater (top):</span> {this.state.temp3}
+        </div>
+
+        <div className="mui-container-fluid" >
+          <span className="temp">Heater (rev): </span> {this.state.temp4}
+        </div>
+
+
+      </div>
+    );
+  }
+});
+
+ReactDOM.render(<Temperature />, document.getElementById('sensors'));
+
+var ButtonMotor = React.createClass({
   getInitialState: function() {
     this.props.val = 1
     return {message: this.props.msg};
   },
 
   handleSubmit: function() {
-      ws.send(this.props.val);
+      N.ws.send(this.props.val);
       this.setState({message: "clicked: " + this.props.val++})
   },
 
@@ -22,12 +145,13 @@ var Button = React.createClass({
      this.setState({email: e.target.value})
    },
 
+   /*
   componentWillMount(){
     DataHandler.callback = (data) => {
        this.setState({message: data.message});
      };
   },
-
+*/
   render: function() {
     return (
       <div>
@@ -38,26 +162,40 @@ var Button = React.createClass({
   }
 });
 
-var Temperature = React.createClass({
+
+var ButtonHeater = React.createClass({
   getInitialState: function() {
+    this.props.val = 1
     return {message: this.props.msg};
   },
 
+  handleSubmit: function() {
+      N.ws.send(this.props.val);
+      this.setState({message: "clicked: " + this.props.val++})
+  },
+
+  handleChange(e) {
+     this.setState({email: e.target.value})
+   },
+
+   /*
   componentWillMount(){
     DataHandler.callback = (data) => {
        this.setState({message: data.message});
      };
   },
-
+*/
   render: function() {
     return (
-      <div className="mui-container">
-      Temperature sensor: {this.state.message}
+      <div>
+      <button className="mui-btn mui-btn--flat" onClick={this.handleSubmit} >
+      Button: {this.state.message}</button>
       </div>
     );
   }
 });
 
 
-ReactDOM.render(<Button msg="John" />, document.getElementById('relayMotor'));
-ReactDOM.render(<Temperature />, document.getElementById('sensorInside'));
+
+ReactDOM.render(<ButtonMotor msg="John" />, document.getElementById('relayMotor'));
+ReactDOM.render(<ButtonHeater msg="John Doe" />, document.getElementById('relayHeater'));

@@ -5,6 +5,7 @@ import (
 	"goHome/home"
 	"log"
 	"net/http"
+	"sync"
 	"time"
 
 	"golang.org/x/net/websocket"
@@ -15,19 +16,24 @@ SENSORS  Sensors exists
 */
 const SENSORS = false
 
-func reportInternalSensor(s *home.Sensors) {
-	v, err := s.InternalSensor()
-	if err != nil {
-		home.ReportAlert(err.Error(), "Cannot get internal Temp to Phant")
-	}
-	log.Println("\t", v)
-	err = home.ReportInternalTemp(v)
-	if err != nil {
-		home.ReportAlert(err.Error(), "Cannot report internal Temp to Phant")
-	}
+type socketConns struct {
+	ws   map[int32]*websocket.Conn
+	lock *sync.Mutex
 }
 
+var conns socketConns
+var currentState home.HData
+
 func echoHandler(ws *websocket.Conn) {
+	var id = int32(time.Now().Unix())
+	conns.lock.Lock()
+	conns.ws[id] = ws
+	conns.lock.Unlock()
+	defer func() {
+		conns.lock.Lock()
+		delete(conns.ws, id)
+		conns.lock.Unlock()
+	}()
 	msg := make([]byte, 512)
 	for {
 		n, err := ws.Read(msg)
@@ -37,48 +43,44 @@ func echoHandler(ws *websocket.Conn) {
 		}
 
 		fmt.Printf("Receive: %s\n", msg[:n])
-		home.ToggleHeatMotor1()
-		m, err := ws.Write(msg[:n])
-		if err != nil {
-			log.Println(err)
-			return
-		}
-		fmt.Printf("Send: %s\n", msg[:m])
-	}
-}
-
-func schedule(what func(*home.Sensors), delay time.Duration, s *home.Sensors) chan bool {
-	stop := make(chan bool)
-
-	go func() {
-		for {
-			what(s)
-			select {
-			case <-time.After(delay):
-			case <-stop:
+		/*
+			home.ToggleHeatMotor1()
+			m, err := ws.Write(msg[:n])
+			if err != nil {
+				log.Println(err)
 				return
 			}
-		}
-	}()
-
-	return stop
+			fmt.Printf("Send: %s\n", msg[:m])
+		*/
+	}
 }
 
 func main() {
 	var stop chan bool
 	var err error
+	conns = socketConns{make(map[int32]*websocket.Conn), &sync.Mutex{}}
+	currentState = home.HData{}
+	currentState.Index = 2
+	log.Println(currentState.Index)
 
 	if SENSORS {
-		sensors, err := home.NewSensors()
-		if err != nil {
+		sensors, errs := home.NewSensors()
+		if errs != nil {
 			panic("Sensors: " + err.Error())
 		}
 
 		stop = schedule(reportInternalSensor, 60*time.Second, sensors)
 	}
 
+	//stop = scheduleT(reportFloat, 10*time.Second, "temp1", 10)
+
 	http.Handle("/echo", websocket.Handler(echoHandler))
 	http.Handle("/", http.FileServer(http.Dir(".")))
+
+	go func() {
+		processInput(&currentState)
+	}()
+
 	err = http.ListenAndServe(":1234", nil)
 	if err != nil {
 		panic("ListenAndServe: " + err.Error())
@@ -87,5 +89,4 @@ func main() {
 	if stop != nil {
 		stop <- true
 	}
-
 }

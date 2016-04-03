@@ -1,28 +1,63 @@
 <!DOCTYPE html>
 <html>
-    <head>
-	<meta charset="UTF-8" />
-	<title>Sample of websocket with golang in MotorControl</title>
-	<script src="js/jquery-2.1.4.min.js"></script>
 
- <meta http-equiv="X-UA-Compatible" content="IE=edge">
- <meta name="viewport" content="width=device-width, initial-scale=1">
- <link href="//cdn.muicss.com/mui-0.4.7/css/mui.min.css" rel="stylesheet" type="text/css" />
- <script src="//cdn.muicss.com/mui-0.4.7/js/mui.min.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <title>Sample of websocket with golang in MotorControl</title>
+  <script src="js/jquery-2.1.4.min.js"></script>
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="//cdn.muicss.com/mui-0.4.7/css/mui.min.css" rel="stylesheet" type="text/css" />
+  <script src="//cdn.muicss.com/mui-0.4.7/js/mui.min.js"></script>
 
   <script src="js/react/react.min.js"></script>
   <script src="js/react/react-dom.min.js"></script>
   <script src="js/react/browser.min.js"></script>
 
+    <link href="layout.css" rel="stylesheet" type="text/css" />
+</head>
 
+<body>
+  <div id="sidedrawer" class="mui--no-user-select">
+    <div id="sidedrawer-brand" class="mui--appbar-line-height mui--text-title">myHome control</div>
+    <div class="mui-divider"></div>
+<br/>
+    <div id="relayMotor">Loading...</div>
+    <div id="relayHeater">Loading...</div>
+</div>
 
-    </head>
-    <body>
-      <div id="content-wrapper" class="mui--text-center">
-        <div id="relayMotor">Loading...</div>
-        <br/>
-        <div id="sensorInside"></div>
+  <header id="header">
+    <div class="mui-appbar mui--appbar-line-height">
+      <div class="mui-container-fluid">
+        <a class="sidedrawer-toggle mui--visible-xs-inline-block js-show-sidedrawer">☰</a>
+        <a class="sidedrawer-toggle mui--hidden-xs js-hide-sidedrawer">☰</a>
+        <span class="mui--text-title mui--visible-xs-inline-block">myHome control</span>
       </div>
-      <script type="text/babel" src="js/app.js"></script>
-    </body>
+    </div>
+  </header>
+
+
+  <div id="content-wrapper">
+    <div class="mui--appbar-height"></div>
+    <div class="mui-container-fluid">
+    <!-- Main content goes here -->
+    <div id="sensors">Loading...</div>
+
+
+    </div>
+  </div>
+
+  <footer id="footer">
+    <div class="mui-container-fluid">
+      <br>
+      Made with ♥ by <a href="https://www.muicss.com">MUI</a>
+    </div>
+  </footer>
+
+  <script type="text/babel" src="js/app.js"></script>
+  <script type="text/babel" src="js/sensors.js"></script>
+
+</body>
+
 </html>
