@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"goHome/home"
 	"log"
@@ -14,7 +15,7 @@ import (
 /*
 SENSORS  Sensors exists
 */
-const SENSORS = true
+var SENSORS bool
 
 type socketConns struct {
 	ws   map[int32]*websocket.Conn
@@ -56,12 +57,15 @@ func echoHandler(ws *websocket.Conn) {
 }
 
 func main() {
+
 	var stop chan bool
 	var err error
 	conns = socketConns{make(map[int32]*websocket.Conn), &sync.Mutex{}}
 	currentState = home.HData{}
 	currentState.Index = 2
 	log.Println(currentState.Index)
+	flag.BoolVar(&SENSORS, "sensors", true, "Sensors are there?")
+	flag.Parse()
 
 	if SENSORS {
 		sensors, errs := home.NewSensors()
