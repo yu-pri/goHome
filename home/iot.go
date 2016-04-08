@@ -1,12 +1,12 @@
 package home
 
 import (
-	"bytes"
 	"errors"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 )
 
 /*
@@ -15,9 +15,18 @@ IOTReportValue Reports data to spark
 func IOTReportValue(dev string, name string, v float32) error {
 	url := iotURL + "/device/" + dev + "/var/" + name + "?apikey=" + iotCloudAPIKey
 	fmt.Println("URL:>", url)
-	var jsonStr = []byte(`{"value":` + fmt.Sprintf("%f", v) + "}")
 
-	req, err := http.NewRequest("PUT", url, bytes.NewBuffer(jsonStr))
+	/*
+		var jsonStr = []byte(`{"value":` + fmt.Sprintf("%f", v) + "}")
+
+		req, err := http.NewRequest("PUT", url, bytes.NewBuffer(jsonStr))
+	*/
+	//var jsonStr = []byte()
+	//fmt.Sprintf("%f", v)
+	jsonStr := "{\"value\":22.5" + "}"
+	req, err := http.NewRequest("PUT", url, strings.NewReader(jsonStr))
+	req.Header.Add("Content-Type", "application/json")
+
 	if err != nil {
 		return err
 	}
@@ -36,7 +45,7 @@ func IOTReportValue(dev string, name string, v float32) error {
 	body, _ := ioutil.ReadAll(resp.Body)
 	log.Println("response Body:", string(body))
 	if status != 200 {
-		return errors.New("Non OK response from sparkfun: " + string(body))
+		return errors.New("Non OK response from IOT: " + string(body))
 	}
 	return nil
 }
