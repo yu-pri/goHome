@@ -141,7 +141,7 @@ var ButtonMotor = React.createClass({
 
   handleSubmit: function() {
       N.ws.send(this.props.val);
-      N.ws.send("{\"Command\":\"" + N.CommandOffPumpr1 + "\"}");
+      N.ws.send("{\"Command\":\"" + N.CommandOnPumpr1 + "\"}");
 
       this.setState({message: "clicked: " + this.props.val++})
   },
