@@ -15,3 +15,63 @@ const (
 	iotCloudHomeDevice      = "pi"
 	iotCloudInternalTempVar = "tempInternal"
 )
+
+/*
+CommandTogglePumpr1 command to toggle
+*/
+const CommandTogglePumpr1 = "togglePumpr1"
+
+/*
+CommandTogglePumpr2  command to toggle
+*/
+const CommandTogglePumpr2 = "togglePumpr2"
+
+/*
+CommandToggleHeater1  command to toggle
+*/
+const CommandToggleHeater1 = "toggleHeaterr1"
+
+/*
+CommandToggleHeater2  command to toggle
+*/
+const CommandToggleHeater2 = "toggleHeaterr2"
+
+/*
+CommandOnPumpr1 command to toggle
+*/
+const CommandOnPumpr1 = "onPumpr1"
+
+/*
+CommandOnPumpr2  command to toggle
+*/
+const CommandOnPumpr2 = "onPumpr2"
+
+/*
+CommandOnHeater1  command to toggle
+*/
+const CommandOnHeater1 = "onHeaterr1"
+
+/*
+CommandOnHeater2  command to toggle
+*/
+const CommandOnHeater2 = "onHeaterr2"
+
+/*
+CommandOffPumpr1 command to toggle
+*/
+const CommandOffPumpr1 = "offPumpr1"
+
+/*
+CommandOffPumpr2  command to toggle
+*/
+const CommandOffPumpr2 = "offPumpr2"
+
+/*
+CommandOffHeater1  command to toggle
+*/
+const CommandOffHeater1 = "offHeaterr1"
+
+/*
+CommandOffHeater2  command to toggle
+*/
+const CommandOffHeater2 = "offHeaterr2"

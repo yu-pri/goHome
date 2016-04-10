@@ -24,7 +24,7 @@ func reportInternalSensor(s *home.Sensors) {
 		}
 	*/
 
-	/*report to Phant*/
+	/*report to Cloud*/
 	err = home.IOTReportTempInternal(v)
 	if err != nil {
 		home.ReportAlert(err.Error(), "Cannot report internal Temp to IOT Cloud")

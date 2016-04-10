@@ -1,9 +1,12 @@
 
 var N = function(){};
 
-N.ws = new WebSocket("ws://localhost:1234/echo");
+N.ws = new WebSocket("ws://192.168.1.20:1234/echo");
 N.DataHandler = new Object();
 N.TempDataHandler = new Object();
+
+N.CommandOnPumpr1 = "onPumpr1";
+N.CommandOffPumpr1 = "offPumpr1";
 
 N.DataHandler.handle = function (msg) {
   var o = JSON.parse(msg);
@@ -138,6 +141,8 @@ var ButtonMotor = React.createClass({
 
   handleSubmit: function() {
       N.ws.send(this.props.val);
+      N.ws.send("{\"Command\":\"" + CommandOffPumpr1 + "\"}");
+
       this.setState({message: "clicked: " + this.props.val++})
   },
 

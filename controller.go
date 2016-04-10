@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"goHome/home"
 	"log"
 	"net/http"
@@ -24,37 +23,6 @@ type socketConns struct {
 
 var conns socketConns
 var currentState home.HData
-
-func echoHandler(ws *websocket.Conn) {
-	var id = int32(time.Now().Unix())
-	conns.lock.Lock()
-	conns.ws[id] = ws
-	conns.lock.Unlock()
-	defer func() {
-		conns.lock.Lock()
-		delete(conns.ws, id)
-		conns.lock.Unlock()
-	}()
-	msg := make([]byte, 512)
-	for {
-		n, err := ws.Read(msg)
-		if err != nil {
-			log.Println(err)
-			return
-		}
-
-		fmt.Printf("Receive: %s\n", msg[:n])
-		/*
-			home.ToggleHeatMotor1()
-			m, err := ws.Write(msg[:n])
-			if err != nil {
-				log.Println(err)
-				return
-			}
-			fmt.Printf("Send: %s\n", msg[:m])
-		*/
-	}
-}
 
 func main() {
 

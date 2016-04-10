@@ -23,7 +23,7 @@ func IOTReportValue(dev string, name string, v float32) error {
 	*/
 	//var jsonStr = []byte()
 	//fmt.Sprintf("%f", v)
-	jsonStr := "{\"value\":22.5" + "}"
+	jsonStr := "{\"value\":" + fmt.Sprintf("%f", v) + "}"
 	req, err := http.NewRequest("PUT", url, strings.NewReader(jsonStr))
 	req.Header.Add("Content-Type", "application/json")
 
