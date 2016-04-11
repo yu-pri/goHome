@@ -14,16 +14,6 @@ var relHeatMotor2 = gpio.NewLedDriver(r, "led", "12")
 var relHeat1 = gpio.NewLedDriver(r, "led", "13")
 var relHeat2 = gpio.NewLedDriver(r, "led", "15")
 
-/*
-type Relays struct {
-
-  RelHeatMotor2
-
-  RelHeat1
-  RelHeat2
-}
-*/
-
 func init() {
 	log.Println("init relays")
 }
@@ -122,4 +112,32 @@ OffHeat2 switches state for heatmotor
 func OffHeat2() error {
 	log.Println("toggle heat r2")
 	return relHeat2.Off()
+}
+
+/*
+GetRelHeat1 returns rely status
+*/
+func getRelHeat1() bool {
+	return relHeat1.State()
+}
+
+/*
+GetRelHeat2 returns rely status
+*/
+func GetRelHeat2() bool {
+	return relHeat2.State()
+}
+
+/*
+GetRelMotor1 returns rely status
+*/
+func GetRelMotor1() bool {
+	return relHeatMotor1.State()
+}
+
+/*
+GetRelMotor2 returns rely status
+*/
+func GetRelMotor2() bool {
+	return relHeatMotor2.State()
 }
