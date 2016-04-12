@@ -13,6 +13,12 @@ type floatReport struct {
 	Val  float32
 }
 
+type stringReport struct {
+	Type  string
+	Key   string
+	Value string
+}
+
 var prev *home.HData
 
 /*

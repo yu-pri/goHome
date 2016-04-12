@@ -1,3 +1,32 @@
+
+var N = function(){};
+
+N.ws = new WebSocket("ws://localhost:1234/relays");
+N.DataHandler = new Object();
+N.Heat = new Object();
+N.Pump = new Object();
+
+
+N.DataHandler.handle = function (msg) {
+  var o = JSON.parse(msg);
+  switch (o.Type) {
+    case "pumpStateChanged":
+    N.Pump.callback(o);
+    break;
+
+    case "heatStateChanged":
+    N.Heat.callback(o);
+    break;
+
+  }
+};
+
+N.ws.onmessage = function(e) {
+    console.log("received:" + event.data);
+    N.DataHandler.handle(event.data);
+};
+
+
 var ButtonMotor = React.createClass({
   getInitialState: function() {
     var self = this
@@ -40,7 +69,7 @@ var ButtonMotor = React.createClass({
           //alert(response.headers.get('Content-Type')); // application/json; charset=utf-8
           //alert(response.status); // 200
           if (response.status == 200) {
-            self.setState({message: "Pump: " + v});
+            //self.setState({message: "Pump: " + v});
             return response;
           } else {
             alert(response.statusText)
@@ -56,13 +85,19 @@ var ButtonMotor = React.createClass({
      this.setState({message: e.target.value})
    },
 
-   /*
-  componentWillMount(){
-    DataHandler.callback = (data) => {
-       this.setState({message: data.message});
+   componentWillMount() {
+     N.Pump.callback = (data) => {
+       switch (data.Key ) {
+         case "state":
+           this.setState({
+             message: "Pump: " + data.Value
+           });
+           break;
+       }
      };
-  },
-*/
+   },
+
+
   render: function() {
     return (
       <div>
@@ -110,7 +145,7 @@ var ButtonHeater = React.createClass({
         .then(function(response) {
 
           if (response.status == 200) {
-            self.setState({message: "Heater: " + v});
+            //self.setState({message: "Heater: " + v});
             return response;
           } else {
             alert(response.statusText)
@@ -121,6 +156,18 @@ var ButtonHeater = React.createClass({
 
   handleChange(e) {
      this.setState({message: e.target.value})
+   },
+
+   componentWillMount() {
+     N.Heat.callback = (data) => {
+       switch (data.Key ) {
+         case "state":
+           this.setState({
+             message: "Heat: " + data.Value
+           });
+           break;
+       }
+     };
    },
 
    /*

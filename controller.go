@@ -24,6 +24,8 @@ type socketConns struct {
 }
 
 var conns socketConns
+var rconns socketConns
+
 var currentState home.HData
 
 func main() {
@@ -31,6 +33,7 @@ func main() {
 	var stop chan bool
 
 	conns = socketConns{make(map[int32]*websocket.Conn), &sync.Mutex{}}
+	rconns = socketConns{make(map[int32]*websocket.Conn), &sync.Mutex{}}
 	currentState = home.HData{}
 	currentState.Index = 2
 	log.Println(currentState.Index)
@@ -49,6 +52,8 @@ func main() {
 	//stop = scheduleT(reportFloat, 10*time.Second, "temp1", 10)
 
 	http.Handle("/echo", websocket.Handler(echoHandler))
+	http.Handle("/relays", websocket.Handler(relHandler))
+
 	http.Handle("/", http.FileServer(http.Dir(".")))
 	http.HandleFunc("/control/pump", pump)
 	http.HandleFunc("/control/heat", heat)

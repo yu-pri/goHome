@@ -78,3 +78,35 @@ func execute(c *MsgCommand) error {
 
 	return nil
 }
+
+func relHandler(ws *websocket.Conn) {
+
+	var id = int32(time.Now().Unix())
+
+	rconns.lock.Lock()
+	rconns.ws[id] = ws
+	rconns.lock.Unlock()
+	defer func() {
+		rconns.lock.Lock()
+		delete(rconns.ws, id)
+		rconns.lock.Unlock()
+	}()
+
+	msg := make([]byte, 512)
+	for {
+
+		n, err := ws.Read(msg)
+		if err != nil {
+			log.Println(err)
+			return
+		}
+
+		x := new(MsgCommand)
+		fmt.Printf("Receive: %s\n", msg[:n])
+		if err := json.NewDecoder(bytes.NewReader(msg)).Decode(x); err == nil {
+			execute(x)
+		} else {
+			log.Println(err)
+		}
+	}
+}
