@@ -1,7 +1,24 @@
 var ButtonMotor = React.createClass({
   getInitialState: function() {
-    this.props.val = "Auto"
-    return {message: this.props.msg};
+    var self = this
+    fetch('/control/pump')
+      .then(function(response) {
+        //alert(response.headers.get('Content-Type')); // application/json; charset=utf-8
+        //alert(response.status); // 200
+        if (response.status == 200) {
+          //self.setState({message: "Pump: " + response.text});
+          //alert (response.text())
+          return response.text();
+        } else {
+          alert(response.statusText)
+        }
+       })
+       .then(function(state) {
+         self.props.val = state;
+         self.setState({message: "Pump: " + state});
+         //alert(state);
+       })
+    return {message: "checking..."};
   },
 
   handleSubmit: function() {
@@ -16,8 +33,23 @@ var ButtonMotor = React.createClass({
       } else {
         this.props.val = "Auto";
       }
-
-      this.setState({message: "Pump: " + this.props.val})
+      var v = this.props.val
+      var self = this
+      fetch('/control/pump?state=' + v)
+        .then(function(response) {
+          //alert(response.headers.get('Content-Type')); // application/json; charset=utf-8
+          //alert(response.status); // 200
+          if (response.status == 200) {
+            self.setState({message: "Pump: " + v});
+            return response;
+          } else {
+            alert(response.statusText)
+          }
+         })
+        //.then(function(user) {
+          //alert(user.name); // iliakan
+        //})
+        .catch( alert );
   },
 
   handleChange(e) {
@@ -44,13 +76,25 @@ var ButtonMotor = React.createClass({
 
 var ButtonHeater = React.createClass({
   getInitialState: function() {
-    this.props.val = "Auto";
-    return {message: this.props.msg};
+    var self = this
+    fetch('/control/heat')
+      .then(function(response) {
+
+        if (response.status == 200) {
+          return response.text();
+        } else {
+          alert(response.statusText)
+        }
+       })
+       .then(function(state) {
+         self.props.val = state;
+         self.setState({message: "Heater: " + state});
+         //alert(state);
+       })
+    return {message: "checking..."};
   },
 
   handleSubmit: function() {
-      //N.ws.send(this.props.val);
-      //this.setState({message: "clicked: " + this.props.val++})
       if (this.props.val === "Auto") {
         this.props.val = "On";
       } else if (this.props.val === "On") {
@@ -59,6 +103,20 @@ var ButtonHeater = React.createClass({
         this.props.val = "Auto";
       }
       this.setState({message: "Heater: " + this.props.val})
+
+      var v = this.props.val
+      var self = this
+      fetch('/control/heat?state=' + v)
+        .then(function(response) {
+
+          if (response.status == 200) {
+            self.setState({message: "Heater: " + v});
+            return response;
+          } else {
+            alert(response.statusText)
+          }
+         })
+          .catch( alert );
   },
 
   handleChange(e) {

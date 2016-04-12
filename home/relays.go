@@ -117,7 +117,7 @@ func OffHeat2() error {
 /*
 GetRelHeat1 returns rely status
 */
-func getRelHeat1() bool {
+func GetRelHeat1() bool {
 	return relHeat1.State()
 }
 
@@ -140,4 +140,34 @@ GetRelMotor2 returns rely status
 */
 func GetRelMotor2() bool {
 	return relHeatMotor2.State()
+}
+
+/*
+GetHeaterState rteturns heater state
+*/
+func GetHeaterState() string {
+	if !GetRelHeat1() && !GetRelHeat2() {
+		return "Off"
+	}
+
+	if GetRelHeat2() {
+		return "On"
+	}
+
+	return "Auto"
+}
+
+/*
+GetPumpState rteturns heater state
+*/
+func GetPumpState() string {
+	if !GetRelMotor1() && !GetRelMotor2() {
+		return "Off"
+	}
+
+	if GetRelMotor2() {
+		return "On"
+	}
+
+	return "Auto"
 }

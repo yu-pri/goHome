@@ -16,6 +16,8 @@ SENSORS  Sensors exists
 */
 var SENSORS bool
 
+var err error
+
 type socketConns struct {
 	ws   map[int32]*websocket.Conn
 	lock *sync.Mutex
@@ -27,7 +29,7 @@ var currentState home.HData
 func main() {
 
 	var stop chan bool
-	var err error
+
 	conns = socketConns{make(map[int32]*websocket.Conn), &sync.Mutex{}}
 	currentState = home.HData{}
 	currentState.Index = 2
@@ -48,6 +50,8 @@ func main() {
 
 	http.Handle("/echo", websocket.Handler(echoHandler))
 	http.Handle("/", http.FileServer(http.Dir(".")))
+	http.HandleFunc("/control/pump", pump)
+	http.HandleFunc("/control/heat", heat)
 
 	go func() {
 		processInput(&currentState)
