@@ -1,5 +1,7 @@
 package home
 
+import "encoding/json"
+
 /*
 HData is set of home data values, can be parsed from json
 */
@@ -59,6 +61,17 @@ func (q *HistoryData) Pop() interface{} {
 	item.Index = -1 // for safety
 	*q = old[0 : n-1]
 	return item
+}
+
+/*
+ToJSON returns serialized hash
+*/
+func (q *HistoryData) ToJSON() (d []byte, err error) {
+	b, err := json.Marshal(q)
+	if err != nil {
+		return nil, err
+	}
+	return b, nil
 }
 
 /*
