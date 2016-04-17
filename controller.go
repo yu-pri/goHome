@@ -8,6 +8,8 @@ import (
 	"sync"
 	"time"
 
+	"github.com/hybridgroup/gobot"
+
 	"golang.org/x/net/websocket"
 )
 
@@ -31,6 +33,7 @@ var currentState home.HData
 func main() {
 
 	var stop chan bool
+	gbot := gobot.NewGobot()
 
 	conns = socketConns{make(map[int32]*websocket.Conn), &sync.Mutex{}}
 	rconns = socketConns{make(map[int32]*websocket.Conn), &sync.Mutex{}}
@@ -61,6 +64,23 @@ func main() {
 	go func() {
 		processInput(&currentState)
 	}()
+
+	work := func() {
+		gobot.Every(100000*time.Millisecond, func() {
+			log.Println("gobot heartbeat")
+			//      led.Toggle()
+		})
+	}
+
+	robot := gobot.NewRobot("blinkBot",
+		[]gobot.Connection{home.GetRelayAdaptor()},
+		[]gobot.Device{home.GetHeat1(), home.GetHeat2(), home.GetRelHeatMotor1(), home.GetRelHeatMotor2()},
+		work,
+	)
+
+	gbot.AddRobot(robot)
+
+	gbot.Start()
 
 	err = http.ListenAndServe(":1234", nil)
 	if err != nil {

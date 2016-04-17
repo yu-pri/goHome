@@ -14,6 +14,41 @@ var relHeatMotor2 = gpio.NewLedDriver(r, "led", "12")
 var relHeat1 = gpio.NewLedDriver(r, "led", "13")
 var relHeat2 = gpio.NewLedDriver(r, "led", "15")
 
+/*
+GetRelayAdaptor returns raspi adaptor for robot
+*/
+func GetRelayAdaptor() *raspi.RaspiAdaptor {
+	return r
+}
+
+/*
+GetRelHeatMotor1 returns led driver reference to RelayMotor1
+*/
+func GetRelHeatMotor1() *gpio.LedDriver {
+	return relHeatMotor1
+}
+
+/*
+GetRelHeatMotor2 returns led driver reference to RelayMotor1
+*/
+func GetRelHeatMotor2() *gpio.LedDriver {
+	return relHeatMotor2
+}
+
+/*
+GetHeat1 returns led driver reference to RelayMotor1
+*/
+func GetHeat1() *gpio.LedDriver {
+	return relHeat1
+}
+
+/*
+GetHeat2 returns led driver reference to RelayMotor1
+*/
+func GetHeat2() *gpio.LedDriver {
+	return relHeat2
+}
+
 func init() {
 	log.Println("init relays")
 }
