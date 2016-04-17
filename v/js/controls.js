@@ -1,7 +1,7 @@
 
 var N = function(){};
 
-N.ws = new WebSocket("ws://localhost:1234/relays");
+N.ws = new WebSocket("ws://192.168.1.20:1234/relays");
 N.DataHandler = new Object();
 N.Heat = new Object();
 N.Pump = new Object();
@@ -45,7 +45,7 @@ var ButtonMotor = React.createClass({
        .then(function(state) {
          self.props.val = state;
          self.setState({message: "Pump: " + state});
-         //alert(state);
+         alert(state);
        })
     return {message: "checking..."};
   },
