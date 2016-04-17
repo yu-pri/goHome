@@ -71,7 +71,7 @@ var ButtonMotor = React.createClass({
           //alert(response.status); // 200
           if (response.status == 200) {
             //self.setState({message: "Pump: " + v});
-            return response;
+            return response.text();
           } else {
             alert(response.statusText)
           }
