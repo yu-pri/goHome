@@ -7,6 +7,15 @@ import (
 	"github.com/hybridgroup/gobot/platforms/raspi"
 )
 
+const (
+	/*ON Constant */
+	ON = "On"
+	/*OFF constant*/
+	OFF = "Off"
+	/*AUTO constant*/
+	AUTO = "Auto"
+)
+
 var r = raspi.NewRaspiAdaptor("raspi")
 var relHeatMotor1 = gpio.NewLedDriver(r, "led", "11")
 var relHeatMotor2 = gpio.NewLedDriver(r, "led", "12")
@@ -182,14 +191,14 @@ GetHeaterState rteturns heater state
 */
 func GetHeaterState() string {
 	if !GetRelHeat1() && !GetRelHeat2() {
-		return "Off"
+		return OFF
 	}
 
 	if GetRelHeat2() {
-		return "On"
+		return ON
 	}
 
-	return "Auto"
+	return AUTO
 }
 
 /*
@@ -197,12 +206,12 @@ GetPumpState rteturns heater state
 */
 func GetPumpState() string {
 	if !GetRelMotor1() && !GetRelMotor2() {
-		return "Off"
+		return OFF
 	}
 
 	if GetRelMotor2() {
-		return "On"
+		return ON
 	}
 
-	return "Auto"
+	return AUTO
 }

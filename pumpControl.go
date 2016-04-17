@@ -8,16 +8,8 @@ import (
 	"net/http"
 )
 
-func reportPump(state string) error {
-	var st = "Auto"
-
-	if !home.GetRelMotor1() && home.GetHeat2() {
-		st = "Off"
-	}
-
-	if home.GetRelHeatMotor1() || home.GetRelHeatMotor2() {
-		st = "On"
-	}
+func reportPump() error {
+	st := home.GetPumpState()
 
 	r := stringReport{"pumpStateChanged", "state", st}
 
@@ -38,14 +30,14 @@ func reportPump(state string) error {
 
 func pump(w http.ResponseWriter, r *http.Request) {
 
-	defer reportPump(state)
+	defer reportPump()
 
 	state := r.FormValue("state")
 	log.Println(state)
 
 	if !SENSORS {
-		io.WriteString(w, "Auto")
-		reportPump("Auto")
+		io.WriteString(w, home.AUTO)
+		reportPump()
 		return
 	}
 
@@ -69,6 +61,7 @@ func pump(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
+		return
 	}
 
 	if state == "On" {
@@ -85,6 +78,7 @@ func pump(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
+		return
 	}
 
 	if state == "Off" {
@@ -101,8 +95,6 @@ func pump(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
+		return
 	}
-
-	reportPump(state)
-	return
 }
