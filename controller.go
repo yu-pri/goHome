@@ -74,13 +74,14 @@ func main() {
 
 	robot := gobot.NewRobot("blinkBot",
 		[]gobot.Connection{home.GetRelayAdaptor()},
-		[]gobot.Device{home.GetHeat1(), home.GetHeat2(), home.GetRelHeatMotor1(), home.GetRelHeatMotor2()},
+		[]gobot.Device{home.GetHeat1(), home.GetHeat2(), home.GetRelHeatMotor1(),
+			home.GetRelHeatMotor2()},
 		work,
 	)
 
 	gbot.AddRobot(robot)
 
-	gbot.Start()
+	go gbot.Start()
 
 	err = http.ListenAndServe(":1234", nil)
 	if err != nil {
