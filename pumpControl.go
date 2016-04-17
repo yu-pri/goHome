@@ -9,7 +9,17 @@ import (
 )
 
 func reportPump(state string) error {
-	r := stringReport{"pumpStateChanged", "state", state}
+	var st = "Auto"
+
+	if !home.GetRelMotor1() && home.GetHeat2() {
+		st = "Off"
+	}
+
+	if home.GetRelHeatMotor1() || home.GetRelHeatMotor2() {
+		st = "On"
+	}
+
+	r := stringReport{"pumpStateChanged", "state", st}
 
 	for _, ws := range rconns.ws {
 		b, err01 := json.Marshal(r)
@@ -28,6 +38,8 @@ func reportPump(state string) error {
 
 func pump(w http.ResponseWriter, r *http.Request) {
 
+	defer reportPump(state)
+
 	state := r.FormValue("state")
 	log.Println(state)
 
@@ -40,6 +52,7 @@ func pump(w http.ResponseWriter, r *http.Request) {
 	if len(state) == 0 {
 		log.Println("state requested:")
 		io.WriteString(w, home.GetPumpState())
+		return
 	}
 
 	if state == "Auto" {
@@ -56,7 +69,6 @@ func pump(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		return
 	}
 
 	if state == "On" {
@@ -73,7 +85,6 @@ func pump(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		return
 	}
 
 	if state == "Off" {
@@ -90,8 +101,6 @@ func pump(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-
-		return
 	}
 
 	reportPump(state)
