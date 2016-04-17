@@ -37,7 +37,7 @@ var ButtonMotor = React.createClass({
         if (response.status == 200) {
           //self.setState({message: "Pump: " + response.text});
           var txt = response.text();
-          alert (txt)
+          //alert (txt)
           return txt;
         } else {
           alert(response.statusText)
@@ -46,7 +46,7 @@ var ButtonMotor = React.createClass({
        .then(function(state) {
          self.props.val = state;
          self.setState({message: "Pump: " + state});
-         alert(state);
+         //alert(state);
        })
     return {message: "checking..."};
   },
@@ -76,9 +76,11 @@ var ButtonMotor = React.createClass({
             alert(response.statusText)
           }
          })
-        //.then(function(user) {
-          //alert(user.name); // iliakan
-        //})
+         .then(function(state) {
+           self.props.val = state;
+           self.setState({message: "Pump: " + state});
+           alert(state);
+         })
         .catch( alert );
   },
 
