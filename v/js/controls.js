@@ -38,6 +38,7 @@ var ButtonMotor = React.createClass({
           //self.setState({message: "Pump: " + response.text});
           //alert (response.text())
           return response.text();
+          alert(state);
         } else {
           alert(response.statusText)
         }
@@ -45,7 +46,7 @@ var ButtonMotor = React.createClass({
        .then(function(state) {
          self.props.val = state;
          self.setState({message: "Pump: " + state});
-         alert(state);
+         //alert(state);
        })
     return {message: "checking..."};
   },
