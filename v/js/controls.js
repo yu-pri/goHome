@@ -77,7 +77,7 @@ var ButtonMotor = React.createClass({
           }
          })
          .then(function(state) {
-           st = JSON.parse(json);
+           st = JSON.parse(state);
            if (st.Type == "pumpStateChange") {
              self.props.val = st.Value;
              self.setState({message: self.props.val});
