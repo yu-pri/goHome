@@ -1,29 +1,29 @@
 
-var N = function(){};
+var Ns = function(){};
 
-N.ws = new WebSocket("ws://192.168.1.20:1234/relays");
-N.DataHandler = new Object();
-N.Heat = new Object();
-N.Pump = new Object();
+Ns.ws = new WebSocket("ws://192.168.1.20:1234/relays");
+Ns.DataHandler = new Object();
+Ns.Heat = new Object();
+Ns.Pump = new Object();
 
 
-N.DataHandler.handle = function (msg) {
+Ns.DataHandler.handle = function (msg) {
   var o = JSON.parse(msg);
   switch (o.Type) {
     case "pumpStateChanged":
-    N.Pump.callback(o);
+    Ns.Pump.callback(o);
     break;
 
     case "heatStateChanged":
-    N.Heat.callback(o);
+    Ns.Heat.callback(o);
     break;
 
   }
 };
 
-N.ws.onmessage = function(e) {
+Ns.ws.onmessage = function(e) {
     console.log("received:" + event.data);
-    N.DataHandler.handle(event.data);
+    Ns.DataHandler.handle(event.data);
 };
 
 
@@ -82,7 +82,7 @@ var ButtonMotor = React.createClass({
              self.props.val = st.Value;
              self.setState({message: self.props.val});
            }
-           alert(st.toString);
+           //alert(st.toString);
          })
         .catch( alert );
   },
