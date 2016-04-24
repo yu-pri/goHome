@@ -7,6 +7,7 @@ N.TempDataHandler = new Object();
 
 
 N.DataHandler.handle = function (msg) {
+  alert(msg)
   var o = JSON.parse(msg);
   switch (o.Key) {
     case "temperature":
