@@ -96,7 +96,7 @@ var ButtonMotor = React.createClass({
        switch (data.Key ) {
          case "state":
            this.setState({
-             message: "Pump: " + data.Value
+             //message: "Pump: " + data.Value
            });
            break;
        }
