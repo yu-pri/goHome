@@ -8,7 +8,7 @@ Ns.Pump = new Object();
 
 
 Ns.DataHandler.handle = function (msg) {
-  alert(msg)
+  //alert(msg)
   var o = JSON.parse(msg);
   switch (o.Type) {
     case "pumpStateChanged":
@@ -78,11 +78,11 @@ var ButtonMotor = React.createClass({
           }
          })
          .then(function(state) {
-           st = JSON.parse(state);
-           if (st.Type == "pumpStateChange") {
+           //st = JSON.parse(state);
+           //if (st.Type == "pumpStateChange") {
              //self.props.val = st.Value;
              //self.setState({message: self.props.val});
-           }
+          // }
            //alert(st.toString);
          })
         .catch( alert );
