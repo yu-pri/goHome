@@ -92,7 +92,7 @@ var ButtonMotor = React.createClass({
    },
 
    componentWillMount() {
-     N.Pump.callback = (data) => {
+     Ns.Pump.callback = (data) => {
        switch (data.Key ) {
          case "state":
            this.setState({
