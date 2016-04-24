@@ -1,3 +1,25 @@
+/*
+fetch('/control/pump')
+  .then(function(response) {
+    alert(response.headers.get('Content-Type')); // application/json; charset=utf-8
+    alert(response.status); // 200
+    if (response.status == 200) {
+      //self.setState({message: "Pump: " + response.text});
+      var txt = response.text();
+      return txt;
+    } else {
+      alert(response.statusText)
+    }
+   })
+   .then(function(state) {
+     self.props.val = state;
+     self.setState({message: "Pump: " + state});
+   })
+return {message: "checking..."};
+},
+*/
+
+
 
 var Ns = function(){};
 
@@ -33,12 +55,8 @@ var ButtonMotor = React.createClass({
     var self = this
     fetch('/control/pump')
       .then(function(response) {
-        //alert(response.headers.get('Content-Type')); // application/json; charset=utf-8
-        //alert(response.status); // 200
-        if (response.status == 200) {
-          //self.setState({message: "Pump: " + response.text});
+          if (response.status == 200) {
           var txt = response.text();
-          //alert (txt)
           return txt;
         } else {
           alert(response.statusText)
@@ -47,16 +65,11 @@ var ButtonMotor = React.createClass({
        .then(function(state) {
          self.props.val = state;
          self.setState({message: "Pump: " + state});
-         //alert(state);
        })
     return {message: "checking..."};
   },
 
   handleSubmit: function() {
-    /*
-      N.ws.send(this.props.val);
-      N.ws.send("{\"Command\":\"" + N.CommandOnPumpr1 + "\"}");
-      */
       if (this.props.val === "Auto") {
         this.props.val = "On";
       } else if (this.props.val === "On") {
@@ -68,29 +81,23 @@ var ButtonMotor = React.createClass({
       var self = this
       fetch('/control/pump?state=' + v)
         .then(function(response) {
-          //alert(response.headers.get('Content-Type')); // application/json; charset=utf-8
-          //alert(response.status); // 200
           if (response.status == 200) {
-            //self.setState({message: "Pump: " + v});
             return response.text();
           } else {
             alert(response.statusText)
           }
          })
          .then(function(state) {
-           //st = JSON.parse(state);
-           //if (st.Type == "pumpStateChange") {
-             //self.props.val = st.Value;
-             //self.setState({message: self.props.val});
-          // }
-           //alert(st.toString);
+
          })
         .catch( alert );
   },
 
+  /*
   handleChange(e) {
      this.setState({message: e.target.value})
    },
+*/
 
    componentWillMount() {
      Ns.Pump.callback = (data) => {
@@ -121,7 +128,6 @@ var ButtonHeater = React.createClass({
     var self = this
     fetch('/control/heat')
       .then(function(response) {
-
         if (response.status == 200) {
           return response.text();
         } else {
@@ -131,7 +137,6 @@ var ButtonHeater = React.createClass({
        .then(function(state) {
          self.props.val = state;
          self.setState({message: "Heater: " + state});
-         //alert(state);
        })
     return {message: "checking..."};
   },
@@ -150,9 +155,7 @@ var ButtonHeater = React.createClass({
       var self = this
       fetch('/control/heat?state=' + v)
         .then(function(response) {
-
           if (response.status == 200) {
-            //self.setState({message: "Heater: " + v});
             return response;
           } else {
             alert(response.statusText)
@@ -161,9 +164,11 @@ var ButtonHeater = React.createClass({
           .catch( alert );
   },
 
+  /*
   handleChange(e) {
      this.setState({message: e.target.value})
    },
+*/
 
    componentWillMount() {
      Ns.Heat.callback = (data) => {
@@ -177,13 +182,6 @@ var ButtonHeater = React.createClass({
      };
    },
 
-   /*
-  componentWillMount(){
-    DataHandler.callback = (data) => {
-       this.setState({message: data.message});
-     };
-  },
-*/
   render: function() {
     return (
       <div>
