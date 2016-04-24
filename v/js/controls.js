@@ -8,6 +8,7 @@ Ns.Pump = new Object();
 
 
 Ns.DataHandler.handle = function (msg) {
+  alert(msg)
   var o = JSON.parse(msg);
   switch (o.Type) {
     case "pumpStateChanged":
@@ -96,7 +97,7 @@ var ButtonMotor = React.createClass({
        switch (data.Key ) {
          case "state":
            this.setState({
-             //message: "Pump: " + data.Value
+             message: "Pump: " + data.Value
            });
            break;
        }
