@@ -165,7 +165,7 @@ var ButtonHeater = React.createClass({
    },
 
    componentWillMount() {
-     N.Heat.callback = (data) => {
+     Ns.Heat.callback = (data) => {
        switch (data.Key ) {
          case "state":
            this.setState({
