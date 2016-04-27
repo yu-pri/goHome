@@ -35,6 +35,9 @@ func reportInternalSensor(s *home.Sensors) {
 	if err != nil {
 		home.ReportAlert(err.Error(), "Cannot report internal Temp to socket")
 	}
+	currentState.TempInside = v
+	currentState.Timestamp = int(time.Now().Unix())
+	historyData.Push(currentState)
 }
 
 func schedule(what func(*home.Sensors), delay time.Duration, s *home.Sensors) chan bool {

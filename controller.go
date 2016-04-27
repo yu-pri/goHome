@@ -29,6 +29,7 @@ var conns socketConns
 var rconns socketConns
 
 var currentState home.HData
+var historyData home.HistoryData
 
 func main() {
 
@@ -60,6 +61,8 @@ func main() {
 	http.Handle("/", http.FileServer(http.Dir(".")))
 	http.HandleFunc("/control/pump", pump)
 	http.HandleFunc("/control/heat", heat)
+
+	http.HandleFunc("/control/hdata", hdata)
 
 	go func() {
 		processInput(&currentState)

@@ -13,12 +13,12 @@ func reportPump() error {
 
 	r := stringReport{"pumpStateChanged", "state", st}
 
-	for _, ws := range rconns.ws {
-		b, err01 := json.Marshal(r)
-		if err01 != nil {
-			return err01
-		}
+	b, err01 := json.Marshal(r)
+	if err01 != nil {
+		return err01
+	}
 
+	for _, ws := range rconns.ws {
 		m, err02 := ws.Write(b)
 		if err02 != nil {
 			return err02

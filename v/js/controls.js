@@ -22,7 +22,6 @@ return {message: "checking..."};
 
 
 var Ns = function(){};
-
 Ns.ws = new WebSocket("ws://192.168.1.20:1234/relays");
 Ns.DataHandler = new Object();
 Ns.Heat = new Object();
@@ -149,7 +148,7 @@ var ButtonHeater = React.createClass({
       } else {
         this.props.val = "Auto";
       }
-      this.setState({message: "Heater: " + this.props.val})
+      //this.setState({message: "Heater: " + this.props.val})
 
       var v = this.props.val
       var self = this

@@ -3,6 +3,11 @@ package home
 import "encoding/json"
 
 /*
+LIMIT max amount of history data calues
+*/
+const LIMIT = 10000
+
+/*
 HData is set of home data values, can be parsed from json
 */
 type HData struct {
@@ -49,6 +54,12 @@ func (q *HistoryData) Push(x interface{}) {
 	item := x.(*HData)
 	item.Index = n
 	*q = append(*q, item)
+	if n > LIMIT {
+		old := *q
+		item := old[n-1]
+		item.Index = -1 // for safety
+		*q = old[0 : n-1]
+	}
 }
 
 /*
