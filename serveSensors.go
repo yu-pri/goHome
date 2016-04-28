@@ -37,7 +37,7 @@ func reportInternalSensor(s *home.Sensors) {
 	}
 	currentState.TempInside = v
 	currentState.Timestamp = int(time.Now().Unix())
-	historyData.Push(currentState)
+	historyData.Push(&currentState)
 }
 
 func schedule(what func(*home.Sensors), delay time.Duration, s *home.Sensors) chan bool {
