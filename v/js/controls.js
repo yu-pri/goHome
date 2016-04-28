@@ -22,7 +22,7 @@ return {message: "checking..."};
 
 
 var Ns = function(){};
-Ns.ws = new WebSocket("ws://192.168.1.20:1234/relays");
+Ns.ws = new WebSocket("ws://alprihodko.asuscomm.com:1234/relays");
 Ns.DataHandler = new Object();
 Ns.Heat = new Object();
 Ns.Pump = new Object();
