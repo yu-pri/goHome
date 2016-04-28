@@ -11,7 +11,7 @@ import (
 func reportHeat() error {
 	st := home.GetHeaterState()
 
-	r := stringReport{"pumpStateChanged", "state", st}
+	r := stringReport{"heatStateChanged", "state", st}
 
 	b, err01 := json.Marshal(r)
 	if err01 != nil {
