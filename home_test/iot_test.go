@@ -15,11 +15,16 @@ func TestReportTempInternal(t *testing.T) {
 }
 
 func TestHistoryToJSON(t *testing.T) {
-	var tt = &home.HData{}
+	tt := &home.HData{}
 	tt.TempOutside = 10
 	//var h home.HistoryData
 	h := home.HistoryData{}
 	h.Push(tt)
+
+	tt = &home.HData{}
+	tt.TempOutside = 12
+	h.Push(tt)
+
 	b, err := h.ToJSON()
 	if err != nil {
 		t.Error(err)
