@@ -39,7 +39,7 @@ func main() {
 	conns = socketConns{make(map[int32]*websocket.Conn), &sync.Mutex{}}
 	rconns = socketConns{make(map[int32]*websocket.Conn), &sync.Mutex{}}
 	currentState = home.HData{}
-	currentState.Index = 2
+	//currentState.Index = 2
 	log.Println(currentState.Index)
 	flag.BoolVar(&SENSORS, "sensors", true, "Sensors are there?")
 	flag.Parse()
