@@ -55,14 +55,7 @@ google.charts.load('current', {'packages':['corechart']});
         //chart.draw(data, options);
       };
 
-      function updateChart() {
-            //var dt = new google.visualization.DataTable();
-            //d.addColumn('datetime', 'XAxis');
-            //dt.addColumn('number', 'Internal temp');
-            data.addRows([
-              [new Date(1462035153*1000), 27.5],
-              [new Date(1462036153*1000), 22.5],
-              [new Date(1462047153*1000), 21.5]
-            ]);
+      function updateChart(t) {
+            data.addRows([[new Date(), t]]);
             chart.draw(data, options);
       }
