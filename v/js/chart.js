@@ -30,9 +30,9 @@ google.charts.load('current', {'packages':['corechart']});
                 var ar = new Array();
                 for (var i=0; i < dt.length; i++) {
                   var r = dt[i];
-                  ar.push([new Date(dt.Timestamp*1000), parseFloat(dt.TempInside)]);
+                  ar.push([new Date(r.Timestamp*1000), parseFloat(r.TempInside)]);
                 }
-                data.addRows(ar);            
+                data.addRows(ar);
                 chart.draw(data, options);
               });
 
