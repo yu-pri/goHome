@@ -29,7 +29,7 @@ google.charts.load('current', {'packages':['corechart']});
                 console.log(dt);
                 for (var i=0; i < dt.length; i++) {
                   var r = dt[i];
-                  data.addRows(dt.Timestamp*1000, dt.TempInside);
+                  data.addRows(new Date(dt.Timestamp*1000), parseFloat(dt.TempInside));
                 }
                 chart.draw(data, options);
               });
