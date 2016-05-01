@@ -1,23 +1,60 @@
 
+var chart;
+var data;
+var options;
+
 google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
       function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Expenses'],
-          ['2004',  1000,      400],
-          ['2005',  1170,      460],
-          ['2006',  660,       1120],
-          ['2007',  1030,      540]
-        ]);
+        data = new google.visualization.DataTable();
 
-        var options = {
-          title: 'Company Performance',
+        data.addColumn('datetime', 'XAxis');
+        data.addColumn('number', 'Internal temp');
+
+        options = {
+          title: 'Temperature chart',
           curveType: 'function',
           legend: { position: 'bottom' }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
-        chart.draw(data, options);
+        fetch('/control/hdata')
+          .then(function(response) {
+            if (response.status == 200) {
+              // Examine the text in the response
+              response.json().then(function(data) {
+                console.log(data);
+              });
+              
+            } else {
+              alert(response.statusText)
+            }
+          })
+          /*
+          .then(function(resp) {
+            console.log(resp);
+            var o = JSON.parse(resp);
+            for (var i=0; i < o.length; i++) {
+              var r = o[i];
+              data.addRows(r.Timestamp*1000, r.TempInside);
+            }
+            chart.draw(data, options);
+          })
+          */
+
+        //chart.draw(data, options);
+      };
+
+      function updateChart() {
+            //var dt = new google.visualization.DataTable();
+            //d.addColumn('datetime', 'XAxis');
+            //dt.addColumn('number', 'Internal temp');
+            data.addRows([
+              [new Date(1462035153*1000), 27.5],
+              [new Date(1462036153*1000), 22.5],
+              [new Date(1462047153*1000), 21.5]
+            ]);
+            chart.draw(data, options);
       }

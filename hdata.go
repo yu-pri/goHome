@@ -13,5 +13,6 @@ func hdata(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, errs.Error(), http.StatusInternalServerError)
 		return
 	}
+	w.Header().Set("Content-Type", "application/json")
 	io.WriteString(w, string(d))
 }

@@ -1,52 +1,3 @@
-/*
-fetch('/control/pump')
-  .then(function(response) {
-    alert(response.headers.get('Content-Type')); // application/json; charset=utf-8
-    alert(response.status); // 200
-    if (response.status == 200) {
-      //self.setState({message: "Pump: " + response.text});
-      var txt = response.text();
-      return txt;
-    } else {
-      alert(response.statusText)
-    }
-   })
-   .then(function(state) {
-     self.props.val = state;
-     self.setState({message: "Pump: " + state});
-   })
-return {message: "checking..."};
-},
-*/
-
-
-
-var Ns = function(){};
-Ns.ws = new WebSocket("ws://alprihodko.asuscomm.com:1234/relays");
-Ns.DataHandler = new Object();
-Ns.Heat = new Object();
-Ns.Pump = new Object();
-
-
-Ns.DataHandler.handle = function (msg) {
-  //alert(msg)
-  var o = JSON.parse(msg);
-  switch (o.Type) {
-    case "pumpStateChanged":
-    Ns.Pump.callback(o);
-    break;
-
-    case "heatStateChanged":
-    Ns.Heat.callback(o);
-    break;
-
-  }
-};
-
-Ns.ws.onmessage = function(e) {
-    console.log("received:" + event.data);
-    Ns.DataHandler.handle(event.data);
-};
 
 
 var ButtonMotor = React.createClass({
@@ -92,14 +43,10 @@ var ButtonMotor = React.createClass({
         .catch( alert );
   },
 
-  /*
-  handleChange(e) {
-     this.setState({message: e.target.value})
-   },
-*/
+
 
    componentWillMount() {
-     Ns.Pump.callback = (data) => {
+     window.Ns.Pump.callback = (data) => {
        switch (data.Key ) {
          case "state":
            this.setState({
@@ -170,7 +117,7 @@ var ButtonHeater = React.createClass({
 */
 
    componentWillMount() {
-     Ns.Heat.callback = (data) => {
+     window.Ns.Heat.callback = (data) => {
        switch (data.Key ) {
          case "state":
            this.setState({

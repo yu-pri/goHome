@@ -1,73 +1,4 @@
 
-var N = function(){};
-
-N.ws = new WebSocket("ws://alprihodko.asuscomm.com:1234/echo");
-N.DataHandler = new Object();
-N.TempDataHandler = new Object();
-
-
-N.DataHandler.handle = function (msg) {
-  //alert(msg)
-  var o = JSON.parse(msg);
-  switch (o.Key) {
-    case "temperature":
-    N.TempDataHandler.callback(o);
-    break;
-  }
-};
-
-N.ws.onmessage = function(e) {
-    console.log("received:" + event.data);
-    N.DataHandler.handle(event.data);
-};
-
-
-
-
-jQuery(function($) {
-  var $bodyEl = $('body'),
-      $sidedrawerEl = $('#sidedrawer');
-
-
-  function showSidedrawer() {
-    // show overlay
-    var options = {
-      onclose: function() {
-        $sidedrawerEl
-          .removeClass('active')
-          .appendTo(document.body);
-      }
-    };
-
-    var $overlayEl = $(mui.overlay('on', options));
-
-    // show element
-    $sidedrawerEl.appendTo($overlayEl);
-    setTimeout(function() {
-      $sidedrawerEl.addClass('active');
-    }, 20);
-  }
-
-
-  function hideSidedrawer() {
-    $bodyEl.toggleClass('hide-sidedrawer');
-  }
-
-
-  $('.js-show-sidedrawer').on('click', showSidedrawer);
-  $('.js-hide-sidedrawer').on('click', hideSidedrawer);
-
-  var $titleEls = $('strong', $sidedrawerEl);
-
-  $titleEls
-    .next()
-    .hide();
-
-  $titleEls.on('click', function() {
-    $(this).next().slideToggle(200);
-  });
-});
-
 
 var Temperature = React.createClass({
   getInitialState: function() {
@@ -76,7 +7,7 @@ var Temperature = React.createClass({
   },
 
   componentWillMount() {
-    N.TempDataHandler.callback = (data) => {
+    window.N.TempDataHandler.callback = (data) => {
       switch (data.Name) {
         case "temp1":
           this.setState({
