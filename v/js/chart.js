@@ -27,10 +27,12 @@ google.charts.load('current', {'packages':['corechart']});
 
               response.json().then(function(dt) {
                 console.log(dt);
+                var ar = new Array();
                 for (var i=0; i < dt.length; i++) {
                   var r = dt[i];
-                  data.addRows([new Date(dt.Timestamp*1000), parseFloat(dt.TempInside)]);
+                  ar.push([new Date(dt.Timestamp*1000), parseFloat(dt.TempInside)]);
                 }
+                data.addRows(ar);            
                 chart.draw(data, options);
               });
 
