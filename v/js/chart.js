@@ -24,10 +24,16 @@ google.charts.load('current', {'packages':['corechart']});
           .then(function(response) {
             if (response.status == 200) {
               // Examine the text in the response
-              response.json().then(function(data) {
-                console.log(data);
+
+              response.json().then(function(dt) {
+                console.log(dt);
+                for (var i=0; i < dt.length; i++) {
+                  var r = dt[i];
+                  data.addRows(dt.Timestamp*1000, dt.TempInside);
+                }
+                chart.draw(data, options);
               });
-              
+
             } else {
               alert(response.statusText)
             }
