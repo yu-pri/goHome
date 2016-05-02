@@ -6,9 +6,9 @@ var DATALIMIT = 5000;
 var ChartTimeLimit = 60*60;
 
 function setChartTimeLimit(t) {
-  if (t === "1 Hour") {
+  if (t === "1 Day") {
     window.ChartTimeLimit = 60*24*60;
-  } else if (t === "1 Day") {
+  } else if (t === "1 Month") {
     window.ChartTimeLimit = 60*24*30*60;
   } else {
     window.ChartTimeLimit = 60*60;
