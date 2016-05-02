@@ -46,6 +46,7 @@ google.charts.load('current', {'packages':['corechart']});
 
       function loadChart() {
         data.removeRows(0, data.getNumberOfRows());
+        console.log("reading data: from=" + ChartTimeLimit);
         fetch('/control/hdata?from=' + ChartTimeLimit)
           .then(function(response) {
             if (response.status == 200) {
