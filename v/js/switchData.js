@@ -1,8 +1,9 @@
 
 var ButtonSwitchChart = React.createClass({
   getInitialState: function() {
-    this.setState({message: "1 Hour"});
-    return {message: "1 Hour"};
+    this.props.val = "1 Hour";
+    //this.setState({message: "1 Hour"});
+    return {message: this.props.val};
   },
 
   handleSubmit: function() {
