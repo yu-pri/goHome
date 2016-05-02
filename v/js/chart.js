@@ -2,6 +2,7 @@
 var chart;
 var data;
 var options;
+var N.DATALIMIT = 5000;
 
 google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
@@ -18,6 +19,12 @@ google.charts.load('current', {'packages':['corechart']});
           legend: { position: 'bottom' }
         };
 
+        var topts = {
+          page: 'enable',
+          pageSize: 30
+        };
+        data.setTableProperties(topts);
+
         chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
         fetch('/control/hdata')
@@ -27,7 +34,7 @@ google.charts.load('current', {'packages':['corechart']});
 
               response.json().then(function(dt) {
                 console.log(dt);
-                var ar = new Array();
+                var ar = [];
                 for (var i=0; i < dt.length; i++) {
                   var r = dt[i];
                   ar.push([new Date(r.Timestamp*1000), parseFloat(r.TempInside)]);
@@ -56,6 +63,9 @@ google.charts.load('current', {'packages':['corechart']});
       };
 
       function updateChart(t) {
-            data.addRows([[new Date(), t]]);
+            data.addRow([new Date(), t]);
             chart.draw(data, options);
+            if (data.getNumberOfRows() > N.DATALIMIT) {
+              data.removeRows(0, 5);
+            }
       }
