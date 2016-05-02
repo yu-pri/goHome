@@ -1,7 +1,7 @@
 
 var ButtonSwitchChart = React.createClass({
   getInitialState: function() {
-    //this.setState({message: "1 hour"});
+    this.setState({message: "1 Hour"});
     return {message: "1 Hour"};
   },
 
