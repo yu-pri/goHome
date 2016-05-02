@@ -5,7 +5,7 @@ var options;
 var DATALIMIT = 5000;
 var ChartTimeLimit = 60*60;
 
-setChartTimeLimit(t) {
+function setChartTimeLimit(t) {
   if (t === "1 Hour") {
     window.ChartTimeLimit = 60*24*60;
   } else if (t === "1 Day") {
