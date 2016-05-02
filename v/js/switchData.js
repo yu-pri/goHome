@@ -17,8 +17,9 @@ var ButtonSwitchChart = React.createClass({
         this.props.val = "1 Hour";
         window.ChartTimeLimit = 60*60;
       }
-      this.setState({message: this.props.val})
-      window.setChartTimeLimit(this.props.val)
+      this.setState({message: this.props.val});
+      window.setChartTimeLimit(this.props.val);
+      alert(this.props.val);
       window.loadChart();
   },
 
