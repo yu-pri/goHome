@@ -2,7 +2,7 @@
 var chart;
 var data;
 var options;
-var N.DATALIMIT = 5000;
+var DATALIMIT = 5000;
 
 google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
@@ -65,7 +65,7 @@ google.charts.load('current', {'packages':['corechart']});
       function updateChart(t) {
             data.addRow([new Date(), t]);
             chart.draw(data, options);
-            if (data.getNumberOfRows() > N.DATALIMIT) {
+            if (data.getNumberOfRows() > DATALIMIT) {
               data.removeRows(0, 5);
             }
       }
