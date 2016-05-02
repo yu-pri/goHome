@@ -16,14 +16,17 @@ google.charts.load('current', {'packages':['corechart']});
         options = {
           title: 'Temperature chart',
           curveType: 'function',
-          legend: { position: 'bottom' }
+          legend: { position: 'bottom' },
+          page: 'enable',
+          pageSize: 20
         };
 
+        /*
         var topts = {
-          page: 'enable',
-          pageSize: 30
+
         };
         data.setTableProperties(topts);
+*/
 
         chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
