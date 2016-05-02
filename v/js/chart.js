@@ -23,7 +23,7 @@ google.charts.load('current', {'packages':['corechart']});
         };
 
         chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-        loadChart()
+        loadChart();
       };
 
       function updateChart(t) {
