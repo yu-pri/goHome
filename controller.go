@@ -64,9 +64,11 @@ func main() {
 
 	http.HandleFunc("/control/hdata", hdata)
 
-	go func() {
-		processInput(&currentState)
-	}()
+	if !SENSORS {
+		go func() {
+			processInput(&currentState)
+		}()
+	}
 
 	work := func() {
 		gobot.Every(100000*time.Millisecond, func() {
