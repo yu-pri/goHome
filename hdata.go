@@ -8,7 +8,7 @@ import (
 )
 
 func hdata(w http.ResponseWriter, r *http.Request) {
-	from, errx := strconv.Atoi(r.FormValue("from"))
+	from, errx := strconv.Atoi(r.URL.Query().Get("from"))
 	if errx != nil {
 		log.Println(errx.Error())
 		from = 0
