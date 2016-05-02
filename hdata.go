@@ -4,10 +4,16 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"strconv"
 )
 
 func hdata(w http.ResponseWriter, r *http.Request) {
-	d, errs := historyData.ToJSON()
+	from, errx := strconv.Atoi(r.FormValue("from"))
+	if errx != nil {
+		log.Println(err.Error())
+		from = 0
+	}
+	d, errs := historyData.ToJSON(from)
 	if errs != nil {
 		log.Println(errs.Error())
 		http.Error(w, errs.Error(), http.StatusInternalServerError)

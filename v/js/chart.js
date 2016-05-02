@@ -3,6 +3,7 @@ var chart;
 var data;
 var options;
 var DATALIMIT = 5000;
+var ChartTimeLimit = 60;
 
 google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
@@ -21,16 +22,20 @@ google.charts.load('current', {'packages':['corechart']});
           pageSize: 20
         };
 
-        /*
-        var topts = {
-
-        };
-        data.setTableProperties(topts);
-*/
-
         chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        load()
+      };
 
-        fetch('/control/hdata')
+      function updateChart(t) {
+            data.addRow([new Date(), t]);
+            chart.draw(data, options);
+            if (data.getNumberOfRows() > DATALIMIT) {
+              data.removeRows(0, 5);
+            }
+      }
+
+      function loadChart() {
+        fetch('/control/hdata?from=' + ChartTimeLimit)
           .then(function(response) {
             if (response.status == 200) {
               // Examine the text in the response
@@ -49,26 +54,5 @@ google.charts.load('current', {'packages':['corechart']});
             } else {
               alert(response.statusText)
             }
-          })
-          /*
-          .then(function(resp) {
-            console.log(resp);
-            var o = JSON.parse(resp);
-            for (var i=0; i < o.length; i++) {
-              var r = o[i];
-              data.addRows(r.Timestamp*1000, r.TempInside);
-            }
-            chart.draw(data, options);
-          })
-          */
-
-        //chart.draw(data, options);
-      };
-
-      function updateChart(t) {
-            data.addRow([new Date(), t]);
-            chart.draw(data, options);
-            if (data.getNumberOfRows() > DATALIMIT) {
-              data.removeRows(0, 5);
-            }
+          });
       }

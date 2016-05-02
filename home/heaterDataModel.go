@@ -1,6 +1,9 @@
 package home
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"time"
+)
 
 /*
 LIMIT max amount of history data calues
@@ -78,8 +81,23 @@ func (q *HistoryData) Pop() interface{} {
 /*
 ToJSON returns serialized hash
 */
-func (q *HistoryData) ToJSON() (d []byte, err error) {
-	b, err := json.Marshal(q)
+func (q *HistoryData) ToJSON(from int) (d []byte, err error) {
+	old := *q
+	sl := HistoryData{}
+	now := int(time.Now().Unix())
+
+	if from > 0 {
+		for i := 0; i < old.Len(); i++ {
+			item := old[i]
+			if item.Timestamp > (now - from) {
+				sl.Push(old[i])
+			}
+		}
+	} else {
+		sl = old
+	}
+
+	b, err := json.Marshal(sl)
 	if err != nil {
 		return nil, err
 	}
