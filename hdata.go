@@ -10,7 +10,7 @@ import (
 func hdata(w http.ResponseWriter, r *http.Request) {
 	from, errx := strconv.Atoi(r.FormValue("from"))
 	if errx != nil {
-		log.Println(err.Error())
+		log.Println(errx.Error())
 		from = 0
 	}
 	d, errs := historyData.ToJSON(from)
