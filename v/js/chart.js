@@ -3,7 +3,17 @@ var chart;
 var data;
 var options;
 var DATALIMIT = 5000;
-var ChartTimeLimit = 60;
+var ChartTimeLimit = 60*60;
+
+setChartTimeLimit(t) {
+  if (t === "1 Hour") {
+    window.ChartTimeLimit = 60*24*60;
+  } else if (t === "1 Day") {
+    window.ChartTimeLimit = 60*24*30*60;
+  } else {
+    window.ChartTimeLimit = 60*60;
+  }
+}
 
 google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
@@ -42,7 +52,7 @@ google.charts.load('current', {'packages':['corechart']});
               // Examine the text in the response
 
               response.json().then(function(dt) {
-                console.log(dt);
+                //console.log(dt);
                 var ar = [];
                 for (var i=0; i < dt.length; i++) {
                   var r = dt[i];
