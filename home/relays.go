@@ -1,7 +1,6 @@
 package home
 
 import (
-	"goHome/home"
 	"log"
 	//"github.com/hybridgroup/gobot"
 	"github.com/hybridgroup/gobot/platforms/gpio"
@@ -164,48 +163,48 @@ SetHeat switches state for heatmotor
 */
 func SetHeat(state string) error {
 	if state == AUTO {
-		err = home.OnHeat1()
+		err := OnHeat1()
 		if err != nil {
 			log.Println(err.Error())
 			return err
 		}
 
-		err = home.OffHeat2()
+		err = OffHeat2()
 		if err != nil {
 			log.Println(err.Error())
 			return err
 		}
-		return
+		return nil
 	}
 
 	if state == ON {
-		err = home.OffHeat1()
+		err := OffHeat1()
 		if err != nil {
 			log.Println(err.Error())
 			return err
 		}
 
-		err = home.OnHeat2()
+		err = OnHeat2()
 		if err != nil {
 			log.Println(err.Error())
-			return укк
+			return err
 		}
-		return
+		return nil
 	}
 
 	if state == OFF {
-		err = home.OffHeat1()
+		err := OffHeat1()
 		if err != nil {
 			log.Println(err.Error())
 			return err
 		}
 
-		err = home.OffHeat2()
+		err = OffHeat2()
 		if err != nil {
 			log.Println(err.Error())
 			return err
 		}
-		return
+		return nil
 	}
 	return nil
 }
@@ -215,48 +214,48 @@ SetBoiler switches state for heatmotor
 */
 func SetBoiler(state string) error {
 	if state == AUTO {
-		err = home.OnHeatMotor1()
+		err := OnHeatMotor1()
 		if err != nil {
 			log.Println(err.Error())
 			return err
 		}
 
-		err = home.OffHeatMotor2()
+		err = OffHeatMotor2()
 		if err != nil {
 			log.Println(err.Error())
 			return err
 		}
-		return
+		return nil
 	}
 
 	if state == "On" {
-		err = home.OffHeatMotor1()
+		err := OffHeatMotor1()
 		if err != nil {
 			log.Println(err.Error())
 			return err
 		}
 
-		err = home.OnHeatMotor2()
+		err = OnHeatMotor2()
 		if err != nil {
 			log.Println(err.Error())
 			return err
 		}
-		return
+		return nil
 	}
 
 	if state == "Off" {
-		err = home.OffHeatMotor1()
+		err := OffHeatMotor1()
 		if err != nil {
 			log.Println(err.Error())
 			return err
 		}
 
-		err = home.OffHeatMotor2()
+		err = OffHeatMotor2()
 		if err != nil {
 			log.Println(err.Error())
 			return err
 		}
-		return
+		return nil
 	}
 	return nil
 }
