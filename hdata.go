@@ -13,6 +13,7 @@ func hdata(w http.ResponseWriter, r *http.Request) {
 		log.Println(errx.Error())
 		from = 0
 	}
+
 	d, errs := historyData.ToJSON(from)
 	if errs != nil {
 		log.Println(errs.Error())

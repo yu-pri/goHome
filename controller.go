@@ -5,13 +5,21 @@ import (
 	"goHome/home"
 	"log"
 	"net/http"
+	"os"
+	"os/signal"
 	"sync"
+	"syscall"
 	"time"
 
 	"github.com/hybridgroup/gobot"
 
 	"golang.org/x/net/websocket"
 )
+
+/*
+HISTORYDATASERIAL file which contains history data for my home
+*/
+const HISTORYDATASERIAL = "/tmp/goHomeHistoryData.b64"
 
 /*
 SENSORS  Sensors exists
@@ -54,6 +62,7 @@ func main() {
 	}
 
 	//stop = scheduleT(reportFloat, 10*time.Second, "temp1", 10)
+	historyData.RestoreFromFile(HISTORYDATASERIAL)
 
 	http.Handle("/echo", websocket.Handler(echoHandler))
 	http.Handle("/relays", websocket.Handler(relHandler))
@@ -69,6 +78,16 @@ func main() {
 			processInput(&currentState)
 		}()
 	}
+
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, os.Interrupt)
+	signal.Notify(c, syscall.SIGTERM)
+	go func() {
+		<-c
+		log.Println("Save history data...")
+		historyData.SerializeToFile(HISTORYDATASERIAL)
+		os.Exit(1)
+	}()
 
 	work := func() {
 		gobot.Every(100000*time.Millisecond, func() {
