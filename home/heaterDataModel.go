@@ -16,7 +16,7 @@ import (
 /*
 LIMIT max amount of history data calues
 */
-const LIMIT = 10000
+const LIMIT = 50000
 
 /*
 HData is set of home data values, can be parsed from json
