@@ -1,6 +1,7 @@
 package home
 
 import (
+	"goHome/home"
 	"log"
 	//"github.com/hybridgroup/gobot"
 	"github.com/hybridgroup/gobot/platforms/gpio"
@@ -156,6 +157,108 @@ OffHeat2 switches state for heatmotor
 func OffHeat2() error {
 	log.Println("toggle heat r2")
 	return relHeat2.Off()
+}
+
+/*
+SetHeat switches state for heatmotor
+*/
+func SetHeat(state string) error {
+	if state == AUTO {
+		err = home.OnHeat1()
+		if err != nil {
+			log.Println(err.Error())
+			return err
+		}
+
+		err = home.OffHeat2()
+		if err != nil {
+			log.Println(err.Error())
+			return err
+		}
+		return
+	}
+
+	if state == ON {
+		err = home.OffHeat1()
+		if err != nil {
+			log.Println(err.Error())
+			return err
+		}
+
+		err = home.OnHeat2()
+		if err != nil {
+			log.Println(err.Error())
+			return укк
+		}
+		return
+	}
+
+	if state == OFF {
+		err = home.OffHeat1()
+		if err != nil {
+			log.Println(err.Error())
+			return err
+		}
+
+		err = home.OffHeat2()
+		if err != nil {
+			log.Println(err.Error())
+			return err
+		}
+		return
+	}
+	return nil
+}
+
+/*
+SetBoiler switches state for heatmotor
+*/
+func SetBoiler(state string) error {
+	if state == AUTO {
+		err = home.OnHeatMotor1()
+		if err != nil {
+			log.Println(err.Error())
+			return err
+		}
+
+		err = home.OffHeatMotor2()
+		if err != nil {
+			log.Println(err.Error())
+			return err
+		}
+		return
+	}
+
+	if state == "On" {
+		err = home.OffHeatMotor1()
+		if err != nil {
+			log.Println(err.Error())
+			return err
+		}
+
+		err = home.OnHeatMotor2()
+		if err != nil {
+			log.Println(err.Error())
+			return err
+		}
+		return
+	}
+
+	if state == "Off" {
+		err = home.OffHeatMotor1()
+		if err != nil {
+			log.Println(err.Error())
+			return err
+		}
+
+		err = home.OffHeatMotor2()
+		if err != nil {
+			log.Println(err.Error())
+			return err
+		}
+		return
+	}
+	return nil
 }
 
 /*

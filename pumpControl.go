@@ -47,54 +47,9 @@ func pump(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if state == "Auto" {
-		err = home.OnHeatMotor1()
-		if err != nil {
-			log.Println(err.Error())
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-
-		err = home.OffHeatMotor2()
-		if err != nil {
-			log.Println(err.Error())
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		return
-	}
-
-	if state == "On" {
-		err = home.OffHeatMotor1()
-		if err != nil {
-			log.Println(err.Error())
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-
-		err = home.OnHeatMotor2()
-		if err != nil {
-			log.Println(err.Error())
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		return
-	}
-
-	if state == "Off" {
-		err = home.OffHeatMotor1()
-		if err != nil {
-			log.Println(err.Error())
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-
-		err = home.OffHeatMotor2()
-		if err != nil {
-			log.Println(err.Error())
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
+	errr := home.SetBoiler(state)
+	if errr != nil {
+		http.Error(w, errr.Error(), http.StatusInternalServerError)
 		return
 	}
 }

@@ -59,6 +59,8 @@ func main() {
 		}
 
 		stop = schedule(reportInternalSensor, 60*time.Second, sensors)
+		home.SetHeat(home.AUTO)
+		home.SetBoiler(home.AUTO)
 	}
 
 	//stop = scheduleT(reportFloat, 10*time.Second, "temp1", 10)
@@ -86,6 +88,8 @@ func main() {
 		<-c
 		log.Println("Save history data...")
 		historyData.SerializeToFile(HISTORYDATASERIAL)
+		home.SetHeat(home.AUTO)
+		home.SetBoiler(home.AUTO)
 		os.Exit(1)
 	}()
 
