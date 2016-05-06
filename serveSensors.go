@@ -40,7 +40,7 @@ func reportSensors(s *home.Sensors) {
 	log.Println("reverse \t", v)
 
 	/*update UI*/
-	err = reportFloat("temp2", v)
+	err = reportFloat("temp2", reverse)
 	if err != nil {
 		home.ReportAlert(err.Error(), "Cannot report Temp to socket")
 	}
@@ -49,7 +49,7 @@ func reportSensors(s *home.Sensors) {
 	log.Println("entry \t", v)
 
 	/*update UI*/
-	err = reportFloat("temp3", v)
+	err = reportFloat("temp3", entry)
 	if err != nil {
 		home.ReportAlert(err.Error(), "Cannot report Temp to socket")
 	}

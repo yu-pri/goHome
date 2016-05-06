@@ -13,7 +13,7 @@ var Temperature = React.createClass({
           this.setState({
             temp1: data.Val
           });
-          window.updateChart(data.Val);
+          //window.updateChart(data.Val);
           break;
 
         case "temp2":
