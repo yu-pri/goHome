@@ -16,16 +16,17 @@ import (
 /*
 LIMIT max amount of history data calues
 */
-const LIMIT = 50000
+const LIMIT = 100000
 
 /*
 HData is set of home data values, can be parsed from json
 */
 type HData struct {
-	TempInside  float32 `json:"TempInside, float"`
-	TempOutside float32 `json:"TempOutside, float"`
-	TempHeater  float32 `json:"TempHeater, float"`
-	TempReverse float32 `json:"TempReverse, float"`
+	TempInside    float32 `json:"TempInside, float"`
+	TempOutside   float32 `json:"TempOutside, float"`
+	TempHeater    float32 `json:"TempHeater, float"`
+	TempReverse   float32 `json:"TempReverse, float"`
+	TempEntryRoom float32 `json:"TempEntryRoom, float"`
 
 	PumpState   bool `json:"PumpState, bool"`
 	HeaterState bool `json:"HeaterState, bool"`

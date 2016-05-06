@@ -9,7 +9,7 @@ import (
 /*
 ReportInternalSensor reports Sensors to web app and cloud
 */
-func reportInternalSensor(s *home.Sensors) {
+func reportSensors(s *home.Sensors) {
 	v, err := s.InternalSensor()
 	if err != nil {
 		home.ReportAlert(err.Error(), "Cannot get internal Temp")
@@ -35,8 +35,30 @@ func reportInternalSensor(s *home.Sensors) {
 	if err != nil {
 		home.ReportAlert(err.Error(), "Cannot report internal Temp to socket")
 	}
+
+	reverse, err := s.ReverseSensor()
+	log.Println("reverse \t", v)
+
+	/*update UI*/
+	err = reportFloat("temp2", v)
+	if err != nil {
+		home.ReportAlert(err.Error(), "Cannot report Temp to socket")
+	}
+
+	entry, err := s.EntryRoomSensor()
+	log.Println("entry \t", v)
+
+	/*update UI*/
+	err = reportFloat("temp3", v)
+	if err != nil {
+		home.ReportAlert(err.Error(), "Cannot report Temp to socket")
+	}
+
 	x := &home.HData{}
 	currentState.TempInside = v
+	currentState.TempOutside = reverse
+	currentState.TempEntryRoom = entry
+
 	currentState.Timestamp = int(time.Now().Unix())
 	x.TempInside = v
 	x.Timestamp = int(time.Now().Unix())

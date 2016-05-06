@@ -45,15 +45,15 @@ var Temperature = React.createClass({
         </div>
 
         <div className="mui-container-fluid" >
-          <span className="temp">t (out): </span>{this.state.temp2}
+          <span className="temp">t (heater reverse): </span>{this.state.temp2}
         </div>
 
         <div className="mui-container-fluid" >
-          <span className="temp"> Heater (top):</span> {this.state.temp3}
+          <span className="temp"> t (living):</span> {this.state.temp3}
         </div>
 
         <div className="mui-container-fluid" >
-          <span className="temp">Heater (rev): </span> {this.state.temp4}
+          <span className="temp">t (heater): </span> {this.state.temp4}
         </div>
 
 

@@ -23,6 +23,9 @@ google.charts.load('current', {'packages':['corechart']});
 
         data.addColumn('datetime', 'XAxis');
         data.addColumn('number', 'Internal temp');
+        data.addColumn('number', 'Heater reverse');
+        data.addColumn('number', 'Living room');
+
 
         options = {
           title: 'Temperature chart',
@@ -36,8 +39,8 @@ google.charts.load('current', {'packages':['corechart']});
         loadChart();
       };
 
-      function updateChart(t) {
-            data.addRow([new Date(), t]);
+      function updateChart(t, reverse, living) {
+            data.addRow([new Date(), t, reverse, living]);
             chart.draw(data, options);
             if (data.getNumberOfRows() > DATALIMIT) {
               data.removeRows(0, 5);
@@ -57,7 +60,9 @@ google.charts.load('current', {'packages':['corechart']});
                 var ar = [];
                 for (var i=0; i < dt.length; i++) {
                   var r = dt[i];
-                  ar.push([new Date(r.Timestamp*1000), parseFloat(r.TempInside)]);
+                  ar.push([new Date(r.Timestamp*1000),
+                    parseFloat(r.TempInside), parseFloat(r.TempReverse),
+                    parseFloat(r.TempEntryRoom)]);
                 }
                 data.addRows(ar);
                 chart.draw(data, options);

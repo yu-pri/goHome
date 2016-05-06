@@ -14,6 +14,9 @@ const (
 	iotCloudAPIKey          = "35d1d4d0-f80f-11e5-83f9-7d8483cd58bb"
 	iotCloudHomeDevice      = "pi"
 	iotCloudInternalTempVar = "tempInternal"
+	internalSensorID        = "28-0315a14596ff"
+	reverseSensorID         = "28-0115a32c38ff"
+	entryRoomSensorID       = "28-0115a3752aff"
 )
 
 /*
