@@ -31,13 +31,13 @@ func reportSensors(s *home.Sensors) {
 	}
 
 	/*update UI*/
-	err = reportFloat("temp1", v)
+	err = reportFloat("internal", v)
 	if err != nil {
 		home.ReportAlert(err.Error(), "Cannot report internal Temp to socket")
 	}
 
 	reverse, err := s.ReverseSensor()
-	log.Println("reverse \t", v)
+	log.Println("reverse \t", reverse)
 
 	/*update UI*/
 	err = reportFloat("temp2", reverse)
@@ -46,7 +46,7 @@ func reportSensors(s *home.Sensors) {
 	}
 
 	entry, err := s.EntryRoomSensor()
-	log.Println("entry \t", v)
+	log.Println("entry \t", entry)
 
 	/*update UI*/
 	err = reportFloat("temp3", entry)
@@ -54,15 +54,18 @@ func reportSensors(s *home.Sensors) {
 		home.ReportAlert(err.Error(), "Cannot report Temp to socket")
 	}
 
-	x := &home.HData{}
+	//x := &home.HData{}
 	currentState.TempInside = v
 	currentState.TempOutside = reverse
 	currentState.TempEntryRoom = entry
-
 	currentState.Timestamp = int(time.Now().Unix())
-	x.TempInside = v
-	x.Timestamp = int(time.Now().Unix())
-	historyData.Push(x)
+	x := currentState
+	//x.TempInside = v
+	//x.TempOutside = reverse
+	//currentState.TempEntryRoom = entry
+	//x.Timestamp = int(time.Now().Unix())
+
+	historyData.Push(&x)
 }
 
 func schedule(what func(*home.Sensors), delay time.Duration, s *home.Sensors) chan bool {
