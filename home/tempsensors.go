@@ -33,7 +33,7 @@ func NewSensors() (*Sensors, error) {
 
 	err = s.AssignAlias("int", internalSensorID)
 	err = s.AssignAlias("entry", entryRoomSensorID)
-	err = s.AssignAlias("rev", reverseSensorID)
+	//err = s.AssignAlias("rev", reverseSensorID)
 
 	//TODO: More sensors should be declared here
 
