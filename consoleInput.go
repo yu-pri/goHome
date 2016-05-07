@@ -20,7 +20,7 @@ func processInput(x *home.HData) {
 			log.Println(err)
 			continue
 		}
-		reportHData(x)
+		reportCurrentState(x)
 		//fmt.Println(x)
 	}
 }

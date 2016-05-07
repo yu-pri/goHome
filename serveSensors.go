@@ -37,6 +37,9 @@ func reportSensors(s *home.Sensors) {
 	}
 
 	reverse, err := s.ReverseSensor()
+	if err != nil {
+		log.Println(err.Error())
+	}
 	log.Println("reverse \t", reverse)
 
 	/*update UI*/
@@ -46,6 +49,9 @@ func reportSensors(s *home.Sensors) {
 	}
 
 	entry, err := s.EntryRoomSensor()
+	if err != nil {
+		log.Println(err.Error())
+	}
 	log.Println("entry \t", entry)
 
 	/*update UI*/

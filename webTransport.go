@@ -49,7 +49,7 @@ func reportFloat(id string, t float32) error {
 	return nil
 }
 
-func reportHData(dat *home.HData) error {
+func reportCurrentState(dat *home.HData) error {
 	var err error
 	fmt.Println(dat)
 
@@ -90,3 +90,47 @@ func reportHData(dat *home.HData) error {
 	*prev = *dat
 	return nil
 }
+
+/*
+func reportCurrentState(dat *home.HData) error {
+	var err error
+	fmt.Println(dat)
+
+	if prev == nil {
+		prev = &home.HData{}
+	}
+
+	fmt.Println(prev)
+
+	if prev.TempInside != dat.TempInside {
+		err = reportFloat("temp1", dat.TempInside)
+		if err != nil {
+			return err
+		}
+	}
+
+	if prev.TempOutside != dat.TempOutside {
+		err = reportFloat("temp2", dat.TempOutside)
+		if err != nil {
+			return err
+		}
+	}
+
+	if prev.TempHeater != dat.TempHeater {
+		err = reportFloat("temp3", dat.TempHeater)
+		if err != nil {
+			return err
+		}
+	}
+
+	if prev.TempReverse != dat.TempReverse {
+		err = reportFloat("temp4", dat.TempReverse)
+		if err != nil {
+			return err
+		}
+	}
+
+	*prev = *dat
+	return nil
+}
+*/
