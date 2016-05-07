@@ -62,7 +62,7 @@ func reportSensors(s *home.Sensors) {
 
 	//x := &home.HData{}
 	currentState.TempInside = v
-	currentState.TempOutside = reverse
+	currentState.TempReverse = reverse
 	currentState.TempEntryRoom = entry
 	currentState.Timestamp = int(time.Now().Unix())
 	x := currentState
