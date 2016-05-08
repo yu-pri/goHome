@@ -69,7 +69,7 @@ func main() {
 	http.Handle("/echo", websocket.Handler(echoHandler))
 	http.Handle("/relays", websocket.Handler(relHandler))
 
-	http.Handle("/", http.FileServer(http.Dir(".")))
+	http.Handle("/", http.FileServer(http.Dir("/home/pi/w/go/src/goHome")))
 	http.HandleFunc("/control/pump", pump)
 	http.HandleFunc("/control/heat", heat)
 
