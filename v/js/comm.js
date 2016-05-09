@@ -13,7 +13,7 @@ N.DataHandler.handle = function (msg) {
 
   if (o.TempInside) {
     N.TempDataHandler.callback(o);
-  } elase {
+  } else {
     console.log("nothing to do: " + o.TempInside);
   }
 
