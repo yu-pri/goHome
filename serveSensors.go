@@ -55,6 +55,8 @@ func reportSensors(s *home.Sensors) {
 	currentState.TempHeater = heater
 	currentState.Timestamp = int(time.Now().Unix())
 
+	managePump(&currentState)
+
 	/*update UI*/
 	err = reportCurrentState(&currentState)
 	if err != nil {

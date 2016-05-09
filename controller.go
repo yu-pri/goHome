@@ -58,7 +58,7 @@ func main() {
 			panic("Sensors: " + err.Error())
 		}
 
-		stop = schedule(reportSensors, 60*time.Second, sensors)
+		stop = schedule(reportSensors, 10*time.Second, sensors)
 		home.SetHeat(home.AUTO)
 		home.SetBoiler(home.AUTO)
 	}
