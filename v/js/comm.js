@@ -10,11 +10,13 @@ N.TempDataHandler = new Object();
 N.DataHandler.handle = function (msg) {
   //alert(msg)
   var o = JSON.parse(msg);
-  switch (o.Key) {
-    case "TempInside":
+
+  if (o.TempInside) {
     N.TempDataHandler.callback(o);
-    break;
+  } elase {
+    console.log("nothing to do: " + o.TempInside);
   }
+
 };
 
 N.ws.onmessage = function(e) {
