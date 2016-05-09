@@ -30,7 +30,7 @@ google.charts.load('current', {'packages':['corechart']});
 
 
         options = {
-          title: 'Temperature chart',
+          title: 'Climate monitor',
           curveType: 'function',
           legend: { position: 'bottom' },
           page: 'enable',
