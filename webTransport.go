@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"goHome/home"
 	"log"
 )
@@ -50,44 +49,20 @@ func reportFloat(id string, t float32) error {
 }
 
 func reportCurrentState(dat *home.HData) error {
-	var err error
-	fmt.Println(dat)
 
-	if prev == nil {
-		prev = &home.HData{}
+	d, errs := dat.ToJSON()
+	if errs != nil {
+		log.Println(errs.Error())
+		return errs
 	}
-
-	fmt.Println(prev)
-
-	if prev.TempInside != dat.TempInside {
-		err = reportFloat("temp1", dat.TempInside)
-		if err != nil {
-			return err
+	for _, ws := range conns.ws {
+		m, err02 := ws.Write(d)
+		if err02 != nil {
+			return err02
 		}
+		log.Println(m)
 	}
 
-	if prev.TempOutside != dat.TempOutside {
-		err = reportFloat("temp2", dat.TempOutside)
-		if err != nil {
-			return err
-		}
-	}
-
-	if prev.TempHeater != dat.TempHeater {
-		err = reportFloat("temp3", dat.TempHeater)
-		if err != nil {
-			return err
-		}
-	}
-
-	if prev.TempReverse != dat.TempReverse {
-		err = reportFloat("temp4", dat.TempReverse)
-		if err != nil {
-			return err
-		}
-	}
-
-	*prev = *dat
 	return nil
 }
 

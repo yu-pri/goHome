@@ -38,6 +38,20 @@ func TestHistoryToJSON(t *testing.T) {
 	//}
 }
 
+func TestHDataToJSON(t *testing.T) {
+	tt := &home.HData{}
+	tt.TempOutside = 10
+	b, err := tt.ToJSON()
+
+	if err != nil {
+		t.Error(err)
+	}
+	log.Println("Serialize HData")
+	log.Println(string(b))
+	log.Println()
+
+}
+
 func TestHistoryDataEncode(t *testing.T) {
 	tt := &home.HData{}
 	tt.TempOutside = 10

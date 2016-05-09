@@ -90,6 +90,19 @@ func (q *HistoryData) Pop() interface{} {
 /*
 ToJSON returns serialized hash
 */
+func (q *HData) ToJSON() (d []byte, err error) {
+	//now := int(time.Now().Unix())
+
+	b, err := json.Marshal(q)
+	if err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+/*
+ToJSON returns serialized hash
+*/
 func (q *HistoryData) ToJSON(from int) (d []byte, err error) {
 	old := *q
 	sl := HistoryData{}

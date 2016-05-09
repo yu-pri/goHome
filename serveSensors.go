@@ -30,23 +30,11 @@ func reportSensors(s *home.Sensors) {
 		home.ReportAlert(err.Error(), "Cannot report internal Temp to IOT Cloud")
 	}
 
-	/*update UI*/
-	err = reportFloat("internal", v)
-	if err != nil {
-		home.ReportAlert(err.Error(), "Cannot report internal Temp to socket")
-	}
-
 	reverse, err := s.ReverseSensor()
 	if err != nil {
 		log.Println(err.Error())
 	}
 	log.Println("reverse \t", reverse)
-
-	/*update UI*/
-	err = reportFloat("temp2", reverse)
-	if err != nil {
-		home.ReportAlert(err.Error(), "Cannot report Temp to socket")
-	}
 
 	entry, err := s.EntryRoomSensor()
 	if err != nil {
@@ -55,7 +43,7 @@ func reportSensors(s *home.Sensors) {
 	log.Println("entry \t", entry)
 
 	/*update UI*/
-	err = reportFloat("temp3", entry)
+	err = reportCurrentState(&currentState)
 	if err != nil {
 		home.ReportAlert(err.Error(), "Cannot report Temp to socket")
 	}
