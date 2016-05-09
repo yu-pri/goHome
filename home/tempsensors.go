@@ -34,6 +34,7 @@ func NewSensors() (*Sensors, error) {
 	err = s.AssignAlias("int", internalSensorID)
 	err = s.AssignAlias("entry", entryRoomSensorID)
 	err = s.AssignAlias("rev", reverseSensorID)
+	err = s.AssignAlias("heater", heaterSensorID)
 
 	//TODO: More sensors should be declared here
 
@@ -80,6 +81,20 @@ func (s Sensors) EntryRoomSensor() (float32, error) {
 	}
 
 	temp, err := s.Temp.ReadSingleAlias("entry")
+
+	return temp.Celsius(), err
+}
+
+/*
+HeaterSensor returns temperature from internal sensor
+*/
+func (s Sensors) HeaterSensor() (float32, error) {
+	err := s.Temp.Update()
+	if err != nil {
+		return -100, err
+	}
+
+	temp, err := s.Temp.ReadSingleAlias("heater")
 
 	return temp.Celsius(), err
 }

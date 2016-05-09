@@ -17,6 +17,7 @@ const (
 	internalSensorID        = "28-0315a14596ff"
 	reverseSensorID         = "28-0115a32c38ff"
 	entryRoomSensorID       = "28-0115a3752aff"
+	heaterSensorID          = "28-0115a32295ff"
 )
 
 /*
