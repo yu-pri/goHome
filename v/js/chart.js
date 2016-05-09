@@ -42,7 +42,9 @@ google.charts.load('current', {'packages':['corechart']});
       };
 
       function updateChart(dat) {
-            data.addRow([new Date(), parseFloat(dat.TempInside),
+          console.log("chart updated: " + dat.Timestamp);
+          if (data) {
+            data.addRow([new Date(dat.Timestamp*1000), parseFloat(dat.TempInside),
               parseFloat(dat.TempReverse),
               parseFloat(dat.TempEntryRoom),
               parseFloat(dat.TempHeater)]);
@@ -50,6 +52,9 @@ google.charts.load('current', {'packages':['corechart']});
             if (data.getNumberOfRows() > DATALIMIT) {
               data.removeRows(0, 5);
             }
+          } else {
+            console.log("Chart data is not initialized yet");
+          }
       }
 
       function loadChart() {
