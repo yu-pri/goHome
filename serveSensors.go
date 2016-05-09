@@ -42,17 +42,25 @@ func reportSensors(s *home.Sensors) {
 	}
 	log.Println("entry \t", entry)
 
+	heater, err := s.HeaterSensor()
+	if err != nil {
+		log.Println(err.Error())
+	}
+	log.Println("heater \t", entry)
+
+	//x := &home.HData{}
+	currentState.TempInside = v
+	currentState.TempReverse = reverse
+	currentState.TempEntryRoom = entry
+	currentState.TempHeater = heater
+	currentState.Timestamp = int(time.Now().Unix())
+
 	/*update UI*/
 	err = reportCurrentState(&currentState)
 	if err != nil {
 		home.ReportAlert(err.Error(), "Cannot report Temp to socket")
 	}
 
-	//x := &home.HData{}
-	currentState.TempInside = v
-	currentState.TempReverse = reverse
-	currentState.TempEntryRoom = entry
-	currentState.Timestamp = int(time.Now().Unix())
 	x := currentState
 	//x.TempInside = v
 	//x.TempOutside = reverse

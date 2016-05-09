@@ -74,6 +74,7 @@ func main() {
 	http.HandleFunc("/control/heat", heat)
 
 	http.HandleFunc("/control/hdata", hdata)
+	http.HandleFunc("/control/currentState", cState)
 
 	if !SENSORS {
 		go func() {
