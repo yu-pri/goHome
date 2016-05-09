@@ -2,12 +2,49 @@
 
 var Temperature = React.createClass({
   getInitialState: function() {
+    fetch('/control/currentState')
+      .then(function(response) {
+          if (response.status == 200) {
+          var txt = response.text();
+          return txt;
+        } else {
+          alert(response.statusText);
+        }
+       })
+       .then(function(msg) {
+         var o = JSON.parse(msg);
+         //self.props.temp1 = o.TempInternal;
+         //self.props.temp2 = o.TempInternal;
+         set(o);
+
+         self.setState({message: "Pump: " + state});
+       })
 
     return {temp1: this.props.temp1, temp2: this.props.temp2, temp3: this.props.temp3, temp4: this.props.temp4};
   },
 
+  set(data) {
+    this.setState({
+      temp1: data.TempInside
+    });
+
+    this.setState({
+      temp2: data.TempReverse
+    });
+
+    this.setState({
+      temp3: data.TempEntryRoom
+    });
+
+
+    this.setState({
+      temp4: data.TempHeater
+    });
+  }
   componentWillMount() {
     window.N.TempDataHandler.callback = (data) => {
+      set(data)
+      /*
       this.setState({
         temp1: data.TempInside
       });
@@ -24,40 +61,6 @@ var Temperature = React.createClass({
       this.setState({
         temp4: data.TempHeater
       });
-      /*
-      if (data.TempInside) {
-        this.setState({
-          temp1: data.TempInside
-        });
-      }
-
-
-      /*
-      switch (data.Name) {
-        case "temp1":
-          this.setState({
-            temp1: data.Val
-          });
-          //window.updateChart(data.Val);
-          break;
-
-        case "temp2":
-          this.setState({
-            temp2: data.Val
-          });
-          break;
-
-        case "temp3":
-          this.setState({
-            temp3: data.Val
-          });
-          break;
-        case "temp4":
-          this.setState({
-            temp4: data.Val
-          });
-          break;
-      }
       */
     };
   },
