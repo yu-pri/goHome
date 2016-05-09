@@ -40,10 +40,11 @@ var Temperature = React.createClass({
     this.setState({
       temp4: data.TempHeater
     });
-  }
+  },
+
   componentWillMount() {
     window.N.TempDataHandler.callback = (data) => {
-      set(data)
+      set(data);
       /*
       this.setState({
         temp1: data.TempInside
