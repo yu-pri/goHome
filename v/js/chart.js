@@ -44,7 +44,7 @@ google.charts.load('current', {'packages':['corechart']});
       function updateChart(dat) {
             data.addRow([new Date(), parseFloat(dat.TempInside),
               parseFloat(dat.TempReverse),
-              parseFloat(dat.TempEntryRoom), parseFloat(dat.TempHeater]));
+              parseFloat(dat.TempEntryRoom), parseFloat(dat.TempHeater)]));
             chart.draw(data, options);
             if (data.getNumberOfRows() > DATALIMIT) {
               data.removeRows(0, 5);
