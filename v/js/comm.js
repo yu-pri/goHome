@@ -13,6 +13,7 @@ N.DataHandler.handle = function (msg) {
 
   if (o.TempInside) {
     N.TempDataHandler.callback(o);
+    updateChart(o);
   } else {
     console.log("nothing to do: " + o.TempInside);
   }
