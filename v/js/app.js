@@ -2,6 +2,7 @@
 
 var Temperature = React.createClass({
   getInitialState: function() {
+    var self = this
     fetch('/control/currentState')
       .then(function(response) {
           if (response.status == 200) {
@@ -15,7 +16,7 @@ var Temperature = React.createClass({
          var o = JSON.parse(msg);
          //self.props.temp1 = o.TempInternal;
          //self.props.temp2 = o.TempInternal;
-         set(o);
+         self.set(o);
 
          self.setState({message: "Pump: " + state});
        })
