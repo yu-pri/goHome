@@ -17,8 +17,6 @@ var Temperature = React.createClass({
          //self.props.temp1 = o.TempInternal;
          //self.props.temp2 = o.TempInternal;
          self.set(o);
-
-         self.setState({message: "Pump: " + state});
        })
 
     return {temp1: this.props.temp1, temp2: this.props.temp2, temp3: this.props.temp3, temp4: this.props.temp4};
