@@ -26,7 +26,7 @@ SENSORS  Sensors exists
 */
 var SENSORS bool
 
-var err error
+//var err error
 
 type socketConns struct {
 	ws   map[int32]*websocket.Conn
@@ -55,7 +55,7 @@ func main() {
 	if SENSORS {
 		sensors, errs := home.NewSensors()
 		if errs != nil {
-			panic("Sensors: " + err.Error())
+			panic("Sensors: " + errs.Error())
 		}
 
 		stop = schedule(reportSensors, 60*time.Second, sensors)
@@ -112,7 +112,7 @@ func main() {
 
 	go gbot.Start()
 
-	err = http.ListenAndServe(":1234", nil)
+	err := http.ListenAndServe(":1234", nil)
 	if err != nil {
 		panic("ListenAndServe: " + err.Error())
 	}
