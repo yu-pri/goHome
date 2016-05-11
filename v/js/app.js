@@ -40,13 +40,25 @@ var Temperature = React.createClass({
       temp4: data.TempHeater
     });
 
-    this.setState({
-      heater: data.HeaterState
-    });
+    if (data.HeaterState) {
+      this.setState({
+        heater: "ON"
+      });
+    } else {
+      this.setState({
+        heater: "OFF"
+      });
+    }
 
-    this.setState({
-      heaterPump: data.PumpState
-    });
+    if (data.PumpState) {
+      this.setState({
+        heaterPump: "ON"
+      });
+    } else {
+      this.setState({
+        heaterPump: "OFF"
+      });
+    }
 
   },
 
