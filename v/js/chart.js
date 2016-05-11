@@ -22,7 +22,7 @@ google.charts.load('current', {'packages':['corechart']});
         data = new google.visualization.DataTable();
 
         data.addColumn('datetime', 'XAxis');
-        data.addColumn('number', 'Internal temp');
+        data.addColumn('number', 'Kitchen');
         data.addColumn('number', 'Heater reverse');
         data.addColumn('number', 'Entry room');
         data.addColumn('number', 'Heater');

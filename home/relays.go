@@ -79,10 +79,14 @@ func ToggleHeat() error {
 }
 
 /*
-OnHeatPump switches state for heatmotor
+OnHeatPump switches state for heatpump
 */
 func OnHeatPump() error {
 	log.Println("on heat motor r1")
+	if GetPump() {
+		log.Println("Heat Pump already on")
+		return nil
+	}
 	return relHeatPump.On()
 }
 
@@ -91,6 +95,10 @@ OnHeat switches state for heatmotor
 */
 func OnHeat() error {
 	log.Println("on heat r1")
+	if GetHeat() {
+		log.Println("Heat already on")
+		return nil
+	}
 	return relHeat.On()
 }
 
@@ -99,6 +107,11 @@ OffHeatPump switches state for heatmotor
 */
 func OffHeatPump() error {
 	log.Println("off heat motor r1")
+	if !GetPump() {
+		log.Println("Heat Pump already off")
+		return nil
+	}
+
 	return relHeatPump.Off()
 }
 
@@ -107,6 +120,13 @@ OffHeat switches state for heatmotor
 */
 func OffHeat() error {
 	log.Println("off heat r1")
+
+	log.Println("on heat motor r1")
+	if !GetHeat() {
+		log.Println("Heat already off")
+		return nil
+	}
+
 	return relHeat.Off()
 }
 
@@ -115,7 +135,23 @@ SetHeatMode switches state for heatmotor
 */
 func SetHeatMode(state string) error {
 	heatMode = state
-	return nil
+	var err error
+	switch state {
+	case AUTO:
+		err = OffHeat()
+		break
+
+	case ON:
+		err = OnHeat()
+		break
+
+	case OFF:
+		err = OffHeat()
+		break
+
+	}
+
+	return err
 }
 
 /*
@@ -123,7 +159,23 @@ SetHeatPumpMode switches state for heatmotor
 */
 func SetHeatPumpMode(state string) error {
 	heatPumpMode = state
-	return nil
+	var err error
+	switch state {
+	case AUTO:
+		err = OnHeatPump()
+		break
+
+	case ON:
+		err = OnHeatPump()
+		break
+
+	case OFF:
+		err = OffHeatPump()
+		break
+
+	}
+
+	return err
 }
 
 /*
