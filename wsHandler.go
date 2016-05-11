@@ -69,11 +69,11 @@ func execute(c *MsgCommand) error {
 	c.Lock()
 
 	if c.Object == home.CommandOnPumpr1 {
-		return home.OnHeatMotor1()
+		return home.OnHeat()
 	}
 
 	if c.Object == home.CommandOffPumpr1 {
-		return home.OffHeatMotor1()
+		return home.OffHeat()
 	}
 
 	return nil

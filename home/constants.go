@@ -23,7 +23,7 @@ const (
 /*
 HeaterPumpRunThreshold Run heater pump, stop heater pumb if temp 5 degree less
 */
-const HeaterPumpRunThreshold = 28
+const HeaterPumpRunThreshold = 30
 
 /*
 CommandTogglePumpr1 command to toggle

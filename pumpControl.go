@@ -9,7 +9,7 @@ import (
 )
 
 func reportPump() error {
-	st := home.GetPumpState()
+	st := home.GetHeatPumpMode()
 
 	r := stringReport{"pumpStateChanged", "state", st}
 
@@ -43,11 +43,11 @@ func pump(w http.ResponseWriter, r *http.Request) {
 
 	if len(state) == 0 {
 		log.Println("state requested:")
-		io.WriteString(w, home.GetPumpState())
+		io.WriteString(w, home.GetHeatPumpMode())
 		return
 	}
 
-	errr := home.SetBoiler(state)
+	errr := home.SetHeatPumpMode(state)
 	if errr != nil {
 		http.Error(w, errr.Error(), http.StatusInternalServerError)
 		return

@@ -9,7 +9,7 @@ import (
 )
 
 func reportHeat() error {
-	st := home.GetHeaterState()
+	st := home.GetHeatMode()
 
 	r := stringReport{"heatStateChanged", "state", st}
 
@@ -43,11 +43,11 @@ func heat(w http.ResponseWriter, r *http.Request) {
 
 	if len(state) == 0 {
 		log.Println("state requested:")
-		io.WriteString(w, home.GetHeaterState())
+		io.WriteString(w, home.GetHeatMode())
 		return
 	}
 
-	errr := home.SetHeat(state)
+	errr := home.SetHeatMode(state)
 	if errr != nil {
 		http.Error(w, errr.Error(), http.StatusInternalServerError)
 	}

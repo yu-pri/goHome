@@ -59,8 +59,7 @@ func main() {
 		}
 
 		stop = schedule(reportSensors, 60*time.Second, sensors)
-		home.SetHeat(home.AUTO)
-		home.SetBoiler(home.AUTO)
+
 	}
 
 	//stop = scheduleT(reportFloat, 10*time.Second, "temp1", 10)
@@ -89,8 +88,7 @@ func main() {
 		<-c
 		log.Println("Save history data...")
 		historyData.SerializeToFile(HISTORYDATASERIAL)
-		home.SetHeat(home.AUTO)
-		home.SetBoiler(home.AUTO)
+		//TODO: return relay to initial state
 		os.Exit(1)
 	}()
 
@@ -101,10 +99,12 @@ func main() {
 		})
 	}
 
+	//TODO: more relays here
+	//home.GetHeat2(),
+	//home.GetRelHeatMotor2()
 	robot := gobot.NewRobot("blinkBot",
 		[]gobot.Connection{home.GetRelayAdaptor()},
-		[]gobot.Device{home.GetHeat1(), home.GetHeat2(), home.GetRelHeatMotor1(),
-			home.GetRelHeatMotor2()},
+		[]gobot.Device{home.GetRelHeat(), home.GetRelHeatPump()},
 		work,
 	)
 
