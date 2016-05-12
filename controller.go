@@ -11,7 +11,7 @@ import (
 	"syscall"
 	"time"
 
-	_ "github.com/icattlecoder/godaemon"
+	//_ "github.com/icattlecoder/godaemon"
 
 	"github.com/hybridgroup/gobot"
 

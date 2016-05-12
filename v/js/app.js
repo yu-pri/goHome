@@ -72,15 +72,16 @@ var Temperature = React.createClass({
 
     return (
       <div>
-        <div className="mui-container-fluid" >
-          <span className="temp">Kitchen:</span> {this.state.temp1}
-          <span className="temp">Entry room:</span> {this.state.temp3}
-          <span className="temp">H Rev: </span>{this.state.temp2}
+        <div className="mui-container-fluid, flexrow" >
+          <span className="item">Kitchen: {this.state.temp1}</span>
+          <span className="item">Entry room: {this.state.temp3}</span>
+          <span className="item">H Rev: {this.state.temp2} </span>
         </div>
 
-        <div className="mui-container-fluid" >
-          <span className="temp">Heater: </span> {this.state.temp4}
-          , Heater: {this.state.heater}, HeaterPump: {this.state.heaterPump}
+        <div className="mui-container-fluid, flexrow" >
+          <span className="item">Heater: {this.state.temp4} </span>
+          <span className="item"> Heater: {this.state.heater} </span>
+          <span className="item"> HeaterPump: {this.state.heaterPump} </span>
         </div>
 
 
