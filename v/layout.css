@@ -204,3 +204,8 @@ buttons {
     border-radius: 5px;
     border:1px solid lightgray;
 }
+
+.highlighted {
+  font-weight: bold;
+  color: red;
+}
