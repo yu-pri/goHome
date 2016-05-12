@@ -30,7 +30,10 @@ func managePump(dat *home.HData) {
 }
 
 func manageHeater(dat *home.HData) {
-	if home.GetHeatMode() == home.AUTO {
+	if home.GetHeatMode() != home.AUTO {
+		dat.HeaterState = home.GetHeat()
+		dat.PumpState = home.GetPump()
+
 		return
 	}
 
@@ -47,5 +50,8 @@ func manageHeater(dat *home.HData) {
 			log.Println(err.Error())
 		}
 	}
+
 	dat.HeaterState = home.GetHeat()
+	dat.PumpState = home.GetPump()
+
 }
