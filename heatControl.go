@@ -26,6 +26,7 @@ func reportHeat() error {
 		log.Println(m)
 	}
 
+	currentState.HeaterState = home.GetHeat()
 	err := reportCurrentState(&currentState)
 	if err != nil {
 		home.ReportAlert(err.Error(), "Cannot report Temp to socket")

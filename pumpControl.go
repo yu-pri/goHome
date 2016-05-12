@@ -26,6 +26,7 @@ func reportPump() error {
 		log.Println(m)
 	}
 
+	currentState.PumpState = home.GetPump()
 	err := reportCurrentState(&currentState)
 	if err != nil {
 		home.ReportAlert(err.Error(), "Cannot report Temp to socket")
