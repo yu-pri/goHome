@@ -11,6 +11,8 @@ import (
 	"syscall"
 	"time"
 
+	_ "github.com/icattlecoder/godaemon"
+
 	"github.com/hybridgroup/gobot"
 
 	"golang.org/x/net/websocket"
