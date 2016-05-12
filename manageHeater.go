@@ -7,6 +7,8 @@ import (
 
 func managePump(dat *home.HData) {
 	if home.GetHeatPumpMode() != home.AUTO {
+		dat.HeaterState = home.GetHeat()
+		dat.PumpState = home.GetPump()
 		return
 	}
 
@@ -26,6 +28,7 @@ func managePump(dat *home.HData) {
 		}
 	}
 
+	dat.HeaterState = home.GetHeat()
 	dat.PumpState = home.GetPump()
 }
 
