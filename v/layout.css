@@ -186,6 +186,7 @@ buttons {
     -ms-justify-content: space-between;
     -o-justify-content: space-between;
     margin-bottom: 10px;
+    margin-top: 10px;
     -webkit-align-items: center;
     -moz-align-items: center;
     -ms-align-items: center;
@@ -206,6 +207,7 @@ buttons {
 }
 
 .highlighted {
+  margin: auto 10px;
   font-weight: bold;
   color: red;
 }
