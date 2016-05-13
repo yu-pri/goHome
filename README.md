@@ -1,11 +1,13 @@
 Private home automation on raspberry PI
 
 TODO:
-- scheduling to manage from command line
-- show Pump and Heater state (On/Off)
-- handle gobot interruption (set relay to initial state)
++ show Pump and Heater state (On/Off)
++ rewrite logic on/off/auto pump and heater
 
-- rewrite logic on/off/auto pump and heater
+- scheduling to manage from command line
+- handle gobot interruption (set relay to initial state)
+- remove older data from history
+
 - notification sending (email/sms)
  - pump off, but heater temperature is higher
  - too cold notification

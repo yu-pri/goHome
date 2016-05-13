@@ -111,12 +111,12 @@ func (q *HistoryData) ToJSON(from int) (d []byte, err error) {
 	if from > 0 {
 		var interval = 1
 
-		if from > 60*60 && old.Len() > 50 {
-			interval = 5
+		if from > 60*60 && old.Len() > 120 {
+			interval = 30
 		}
 
-		if from > 60*60*24 && old.Len() > 100 {
-			interval = 10
+		if from > 60*60*24 && old.Len() > 300 {
+			interval = 60
 		}
 
 		for i := 0; i < old.Len(); i = i + interval {
