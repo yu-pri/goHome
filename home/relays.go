@@ -27,8 +27,8 @@ var heatPumpMode = AUTO
 Stop - Set relays to default position
 */
 func Stop() {
-	err := OffHeat()
 	log.Println("Set relays to default state")
+	err := OffHeat()
 	if err != nil {
 		log.Println(err.Error())
 	}
