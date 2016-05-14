@@ -90,11 +90,13 @@ func main() {
 		<-c
 		log.Println("Save history data...")
 		historyData.SerializeToFile(HISTORYDATASERIAL)
+		gbot.Stop()
 		//TODO: return relay to initial state
 		os.Exit(1)
 	}()
 
 	work := func() {
+		defer home.Stop()
 		gobot.Every(100000*time.Millisecond, func() {
 			log.Println("gobot heartbeat")
 			//      led.Toggle()

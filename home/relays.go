@@ -23,6 +23,14 @@ var relHeat = gpio.NewLedDriver(r, "led", "12")
 var heatMode = AUTO
 var heatPumpMode = AUTO
 
+/*
+Stop - Set relays to default position
+*/
+func Stop() {
+	OffHeat()
+	OnHeatPump()
+}
+
 func init() {
 	log.Println("Set init state for relays")
 	err := OffHeat()
