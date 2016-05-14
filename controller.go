@@ -53,16 +53,19 @@ var rconns socketConns
 
 var currentState home.HData
 var historyData home.HistoryData
+var sensors *home.Sensors
 
 func init() {
 	log.Println("Loading user preferences")
 	Config.HeaterState = home.AUTO
 	Config.PumpState = home.AUTO
+	//runtime.se
+
 }
 
 func main() {
 
-	var stop chan bool
+	//var stop chan bool
 	gbot := gobot.NewGobot()
 
 	conns = socketConns{make(map[int32]*websocket.Conn), &sync.Mutex{}}
@@ -75,14 +78,14 @@ func main() {
 	flag.Parse()
 
 	if SENSORS {
-		sensors, errs := home.NewSensors()
+		var errs error
+		sensors, errs = home.NewSensors()
 		if errs != nil {
 			panic("Sensors: " + errs.Error())
 		}
-		log.Println("Timeout interval to track sensors: ", INTERVAL)
-		stop = schedule(reportSensors, time.Duration(INTERVAL)*time.Second, sensors)
 	}
 
+	log.Println("Timeout interval to track sensors: ", INTERVAL)
 	//stop = scheduleT(reportFloat, 10*time.Second, "temp1", 10)
 	historyData.RestoreFromFile(HISTORYDATASERIAL)
 
@@ -118,8 +121,11 @@ func main() {
 		//defer home.Stop()
 		gobot.Every(10*time.Second, func() {
 			log.Println("gobot heartbeat")
-
+			//stop = schedule(reportSensors, time.Duration(INTERVAL)*time.Second, sensors)
 			//      led.Toggle()
+			if SENSORS {
+				reportSensors(sensors)
+			}
 		})
 	}
 
@@ -141,7 +147,7 @@ func main() {
 		panic("ListenAndServe: " + err.Error())
 	}
 
-	if stop != nil {
-		stop <- true
-	}
+	//if stop != nil {
+	//	stop <- true
+	//}
 }
