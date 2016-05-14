@@ -28,6 +28,11 @@ SENSORS  Sensors exists
 */
 var SENSORS bool
 
+/*
+INTERVAL  Check sensors status with interval
+*/
+var INTERVAL int
+
 //var err error
 
 type socketConns struct {
@@ -52,6 +57,7 @@ func main() {
 	//currentState.Index = 2
 	log.Println(currentState.Index)
 	flag.BoolVar(&SENSORS, "sensors", true, "Sensors are there?")
+	flag.IntVar(&INTERVAL, "timeout", 60, "Timeout?")
 	flag.Parse()
 
 	if SENSORS {
@@ -60,8 +66,7 @@ func main() {
 			panic("Sensors: " + errs.Error())
 		}
 
-		stop = schedule(reportSensors, 60*time.Second, sensors)
-
+		stop = schedule(reportSensors, time.Duration(INTERVAL)*time.Second, sensors)
 	}
 
 	//stop = scheduleT(reportFloat, 10*time.Second, "temp1", 10)
