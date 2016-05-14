@@ -101,7 +101,7 @@ func main() {
 	}()
 
 	work := func() {
-		defer home.Stop()
+		//defer home.Stop()
 		gobot.Every(10*time.Second, func() {
 			log.Println("gobot heartbeat")
 
