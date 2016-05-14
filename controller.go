@@ -119,7 +119,7 @@ func main() {
 
 	work := func() {
 		//defer home.Stop()
-		gobot.Every(10*time.Second, func() {
+		gobot.Every(time.Duration(INTERVAL)*time.Second, func() {
 			log.Println("gobot heartbeat")
 			//stop = schedule(reportSensors, time.Duration(INTERVAL)*time.Second, sensors)
 			//      led.Toggle()
