@@ -59,4 +59,10 @@ func pump(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, errr.Error(), http.StatusInternalServerError)
 		return
 	}
+
+	err := managePump(&currentState)
+	if err != nil {
+		http.Error(w, errr.Error(), http.StatusInternalServerError)
+		return
+	}
 }

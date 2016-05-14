@@ -58,4 +58,10 @@ func heat(w http.ResponseWriter, r *http.Request) {
 	if errr != nil {
 		http.Error(w, errr.Error(), http.StatusInternalServerError)
 	}
+
+	err := manageHeater(&currentState)
+	if err != nil {
+		http.Error(w, errr.Error(), http.StatusInternalServerError)
+		return
+	}
 }

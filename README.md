@@ -6,7 +6,9 @@ TODO:
 
 - scheduling to manage from command line
 - handle gobot interruption (set relay to initial state)
-- remove older data from history
+- save configuration state between reboots
+- remove older data from history (older that 24hrs - leave each 60th record)
+
 
 - notification sending (email/sms)
  - pump off, but heater temperature is higher
