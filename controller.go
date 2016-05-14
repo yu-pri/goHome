@@ -18,6 +18,14 @@ import (
 	"golang.org/x/net/websocket"
 )
 
+type config struct {
+	PumpState   string `json:"PumpState, string"`
+	HeaterState string `json:"HeaterState, string"`
+}
+
+/*Config contains user preferences*/
+var Config config
+
 /*
 HISTORYDATASERIAL file which contains history data for my home
 */
@@ -45,6 +53,12 @@ var rconns socketConns
 
 var currentState home.HData
 var historyData home.HistoryData
+
+func init() {
+	log.Println("Loading user preferences")
+	Config.HeaterState = home.AUTO
+	Config.PumpState = home.AUTO
+}
 
 func main() {
 
@@ -95,7 +109,7 @@ func main() {
 		<-c
 		log.Println("Save history data...")
 		historyData.SerializeToFile(HISTORYDATASERIAL)
-		home.Stop()
+		//home.Stop()
 		//TODO: return relay to initial state
 		os.Exit(1)
 	}()
