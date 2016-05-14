@@ -65,7 +65,7 @@ func main() {
 		if errs != nil {
 			panic("Sensors: " + errs.Error())
 		}
-
+		log.Println("Timeout interval to track sensors: ", INTERVAL)
 		stop = schedule(reportSensors, time.Duration(INTERVAL)*time.Second, sensors)
 	}
 
