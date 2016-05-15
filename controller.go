@@ -53,6 +53,11 @@ var sensors *home.Sensors
 
 func main() {
 
+	err := conf.loadConfig()
+	if err != nil {
+		log.Println("Likely use default configuration")
+	}
+
 	//var stop chan bool
 	gbot := gobot.NewGobot()
 
@@ -130,7 +135,7 @@ func main() {
 
 	go gbot.Start()
 
-	err := http.ListenAndServe(":1234", nil)
+	err = http.ListenAndServe(":1234", nil)
 	if err != nil {
 		panic("ListenAndServe: " + err.Error())
 	}
