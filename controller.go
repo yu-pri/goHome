@@ -135,6 +135,9 @@ func main() {
 
 	go gbot.Start()
 
+	/*
+		TODO: Set initial state when app launched
+	*/
 	errr := home.SetHeatMode(conf.HeaterState)
 	if errr != nil {
 		log.Println("Cannot set Heat mode to: " + conf.HeaterState)
@@ -144,6 +147,19 @@ func main() {
 	if errr != nil {
 		log.Println("Cannot set HeatPump mode to: " + conf.PumpState)
 	}
+
+	reportSensors(sensors)
+
+	err = manageHeater(&currentState)
+	if err != nil {
+		log.Println(err.Error())
+	}
+
+	err = managePump(&currentState)
+	if err != nil {
+		log.Println(err.Error())
+	}
+	//done TODO
 
 	err = http.ListenAndServe(":1234", nil)
 	if err != nil {
