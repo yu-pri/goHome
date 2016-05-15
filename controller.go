@@ -135,6 +135,16 @@ func main() {
 
 	go gbot.Start()
 
+	errr := home.SetHeatMode(conf.HeaterState)
+	if errr != nil {
+		log.Println("Cannot set Heat mode to: " + conf.HeaterState)
+	}
+
+	errr = home.SetHeatPumpMode(conf.PumpState)
+	if errr != nil {
+		log.Println("Cannot set HeatPump mode to: " + conf.PumpState)
+	}
+
 	err = http.ListenAndServe(":1234", nil)
 	if err != nil {
 		panic("ListenAndServe: " + err.Error())
