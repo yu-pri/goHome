@@ -60,7 +60,13 @@ func pump(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err := managePump(&currentState)
+	conf.PumpState = home.GetHeatPumpMode()
+	err := conf.saveConfig()
+	if err != nil {
+		log.Println("Cannot save config: ", err.Error())
+	}
+
+	err = managePump(&currentState)
 	if err != nil {
 		http.Error(w, errr.Error(), http.StatusInternalServerError)
 		return

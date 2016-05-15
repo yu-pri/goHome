@@ -11,6 +11,7 @@ TODO:
 - remove older data from history (older that 24hrs - leave each 60th record)
 - replace relay to more reliable
 - gas/fog control (2 points)
+- report all variables to cloud
 
 - notification sending (email/sms)
  - pump off, but heater temperature is higher (sms)

@@ -18,13 +18,7 @@ import (
 	"golang.org/x/net/websocket"
 )
 
-type config struct {
-	PumpState   string `json:"PumpState, string"`
-	HeaterState string `json:"HeaterState, string"`
-}
-
-/*Config contains user preferences*/
-var Config config
+const configFileName = "/etc/goHome.conf"
 
 /*
 HISTORYDATASERIAL file which contains history data for my home
@@ -43,6 +37,8 @@ var INTERVAL int
 
 //var err error
 
+var conf Config
+
 type socketConns struct {
 	ws   map[int32]*websocket.Conn
 	lock *sync.Mutex
@@ -54,14 +50,6 @@ var rconns socketConns
 var currentState home.HData
 var historyData home.HistoryData
 var sensors *home.Sensors
-
-func init() {
-	log.Println("Loading user preferences")
-	Config.HeaterState = home.AUTO
-	Config.PumpState = home.AUTO
-	//runtime.se
-
-}
 
 func main() {
 

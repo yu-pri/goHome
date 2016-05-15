@@ -59,7 +59,13 @@ func heat(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, errr.Error(), http.StatusInternalServerError)
 	}
 
-	err := manageHeater(&currentState)
+	conf.HeaterState = home.GetHeatMode()
+	err := conf.saveConfig()
+	if err != nil {
+		log.Println("Cannot save config: ", err.Error())
+	}
+
+	err = manageHeater(&currentState)
 	if err != nil {
 		http.Error(w, errr.Error(), http.StatusInternalServerError)
 		return
