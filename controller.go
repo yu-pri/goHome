@@ -168,7 +168,7 @@ func main() {
 	}
 	//done TODO
 
-	stop := scheduleBackup(backupHistoryData, time.Duration(INTERVAL)*time.Second, &historyData, HISTORYDATASERIAL)
+	stop := scheduleBackup(backupHistoryData, time.Duration(INTERVAL*60)*time.Second, &historyData, HISTORYDATASERIAL)
 
 	err = http.ListenAndServe(":1234", nil)
 	if err != nil {
