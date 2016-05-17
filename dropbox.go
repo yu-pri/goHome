@@ -3,7 +3,6 @@ package main
 import (
 	"goHome/home"
 	"log"
-	"testing"
 	"time"
 
 	"github.com/stacktic/dropbox"
@@ -24,7 +23,7 @@ func init() {
 
 	// 3. Provide the user token.
 	DB.SetAccessToken(home.DropboxToken)
-	scheduleBackup(backupHistoryData, time.Duration(INTERVAL*10)*time.Second, &historyData, HISTORYDATASERIAL)
+	//scheduleBackup(backupHistoryData, time.Duration(INTERVAL*10)*time.Second, &historyData, HISTORYDATASERIAL)
 }
 
 func scheduleBackup(what func(*home.HistoryData, string), delay time.Duration,
@@ -58,6 +57,7 @@ func backupHistoryData(q *home.HistoryData, local string) {
 /*
 TestUploadDropbox - test case for file upload
 */
+/*
 func TestUploadDropbox(t *testing.T) {
 	tt := &home.HData{}
 	tt.TempOutside = 10
@@ -77,3 +77,4 @@ func TestUploadDropbox(t *testing.T) {
 
 	backupHistoryData(&h, fname)
 }
+*/
