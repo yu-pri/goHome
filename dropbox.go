@@ -49,7 +49,7 @@ func scheduleBackup(what func(*home.HistoryData, string), delay time.Duration,
 func backupHistoryData(q *home.HistoryData, local string) {
 	historyData.SerializeToFile(local)
 
-	if _, err := DB.UploadFile(local, "/backup", true, "main"); err != nil {
+	if _, err := DB.UploadFile(local, "/backup", true, "1"); err != nil {
 		log.Printf("Error uploading %s: %s\n", local, err)
 	} else {
 		log.Printf("File %s successfully uploaded\n", local)
