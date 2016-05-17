@@ -23,7 +23,7 @@ const configFileName = "/etc/goHome.conf"
 /*
 HISTORYDATASERIAL file which contains history data for my home
 */
-const HISTORYDATASERIAL = "/tmp/goHomeHistoryData.b64"
+const HISTORYDATASERIAL = "/home/pi/goHomeHistoryData.b64"
 
 /*
 SENSORS  Sensors exists
@@ -101,6 +101,9 @@ func main() {
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt)
 	signal.Notify(c, syscall.SIGTERM)
+	signal.Notify(c, os.Kill)
+	signal.Notify(c, syscall.SIGABRT)
+
 	go func() {
 		<-c
 		log.Println("Save history data...")
@@ -119,6 +122,7 @@ func main() {
 			if SENSORS {
 				reportSensors(sensors)
 			}
+
 		})
 	}
 

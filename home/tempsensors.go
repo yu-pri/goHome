@@ -52,10 +52,7 @@ func NewSensors() (*Sensors, error) {
 InternalSensor returns temperature from internal sensor
 */
 func (s Sensors) InternalSensor() (float32, error) {
-	err := s.Temp.Update()
-	if err != nil {
-		return -100, err
-	}
+	//err := s.Temp.Update()
 
 	temp, err := s.Temp.ReadSingleAlias("int")
 
@@ -66,10 +63,7 @@ func (s Sensors) InternalSensor() (float32, error) {
 ReverseSensor returns temperature from internal sensor
 */
 func (s Sensors) ReverseSensor() (float32, error) {
-	err := s.Temp.Update()
-	if err != nil {
-		return -100, err
-	}
+	//err := s.Temp.Update()
 
 	temp, err := s.Temp.ReadSingleAlias("rev")
 
@@ -80,10 +74,7 @@ func (s Sensors) ReverseSensor() (float32, error) {
 EntryRoomSensor returns temperature from internal sensor
 */
 func (s Sensors) EntryRoomSensor() (float32, error) {
-	err := s.Temp.Update()
-	if err != nil {
-		return -100, err
-	}
+	//err := s.Temp.Update()
 
 	temp, err := s.Temp.ReadSingleAlias("entry")
 
@@ -94,10 +85,7 @@ func (s Sensors) EntryRoomSensor() (float32, error) {
 HeaterSensor returns temperature from internal sensor
 */
 func (s Sensors) HeaterSensor() (float32, error) {
-	err := s.Temp.Update()
-	if err != nil {
-		return -100, err
-	}
+	//err := s.Temp.Update()
 
 	temp, err := s.Temp.ReadSingleAlias("heater")
 

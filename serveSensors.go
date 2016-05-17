@@ -24,6 +24,11 @@ func reportSensors(s *home.Sensors) {
 		}
 	*/
 
+	err = s.Temp.Update()
+	if err != nil {
+		log.Println(err.Error())
+	}
+
 	/*report to Cloud*/
 	err = home.IOTReportTempInternal(v)
 	if err != nil {

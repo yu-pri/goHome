@@ -5,13 +5,14 @@ TODO:
 + rewrite logic on/off/auto pump and heater
 
 + scheduling to manage from command line
++ save configuration state between reboots
 
 - handle gobot interruption (set relay to initial state)
-- save configuration state between reboots
-- remove older data from history (older that 24hrs - leave each 60th record)
+
 - replace relay to more reliable
 - gas/fog control (2 points)
 - report all variables to cloud
+- refactor code to move code from root
 
 - notification sending (email/sms)
  - pump off, but heater temperature is higher (sms)

@@ -21,6 +21,21 @@ const (
 )
 
 /*
+DropboxClientid - client id
+*/
+const DropboxClientid = "mhde2yglerq0gcz"
+
+/*
+DropboxClientsecret - secret
+*/
+const DropboxClientsecret = "xz44arsbpb8yrtu"
+
+/*
+DropboxToken - token
+*/
+const DropboxToken = "wFGCDkkgII0AAAAAAAAHFuWXLOZ5uYabVctDUrRQk2XLEzEYihg2XjgyHlGVBIrE"
+
+/*
 HeaterPumpRunThreshold Run heater pump, stop heater pumb if temp 5 degree less
 */
 const HeaterPumpRunThreshold = 30
