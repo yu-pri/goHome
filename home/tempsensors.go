@@ -43,6 +43,8 @@ func NewSensors() (*Sensors, error) {
 
 	//TODO: More sensors should be declared here
 
+	s.Update()
+
 	return &Sensors{
 		Temp: *s,
 	}, err

@@ -10,6 +10,8 @@ import (
 ReportInternalSensor reports Sensors to web app and cloud
 */
 func reportSensors(s *home.Sensors) {
+	err := s.Temp.Update()
+
 	v, err := s.InternalSensor()
 	if err != nil {
 		home.ReportAlert(err.Error(), "Cannot get internal Temp")
@@ -24,7 +26,6 @@ func reportSensors(s *home.Sensors) {
 		}
 	*/
 
-	err = s.Temp.Update()
 	if err != nil {
 		log.Println(err.Error())
 	}
