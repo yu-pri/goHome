@@ -51,6 +51,8 @@ var currentState home.HData
 var historyData home.HistoryData
 var sensors *home.Sensors
 
+//var stop chan bool
+
 func main() {
 
 	err := conf.loadConfig()
@@ -58,7 +60,6 @@ func main() {
 		log.Println("Likely use default configuration")
 	}
 
-	//var stop chan bool
 	gbot := gobot.NewGobot()
 
 	conns = socketConns{make(map[int32]*websocket.Conn), &sync.Mutex{}}
