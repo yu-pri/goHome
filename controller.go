@@ -114,12 +114,14 @@ func main() {
 		os.Exit(1)
 	}()
 
+	//stop = schedule(reportSensors, time.Duration(INTERVAL)*time.Second, sensors)
+	//      led.Toggle()
+
 	work := func() {
 		//defer home.Stop()
 		gobot.Every(time.Duration(INTERVAL)*time.Second, func() {
 			log.Println("gobot heartbeat")
-			//stop = schedule(reportSensors, time.Duration(INTERVAL)*time.Second, sensors)
-			//      led.Toggle()
+
 			if SENSORS {
 				reportSensors(sensors)
 			}
@@ -166,12 +168,42 @@ func main() {
 	}
 	//done TODO
 
+	stop := scheduleBackup(backupHistoryData, time.Duration(INTERVAL)*time.Second, &historyData, HISTORYDATASERIAL)
+
 	err = http.ListenAndServe(":1234", nil)
 	if err != nil {
 		panic("ListenAndServe: " + err.Error())
 	}
 
-	//if stop != nil {
-	//	stop <- true
-	//}
+	if stop != nil {
+		stop <- true
+	}
+}
+
+func scheduleBackup(what func(*home.HistoryData, string), delay time.Duration,
+	q *home.HistoryData, l string) chan bool {
+	stop := make(chan bool)
+
+	go func() {
+		for {
+			what(q, l)
+			select {
+			case <-time.After(delay):
+			case <-stop:
+				return
+			}
+		}
+	}()
+
+	return stop
+}
+
+func backupHistoryData(q *home.HistoryData, local string) {
+	historyData.SerializeToFile(local)
+
+	if _, err := DB.UploadFile(local, "/backup/goHome.b64", true, ""); err != nil {
+		log.Printf("Error uploading %s: %s\n", local, err)
+	} else {
+		log.Printf("File %s successfully uploaded\n", local)
+	}
 }

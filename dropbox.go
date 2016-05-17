@@ -2,8 +2,6 @@ package main
 
 import (
 	"goHome/home"
-	"log"
-	"time"
 
 	"github.com/stacktic/dropbox"
 )
@@ -23,35 +21,7 @@ func init() {
 
 	// 3. Provide the user token.
 	DB.SetAccessToken(home.DropboxToken)
-	//scheduleBackup(backupHistoryData, time.Duration(INTERVAL*10)*time.Second, &historyData, HISTORYDATASERIAL)
-}
 
-func scheduleBackup(what func(*home.HistoryData, string), delay time.Duration,
-	q *home.HistoryData, l string) chan bool {
-	stop := make(chan bool)
-
-	go func() {
-		for {
-			what(q, l)
-			select {
-			case <-time.After(delay):
-			case <-stop:
-				return
-			}
-		}
-	}()
-
-	return stop
-}
-
-func backupHistoryData(q *home.HistoryData, local string) {
-	historyData.SerializeToFile(local)
-
-	if _, err := DB.UploadFile(local, "/backup/goHome.b64", true, ""); err != nil {
-		log.Printf("Error uploading %s: %s\n", local, err)
-	} else {
-		log.Printf("File %s successfully uploaded\n", local)
-	}
 }
 
 /*
