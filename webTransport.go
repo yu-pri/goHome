@@ -39,11 +39,10 @@ func reportFloat(id string, t float32) error {
 			return err01
 		}
 
-		m, err02 := ws.Write(b)
+		_, err02 := ws.Write(b)
 		if err02 != nil {
 			return err02
 		}
-		log.Println(m)
 	}
 	return nil
 }
@@ -56,11 +55,10 @@ func reportCurrentState(dat *home.HData) error {
 		return errs
 	}
 	for _, ws := range conns.ws {
-		m, err02 := ws.Write(d)
+		_, err02 := ws.Write(d)
 		if err02 != nil {
 			return err02
 		}
-		log.Println(m)
 	}
 
 	return nil

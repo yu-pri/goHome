@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"goHome/home"
 	"log"
 	"sync"
@@ -46,21 +45,13 @@ func echoHandler(ws *websocket.Conn) {
 		}
 
 		x := new(MsgCommand)
-		fmt.Printf("Receive: %s\n", msg[:n])
+		log.Printf("Receive: %s\n", msg[:n])
 		if err := json.NewDecoder(bytes.NewReader(msg)).Decode(x); err == nil {
 			execute(x)
 		} else {
 			log.Println(err)
 		}
 
-		/*
-			m, err := ws.Write(msg[:n])
-			if err != nil {
-				log.Println(err)
-				return
-			}
-			fmt.Printf("Send: %s\n", msg[:m])
-		*/
 	}
 }
 
@@ -94,7 +85,6 @@ func relHandler(ws *websocket.Conn) {
 
 	msg := make([]byte, 512)
 	for {
-
 		n, err := ws.Read(msg)
 		if err != nil {
 			log.Println(err)
@@ -102,7 +92,7 @@ func relHandler(ws *websocket.Conn) {
 		}
 
 		x := new(MsgCommand)
-		fmt.Printf("Receive: %s\n", msg[:n])
+		log.Printf("Receive: %s\n", msg[:n])
 		if err := json.NewDecoder(bytes.NewReader(msg)).Decode(x); err == nil {
 			execute(x)
 		} else {
