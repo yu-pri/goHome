@@ -73,7 +73,7 @@ function wsConnect(wsurl, handler) {
     ws.onclose = function(evt) {
       ws = null;
       console.log('ws error: ' + evt.type);
-      setTimeout(wsConnect(wsurl, handler), 30000);
+      setTimeout(function(){wsConnect(wsurl, handler)}, 30000);
     };
 
     ws.onerror = function(evt) {
