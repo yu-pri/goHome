@@ -21,25 +21,26 @@ N.DataHandler.handle = function (msg) {
 function wsConnect(wsurl, handler) {
   var reopen = null;
   var ws = null;
-  
+
   if (ws) {
     ws.close(3001);
   } else {
     ws = new WebSocket(wsurl);
     ws.onopen = function() {
-      console.log("Connection" + wsurl + " Opened");
+      console.log("Connection: " + wsurl + " Opened");
       if (reopen) {
         clearInterval(reopen)
       }
     };
 
-    N.onmessage = function(msg) {
+    ws.onmessage = function(msg) {
       console.log(msg);
       handler(msg)
     };
 
     ws.onclose = function(evt) {
       ws = null;
+      console.log('ws error: ' + evt.type);
       reopen = setInterval(wsConnect, 3000, ws, wsurl, handler)
     };
 
