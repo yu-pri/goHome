@@ -5,7 +5,12 @@ N.DataHandler = new Object();
 N.TempDataHandler = new Object();
 
 N.openTempConn = function(){
-  N.ws = new WebSocket("ws://" + N.HOST + "/echo");
+  try {
+    N.ws = new WebSocket("ws://" + N.HOST + "/echo");
+  } catch (err) {
+    console.log(err.message)
+    setTimeout(N.openTempConn(), 3000);
+  }
 }
 
 N.openTempConn();
