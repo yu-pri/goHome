@@ -4,6 +4,56 @@ N.HOST = "alprihodko.asuscomm.com:1234";
 N.DataHandler = new Object();
 N.TempDataHandler = new Object();
 
+N.DataHandler.handle = function (msg) {
+  //alert(msg)
+  var o = JSON.parse(msg);
+
+  if (o.TempInside) {
+    N.TempDataHandler.callback(o);
+    updateChart(o);
+  } else {
+    console.log("nothing to do: " + o.TempInside);
+  }
+};
+
+//var N.ws = null;
+
+function wsConnect(wsurl, handler) {
+  var reopen = null;
+  var ws = null;
+  
+  if (ws) {
+    ws.close(3001);
+  } else {
+    ws = new WebSocket(wsurl);
+    ws.onopen = function() {
+      console.log("Connection" + wsurl + " Opened");
+      if (reopen) {
+        clearInterval(reopen)
+      }
+    };
+
+    N.onmessage = function(msg) {
+      console.log(msg);
+      handler(msg)
+    };
+
+    ws.onclose = function(evt) {
+      ws = null;
+      reopen = setInterval(wsConnect, 3000, ws, wsurl, handler)
+    };
+
+    ws.onerror = function(evt) {
+      if (_websocket.readyState == 1) {
+        console.log('ws error: ' + evt.type);
+      }
+    };
+  }
+}
+
+wsConnect("ws://" + N.HOST + "/echo", N.DataHandler.handle);
+
+/*
 N.openTempConn = function(){
   try {
     N.ws = new WebSocket("ws://" + N.HOST + "/echo");
@@ -15,19 +65,9 @@ N.openTempConn = function(){
 
 N.openTempConn();
 
+
 N.ws.onopen = function(){
     console.log("Connection Opened");
-    N.DataHandler.handle = function (msg) {
-      //alert(msg)
-      var o = JSON.parse(msg);
-
-      if (o.TempInside) {
-        N.TempDataHandler.callback(o);
-        updateChart(o);
-      } else {
-        console.log("nothing to do: " + o.TempInside);
-      }
-    };
 }
 
 N.ws.onmessage = function(e) {
@@ -44,7 +84,7 @@ N.ws.onerror = function(evt){
     console.log("The following error occurred: " + evt.data);
     N.ws.close();
 }
-
+*/
 
 
 var Ns = function(){};
