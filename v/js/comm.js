@@ -18,6 +18,42 @@ N.DataHandler.handle = function (msg) {
 
 //var N.ws = null;
 
+
+
+
+var Ns = function(){};
+Ns.DataHandler = new Object();
+Ns.Heat = new Object();
+Ns.Pump = new Object();
+
+
+Ns.DataHandler.handle = function (msg) {
+  //alert(msg)
+  var o = JSON.parse(msg);
+  switch (o.Type) {
+    case "pumpStateChanged":
+    Ns.Pump.callback(o);
+    break;
+
+    case "heatStateChanged":
+    Ns.Heat.callback(o);
+    break;
+
+  }
+};
+
+/*
+Ns.ws = new WebSocket("ws://" + N.HOST + "/relays");
+
+Ns.ws.onmessage = function(e) {
+    console.log("received:" + event.data);
+    Ns.DataHandler.handle(event.data);
+};
+*/
+
+wsConnect("ws://" + N.HOST + "/echo", N.DataHandler.handle);
+wsConnect("ws://" + N.HOST + "/relays", Ns.DataHandler.handle);
+
 function wsConnect(wsurl, handler) {
   var ws = null;
 
@@ -47,70 +83,6 @@ function wsConnect(wsurl, handler) {
     };
   }
 }
-
-wsConnect("ws://" + N.HOST + "/echo", N.DataHandler.handle);
-
-/*
-N.openTempConn = function(){
-  try {
-    N.ws = new WebSocket("ws://" + N.HOST + "/echo");
-  } catch (err) {
-    console.log(err.message);
-    setTimeout(N.openTempConn(), 3000);
-  }
-}
-
-N.openTempConn();
-
-
-N.ws.onopen = function(){
-    console.log("Connection Opened");
-}
-
-N.ws.onmessage = function(e) {
-    console.log("received:" + event.data);
-    N.DataHandler.handle(event.data);
-};
-
-N.ws.onclose = function(){
-    console.log("Sensor connection Closed");
-    setTimeout(N.openTempConn(), 3000);
-}
-
-N.ws.onerror = function(evt){
-    console.log("The following error occurred: " + evt.data);
-    N.ws.close();
-}
-*/
-
-
-var Ns = function(){};
-Ns.ws = new WebSocket("ws://" + N.HOST + "/relays");
-Ns.DataHandler = new Object();
-Ns.Heat = new Object();
-Ns.Pump = new Object();
-
-
-Ns.DataHandler.handle = function (msg) {
-  //alert(msg)
-  var o = JSON.parse(msg);
-  switch (o.Type) {
-    case "pumpStateChanged":
-    Ns.Pump.callback(o);
-    break;
-
-    case "heatStateChanged":
-    Ns.Heat.callback(o);
-    break;
-
-  }
-};
-
-Ns.ws.onmessage = function(e) {
-    console.log("received:" + event.data);
-    Ns.DataHandler.handle(event.data);
-};
-
 
 jQuery(function($) {
   var $bodyEl = $('body'),
