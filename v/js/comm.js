@@ -18,9 +18,12 @@ N.DataHandler.handle = function (msg) {
 
 //var N.ws = null;
 
-function wsConnect(wsurl, handler) {
+function wsConnect(w, h) {
   var reopen = null;
   var ws = null;
+
+  var wsurl = w;
+  var handler = h;
 
   if (ws) {
     ws.close(3001);
