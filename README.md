@@ -6,13 +6,12 @@ TODO:
 
 + scheduling to manage from command line
 + save configuration state between reboots
-
-- handle gobot interruption (set relay to initial state)
++ handle gobot interruption (set relay to initial state)
 
 - replace relay to more reliable
 - gas/fog control (2 points)
 - report all variables to cloud
-- refactor code to move code from root
+- show socket conn status and re-connect
 
 - notification sending (email/sms)
  - pump off, but heater temperature is higher (sms)

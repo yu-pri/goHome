@@ -1,29 +1,44 @@
 var N = function(){};
 N.HOST = "alprihodko.asuscomm.com:1234";
 
-
-N.ws = new WebSocket("ws://" + N.HOST + "/echo");
 N.DataHandler = new Object();
 N.TempDataHandler = new Object();
 
+N.openTempConn = function(){
+  N.ws = new WebSocket("ws://" + N.HOST + "/echo");
+}
 
-N.DataHandler.handle = function (msg) {
-  //alert(msg)
-  var o = JSON.parse(msg);
+N.openTempConn();
 
-  if (o.TempInside) {
-    N.TempDataHandler.callback(o);
-    updateChart(o);
-  } else {
-    console.log("nothing to do: " + o.TempInside);
-  }
+N.ws.onopen = function(){
+    console.log("Connection Opened");
+    N.DataHandler.handle = function (msg) {
+      //alert(msg)
+      var o = JSON.parse(msg);
 
-};
+      if (o.TempInside) {
+        N.TempDataHandler.callback(o);
+        updateChart(o);
+      } else {
+        console.log("nothing to do: " + o.TempInside);
+      }
+    };
+}
 
 N.ws.onmessage = function(e) {
     console.log("received:" + event.data);
     N.DataHandler.handle(event.data);
 };
+
+N.ws.onclose = function(){
+    console.log("Sensor connection Closed");
+    setTimeout(N.openTempConn(), 3000);
+}
+
+N.ws.onerror = function(evt){
+    console.log("The following error occurred: " + evt.data);
+    N.ws.close();
+}
 
 
 
