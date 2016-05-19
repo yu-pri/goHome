@@ -77,7 +77,7 @@ function wsConnect(wsurl, handler) {
     };
 
     ws.onerror = function(evt) {
-      if (_websocket.readyState == 1) {
+      if (ws.readyState == 1) {
         console.log('ws error: ' + evt.type);
       }
     };
