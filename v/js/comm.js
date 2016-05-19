@@ -35,7 +35,7 @@ function wsConnect(wsurl, handler) {
 
     ws.onmessage = function(msg) {
       console.log(msg);
-      handler(msg)
+      handler(msg.data);
     };
 
     ws.onclose = function(evt) {
