@@ -44,7 +44,7 @@ function wsConnect(w, h) {
     ws.onclose = function(evt) {
       ws = null;
       console.log('ws error: ' + evt.type);
-      reopen = setInterval(wsConnect, 3000, ws, wsurl, handler)
+      reopen = setInterval(wsConnect, 3000, wsurl, handler)
     };
 
     ws.onerror = function(evt) {
