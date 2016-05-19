@@ -8,7 +8,7 @@ N.openTempConn = function(){
   try {
     N.ws = new WebSocket("ws://" + N.HOST + "/echo");
   } catch (err) {
-    console.log(err.message)
+    console.log(err.message);
     setTimeout(N.openTempConn(), 3000);
   }
 }
