@@ -20,7 +20,7 @@ const (
 	entryRoomSensorID       = "28-0115a3752aff"
 	heaterSensorID          = "28-0115a32295ff"
 
-	iotDevURL             = "http://myhome.iot.touchpanelcontrol.com/v1"
+	iotDevURL             = "http://http://al.dev-iot.touchpanelcontrol.com/v1"
 	iotDevCloudAPIKey     = "e749e1c0-2a83-11e6-ad22-93a00e309078"
 	iotDevCloudHomeDevice = "Rasp01"
 	iotCloudEntry         = "entry"
