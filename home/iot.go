@@ -14,7 +14,7 @@ IOTReportValue Reports data to spark
 */
 func IOTReportValue(server string, key string, dev string, name string, v float32) error {
 	url := server + "/device/" + dev + "/var/" + name + "?apikey=" + key
-	fmt.Println("URL:>", url)
+	log.Println("URL:>", url)
 
 	/*
 		var jsonStr = []byte(`{"value":` + fmt.Sprintf("%f", v) + "}")

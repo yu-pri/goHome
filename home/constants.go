@@ -22,7 +22,7 @@ const (
 
 	iotDevURL             = "http://al.dev-iot.touchpanelcontrol.com/v1"
 	iotDevCloudAPIKey     = "e749e1c0-2a83-11e6-ad22-93a00e309078"
-	iotDevCloudHomeDevice = "Rasp01"
+	iotDevCloudHomeDevice = "r01"
 	iotCloudEntry         = "entry"
 	iotCloudHin           = "hin"
 	iotCloudHout          = "hout"
