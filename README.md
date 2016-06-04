@@ -12,6 +12,7 @@ TODO:
 - gas/fog control (2 points)
 - report all variables to cloud
 - show socket conn status and re-connect
+- migrate to chart.js
 
 - notification sending (email/sms)
  - pump off, but heater temperature is higher (sms)
