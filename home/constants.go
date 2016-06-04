@@ -26,8 +26,9 @@ const (
 	iotCloudEntry         = "entry"
 	iotCloudHin           = "hin"
 	iotCloudHout          = "hout"
-	iotCloudHpump         = "hpump"
 	iotCloudKitchen       = "kitchen"
+	iotCloudHeater        = "heater"
+	iotCloudPump          = "hpump"
 )
 
 /*
