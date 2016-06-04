@@ -12,8 +12,8 @@ import (
 /*
 IOTReportValue Reports data to spark
 */
-func IOTReportValue(dev string, name string, v float32) error {
-	url := iotURL + "/device/" + dev + "/var/" + name + "?apikey=" + iotCloudAPIKey
+func IOTReportValue(server string, key string, dev string, name string, v float32) error {
+	url := server + "/device/" + dev + "/var/" + name + "?apikey=" + key
 	fmt.Println("URL:>", url)
 
 	/*
@@ -54,6 +54,37 @@ func IOTReportValue(dev string, name string, v float32) error {
 IOTReportTempInternal Reports data to spark
 */
 func IOTReportTempInternal(v float32) error {
-	err := IOTReportValue(iotCloudHomeDevice, iotCloudInternalTempVar, v)
+	err := IOTReportValue(iotURL, iotCloudAPIKey, iotCloudHomeDevice, iotCloudInternalTempVar, v)
+	return err
+}
+
+/*
+IOTReportDev Reports data to spark
+*/
+func IOTReportDev(h HData) error {
+	err := IOTReportValue(iotDevURL, iotDevCloudAPIKey, iotDevCloudHomeDevice,
+		iotCloudEntry, h.TempEntryRoom)
+	if err != nil {
+		log.Println(err.Error())
+	}
+
+	err = IOTReportValue(iotDevURL, iotDevCloudAPIKey, iotDevCloudHomeDevice,
+		iotCloudKitchen, h.TempInside)
+	if err != nil {
+		log.Println(err.Error())
+	}
+
+	err = IOTReportValue(iotDevURL, iotDevCloudAPIKey, iotDevCloudHomeDevice,
+		iotCloudHout, h.TempHeater)
+	if err != nil {
+		log.Println(err.Error())
+	}
+
+	err = IOTReportValue(iotDevURL, iotDevCloudAPIKey, iotDevCloudHomeDevice,
+		iotCloudHin, h.TempReverse)
+	if err != nil {
+		log.Println(err.Error())
+	}
+
 	return err
 }

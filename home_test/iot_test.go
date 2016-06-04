@@ -16,6 +16,20 @@ func TestReportTempInternal(t *testing.T) {
 	}
 }
 
+func TestReportDev(t *testing.T) {
+	tt := &home.HData{}
+	tt.TempInside = 10.0
+	tt.TempEntryRoom = 20.3
+	tt.TempHeater = 20.2
+	tt.TempReverse = 20.1
+
+	got := home.IOTReportDev(*tt)
+	//t.Log(got)
+	if got != nil {
+		t.Error(got)
+	}
+}
+
 func TestHistoryToJSON(t *testing.T) {
 	tt := &home.HData{}
 	tt.TempOutside = 10

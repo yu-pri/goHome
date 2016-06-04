@@ -10,14 +10,24 @@ const (
 	phantPrivateTemp = "jkybBZw5j9F0xxmwWar1"
 	phantPublicTemp  = "rozL4pN5jMC466MKl8AE"
 
-	iotURL                  = "http://myhome.iot.touchpanelcontrol.com/v1"
-	iotCloudAPIKey          = "35d1d4d0-f80f-11e5-83f9-7d8483cd58bb"
-	iotCloudHomeDevice      = "pi"
+	iotURL             = "http://myhome.iot.touchpanelcontrol.com/v1"
+	iotCloudAPIKey     = "35d1d4d0-f80f-11e5-83f9-7d8483cd58bb"
+	iotCloudHomeDevice = "pi"
+
 	iotCloudInternalTempVar = "tempInternal"
 	internalSensorID        = "28-0315a14596ff"
 	reverseSensorID         = "28-0115a32c38ff"
 	entryRoomSensorID       = "28-0115a3752aff"
 	heaterSensorID          = "28-0115a32295ff"
+
+	iotDevURL             = "http://myhome.iot.touchpanelcontrol.com/v1"
+	iotDevCloudAPIKey     = "e749e1c0-2a83-11e6-ad22-93a00e309078"
+	iotDevCloudHomeDevice = "Rasp01"
+	iotCloudEntry         = "entry"
+	iotCloudHin           = "hin"
+	iotCloudHout          = "hout"
+	iotCloudHpump         = "hpump"
+	iotCloudKitchen       = "kitchen"
 )
 
 /*
