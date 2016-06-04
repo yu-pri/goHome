@@ -17,7 +17,6 @@ func reportSensors(s *home.Sensors) {
 		home.ReportAlert(err.Error(), "Cannot get internal Temp")
 	}
 	log.Println("\t", v)
-
 	/*report to Phant*/
 	/*
 		err = home.ReportInternalTemp(v)
@@ -77,6 +76,10 @@ func reportSensors(s *home.Sensors) {
 	//x.Timestamp = int(time.Now().Unix())
 
 	historyData.Push(&x)
+	err = home.IOTReportDev(x)
+	if err != nil {
+		home.ReportAlert(err.Error(), "Cannot report values to dev server")
+	}
 }
 
 func schedule(what func(*home.Sensors), delay time.Duration, s *home.Sensors) chan bool {

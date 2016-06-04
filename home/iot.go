@@ -66,24 +66,28 @@ func IOTReportDev(h HData) error {
 		iotCloudEntry, h.TempEntryRoom)
 	if err != nil {
 		log.Println(err.Error())
+		return err
 	}
 
 	err = IOTReportValue(iotDevURL, iotDevCloudAPIKey, iotDevCloudHomeDevice,
 		iotCloudKitchen, h.TempInside)
 	if err != nil {
 		log.Println(err.Error())
+		return err
 	}
 
 	err = IOTReportValue(iotDevURL, iotDevCloudAPIKey, iotDevCloudHomeDevice,
 		iotCloudHout, h.TempHeater)
 	if err != nil {
 		log.Println(err.Error())
+		return err
 	}
 
 	err = IOTReportValue(iotDevURL, iotDevCloudAPIKey, iotDevCloudHomeDevice,
 		iotCloudHin, h.TempReverse)
 	if err != nil {
 		log.Println(err.Error())
+		return err
 	}
 
 	return err
