@@ -57,15 +57,11 @@ func IOTReportBoolValue(server string, key string, dev string, name string, v bo
 	url := server + "/device/" + dev + "/var/" + name + "?apikey=" + key
 	log.Println("URL:>", url)
 
-	/*
-		var jsonStr = []byte(`{"value":` + fmt.Sprintf("%f", v) + "}")
-
-		req, err := http.NewRequest("PUT", url, bytes.NewBuffer(jsonStr))
-	*/
-	//var jsonStr = []byte()
-	//fmt.Sprintf("%f", v)
 	jsonStr := "{\"value\":" + fmt.Sprintf("%t", v) + "}"
+	log.Println(jsonStr)
+
 	req, err := http.NewRequest("PUT", url, strings.NewReader(jsonStr))
+
 	req.Header.Add("Content-Type", "application/json")
 
 	if err != nil {
