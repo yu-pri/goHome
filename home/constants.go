@@ -21,7 +21,7 @@ const (
 	heaterSensorID          = "28-0115a32295ff"
 
 	iotDevURL             = "http://al.dev-iot.touchpanelcontrol.com/v1"
-	iotDevCloudAPIKey     = "e749e1c0-2a83-11e6-ad22-93a00e309078"
+	iotDevCloudAPIKey     = "ea85d840-2a96-11e6-b9d4-e7f016c54c9f"
 	iotDevCloudHomeDevice = "r01"
 	iotCloudEntry         = "entry"
 	iotCloudHin           = "hin"
