@@ -126,20 +126,20 @@ func IOTReportDev(h HData) error {
 		log.Println(err.Error())
 		return err
 	}
+	/*
+		err = IOTReportBoolValue(iotDevURL, iotDevCloudAPIKey, iotDevCloudHomeDevice,
+			iotCloudHeater, h.HeaterState)
+		if err != nil {
+			log.Println(err.Error())
+			return err
+		}
 
-	err = IOTReportBoolValue(iotDevURL, iotDevCloudAPIKey, iotDevCloudHomeDevice,
-		iotCloudHeater, h.HeaterState)
-	if err != nil {
-		log.Println(err.Error())
-		return err
-	}
-
-	err = IOTReportBoolValue(iotDevURL, iotDevCloudAPIKey, iotDevCloudHomeDevice,
-		iotCloudPump, h.PumpState)
-	if err != nil {
-		log.Println(err.Error())
-		return err
-	}
-
+		err = IOTReportBoolValue(iotDevURL, iotDevCloudAPIKey, iotDevCloudHomeDevice,
+			iotCloudPump, h.PumpState)
+		if err != nil {
+			log.Println(err.Error())
+			return err
+		}
+	*/
 	return err
 }
