@@ -14,6 +14,9 @@ const (
 	OFF = "Off"
 	/*AUTO constant*/
 	AUTO = "Auto"
+
+	/*TESTS emanbles test mode*/
+	TESTS = true
 )
 
 var r = raspi.NewRaspiAdaptor("raspi")
@@ -41,16 +44,17 @@ func Stop() {
 
 func init() {
 	log.Println("Set init state for relays")
-	err := OffHeat()
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+	if !TESTS {
+		err := OffHeat()
+		if err != nil {
+			log.Fatal(err.Error())
+		}
 
-	err = OnHeatPump()
-	if err != nil {
-		log.Fatal(err.Error())
+		err = OnHeatPump()
+		if err != nil {
+			log.Fatal(err.Error())
+		}
 	}
-
 }
 
 //TODO: more relays can be served here :-)

@@ -127,6 +127,23 @@ func main() {
 			}
 
 		})
+
+		gobot.On(kitchenSmokeAlarm.Event("push"), func(data interface{}) {
+			log.Println("Smoke alarm in kitchen: On")
+		})
+
+		gobot.On(kitchenSmokeAlarm.Event("release"), func(data interface{}) {
+			log.Println("Smoke alarm in kitchen: Off")
+		})
+
+		gobot.On(saunaSmokeAlarm.Event("push"), func(data interface{}) {
+			log.Println("Smoke alarm in kitchen: On")
+		})
+
+		gobot.On(saunaSmokeAlarm.Event("release"), func(data interface{}) {
+			log.Println("Smoke alarm in kitchen: Off")
+		})
+
 	}
 
 	//TODO: more relays here
