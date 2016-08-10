@@ -23,5 +23,4 @@ TODO:
 Far planes
 - boiler control
 - power consumption monitor
-- door sensors
 - light control

@@ -71,6 +71,14 @@ func main() {
 	flag.IntVar(&INTERVAL, "timeout", 60, "Timeout?")
 	flag.Parse()
 
+	if os.Getenv("SENSORS") == "1" {
+		SENSORS = true
+	}
+
+	if os.Getenv("SENSORS") == "0" {
+		SENSORS = false
+	}
+
 	if SENSORS {
 		var errs error
 		sensors, errs = home.NewSensors()
@@ -128,20 +136,40 @@ func main() {
 
 		})
 
-		gobot.On(kitchenSmokeAlarm.Event("push"), func(data interface{}) {
+		gobot.On(home.SmokeAlarmKitchen.Event("push"), func(data interface{}) {
 			log.Println("Smoke alarm in kitchen: On")
+			err = home.Sms("Test", "Smoke/Gas detected in Kitchen", home.Recipients)
+			if err != nil {
+				log.Println(err.Error())
+			}
+			home.ReportAlert("Something is really not OK", "Smoke/Gas detected in the Kitchen")
 		})
 
-		gobot.On(kitchenSmokeAlarm.Event("release"), func(data interface{}) {
+		gobot.On(home.SmokeAlarmKitchen.Event("release"), func(data interface{}) {
 			log.Println("Smoke alarm in kitchen: Off")
+			err = home.Sms("Test", "Smoke/Gas in the Kitchen - all good", home.Recipients)
+			if err != nil {
+				log.Println(err.Error())
+			}
+			home.ReportAlert("Now it's better", "Smoke/Gas in the Kitchen - all good")
 		})
 
-		gobot.On(saunaSmokeAlarm.Event("push"), func(data interface{}) {
-			log.Println("Smoke alarm in kitchen: On")
+		gobot.On(home.SmokeAlarmSauna.Event("push"), func(data interface{}) {
+			log.Println("Smoke alarm in sauna: On")
+			err = home.Sms("Test", "Smoke/Gas detected in the Sauna", home.Recipients)
+			if err != nil {
+				log.Println(err.Error())
+			}
+			home.ReportAlert("Something is really not OK", "Smoke/Gas detected in the Sauna")
 		})
 
-		gobot.On(saunaSmokeAlarm.Event("release"), func(data interface{}) {
-			log.Println("Smoke alarm in kitchen: Off")
+		gobot.On(home.SmokeAlarmSauna.Event("release"), func(data interface{}) {
+			log.Println("Smoke alarm in sauna: Off")
+			err = home.Sms("Test", "Smoke/Gas in the Sauna - all good", home.Recipients)
+			if err != nil {
+				log.Println(err.Error())
+			}
+			home.ReportAlert("Now it's better", "Smoke/Gas in the Sauna - all good")
 		})
 
 	}

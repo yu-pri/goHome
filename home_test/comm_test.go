@@ -18,7 +18,7 @@ func TestSmsFail(t *testing.T) {
 func TestSmsOk(t *testing.T) {
 	recipients := []string{"380939760324"}
 	t.Log("Stat successful test")
-	err := home.Sms("TTest", "hey here", recipients)
+	err := home.Sms("Test", "hey here", recipients)
 	if err != nil {
 		t.Error(err)
 	}

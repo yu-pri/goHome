@@ -2,6 +2,7 @@ package home
 
 import (
 	"log"
+	"os"
 	//"github.com/hybridgroup/gobot"
 	"github.com/hybridgroup/gobot/platforms/gpio"
 	"github.com/hybridgroup/gobot/platforms/raspi"
@@ -16,7 +17,7 @@ const (
 	AUTO = "Auto"
 
 	/*TESTS emanbles test mode*/
-	TESTS = true
+	//TESTS = true
 )
 
 var r = raspi.NewRaspiAdaptor("raspi")
@@ -25,6 +26,11 @@ var relHeat = gpio.NewLedDriver(r, "led", "12")
 
 var heatMode = AUTO
 var heatPumpMode = AUTO
+
+/*
+SENSORS is sensors available? export SENSORS=0 run app in test mode without sensors
+*/
+var SENSORS = os.Getenv("SENSORS")
 
 /*
 Stop - Set relays to default position
@@ -44,7 +50,7 @@ func Stop() {
 
 func init() {
 	log.Println("Set init state for relays")
-	if !TESTS {
+	if SENSORS != "0" {
 		err := OffHeat()
 		if err != nil {
 			log.Fatal(err.Error())
