@@ -138,51 +138,6 @@ func main() {
 
 	}
 
-	gobot.On(home.SmokeAlarmKitchen.Event("release"), func(data interface{}) {
-		log.Println("Smoke alarm in the kitchen: On")
-		/*
-			err = home.Sms("Test", "Smoke/Gas detected in the Kitchen", home.Recipients)
-			if err != nil {
-				log.Println(err.Error())
-			}
-			home.ReportAlert("Something is really not OK", "Smoke/Gas detected in the Kitchen")
-		*/
-	})
-
-	gobot.On(home.SmokeAlarmKitchen.Event("push"), func(data interface{}) {
-		log.Println("Smoke alarm in the kitchen: Off")
-		/*
-			err = home.Sms("Test", "Smoke/Gas in the Kitchen - all good", home.Recipients)
-			if err != nil {
-				log.Println(err.Error())
-			}
-			home.ReportAlert("Now it's better", "Smoke/Gas in the Kitchen - all good")
-		*/
-	})
-
-	gobot.On(home.SmokeAlarmSauna.Event("release"), func(data interface{}) {
-		log.Println("Smoke alarm in the Sauna: On")
-		/*
-			err = home.Sms("Test", "Smoke/Gas detected in the Sauna", home.Recipients)
-			if err != nil {
-				log.Println(err.Error())
-			}
-			home.ReportAlert("Something is really not OK", "Smoke/Gas detected in the Sauna")
-		*/
-	})
-
-	gobot.On(home.SmokeAlarmSauna.Event("push"), func(data interface{}) {
-		log.Println("Smoke alarm in the Sauna: Off")
-
-		/*
-			err = home.Sms("Test", "Smoke/Gas in Sauna - all good", home.Recipients)
-			if err != nil {
-				log.Println(err.Error())
-			}
-			home.ReportAlert("Now it's better", "Smoke/Gas in Sauna - all good")
-		*/
-	})
-
 	//TODO: more relays here
 	//home.GetHeat2(),
 	//home.GetRelHeatMotor2()
