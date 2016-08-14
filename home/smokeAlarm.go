@@ -2,6 +2,7 @@ package home
 
 import (
 	"log"
+	"time"
 
 	"github.com/hybridgroup/gobot"
 	"github.com/hybridgroup/gobot/platforms/gpio"
@@ -9,6 +10,8 @@ import (
 
 var firstTimeKitchen = true
 var firstTimeSauna = true
+var alarmTimeSauna int32
+var alarmTimeKitchen int32
 
 /*
 SmokeAlarmKitchen smoke/gas sensor in the kitchen
@@ -23,6 +26,14 @@ var SmokeAlarmSauna = gpio.NewButtonDriver(r, "alm2", "18") //24
 func init() {
 	log.Println("Initialise smoke alarms")
 	gobot.On(SmokeAlarmKitchen.Event("release"), func(data interface{}) {
+		now := int32(time.Now().Unix())
+		log.Println(now - alarmTimeKitchen)
+		if (now - alarmTimeKitchen) < 10 {
+			return
+		}
+
+		alarmTimeKitchen = now
+
 		log.Println("Smoke alarm in the kitchen: On")
 		/*
 			err = home.Sms("Test", "Smoke/Gas detected in the Kitchen", home.Recipients)
