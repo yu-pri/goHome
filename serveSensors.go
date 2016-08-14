@@ -16,7 +16,7 @@ func reportSensors(s *home.Sensors) {
 	if err != nil {
 		home.ReportAlert(err.Error(), "Cannot get internal Temp")
 	}
-	log.Println("\t", v)
+	//log.Println("\t", v)
 	/*report to Phant*/
 	/*
 		err = home.ReportInternalTemp(v)
@@ -41,19 +41,19 @@ func reportSensors(s *home.Sensors) {
 	if err != nil {
 		log.Println(err.Error())
 	}
-	log.Println("reverse \t", reverse)
+	//log.Println("reverse \t", reverse)
 
 	entry, err := s.EntryRoomSensor()
 	if err != nil {
 		log.Println(err.Error())
 	}
-	log.Println("entry \t", entry)
+	//log.Println("entry \t", entry)
 
 	heater, err := s.HeaterSensor()
 	if err != nil {
 		log.Println(err.Error())
 	}
-	log.Println("heater \t", entry)
+	//log.Println("heater \t", entry)
 
 	//x := &home.HData{}
 	currentState.TempInside = v

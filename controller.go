@@ -128,7 +128,7 @@ func main() {
 	work := func() {
 		//defer home.Stop()
 		gobot.Every(time.Duration(INTERVAL)*time.Second, func() {
-			log.Println("gobot heartbeat")
+			//log.Println("gobot heartbeat")
 
 			if SENSORS {
 				reportSensors(sensors)
