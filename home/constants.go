@@ -112,4 +112,4 @@ CommandOffHeater2  command to toggle
 const CommandOffHeater2 = "offHeaterr2"
 
 /*Recipients is SMS recipients*/
-var Recipients = []string{"380939760324", "380939760324", "380934735304"}
+var Recipients = []string{"380939760324"}

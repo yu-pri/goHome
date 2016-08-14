@@ -10,14 +10,14 @@ TODO:
 + show socket conn status and re-connect
 
 + replace relay to more reliable
-- gas/fog control (2 points)
-- report all variables to cloud
++ fog/gas (sms)
++ gas/fog control (2 points)
+? report all variables to cloud
 
 - notification sending (email/sms)
  - pump off, but heater temperature is higher (sms)
  - too cold notification (sms)
  - system about freezing (sms)
- - fog/gas (sms)
 
 
 Far planes
