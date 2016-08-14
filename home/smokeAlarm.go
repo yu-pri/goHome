@@ -28,7 +28,7 @@ func init() {
 	gobot.On(SmokeAlarmKitchen.Event("release"), func(data interface{}) {
 		now := int32(time.Now().Unix())
 		log.Println(now - alarmTimeKitchen)
-		if (now - alarmTimeKitchen) < 1 {
+		if (now - alarmTimeKitchen) < 2 {
 			return
 		}
 
@@ -51,6 +51,10 @@ func init() {
 		}
 
 		now := int32(time.Now().Unix())
+		if (now - alarmTimeKitchen) < 2 {
+			return
+		}
+
 		alarmTimeKitchen = now
 
 		log.Println("Smoke alarm in the kitchen: Off")
