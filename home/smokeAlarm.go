@@ -1,7 +1,6 @@
 package home
 
 import (
-	"goHome/home"
 	"log"
 	"time"
 
@@ -36,7 +35,7 @@ func init() {
 
 		log.Println("Smoke alarm in the kitchen: On")
 
-		err = home.Sms("Test", "Smoke/Gas detected in the Kitchen", home.Recipients)
+		err := Sms("Test", "Smoke/Gas detected in the Kitchen", Recipients)
 		if err != nil {
 			log.Println(err.Error())
 		}
@@ -59,7 +58,7 @@ func init() {
 
 		log.Println("Smoke alarm in the kitchen: Off")
 
-		err = home.Sms("Test", "Smoke/Gas in the Kitchen - all good", home.Recipients)
+		err := Sms("Test", "Smoke/Gas in the Kitchen - all good", Recipients)
 		if err != nil {
 			log.Println(err.Error())
 		}
@@ -78,12 +77,12 @@ func init() {
 
 		log.Println("Smoke alarm in the Sauna: On")
 
-		err = home.Sms("Test", "Smoke/Gas detected in the Sauna", home.Recipients)
+		err := Sms("Test", "Smoke/Gas detected in the Sauna", Recipients)
 		if err != nil {
 			log.Println(err.Error())
 		}
 
-		home.ReportAlert("Something is really not OK", "Smoke/Gas detected in the Sauna")
+		ReportAlert("Something is really not OK", "Smoke/Gas detected in the Sauna")
 
 	})
 
@@ -102,11 +101,11 @@ func init() {
 
 		log.Println("Smoke alarm in the Sauna: Off")
 
-		err = home.Sms("Test", "Smoke/Gas in Sauna - all good", home.Recipients)
+		err := Sms("Test", "Smoke/Gas in Sauna - all good", Recipients)
 		if err != nil {
 			log.Println(err.Error())
 		}
-		home.ReportAlert("Now it's better", "Smoke/Gas in Sauna - all good")
+		ReportAlert("Now it's better", "Smoke/Gas in Sauna - all good")
 
 	})
 }
