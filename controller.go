@@ -179,7 +179,8 @@ func main() {
 	//home.GetRelHeatMotor2()
 	robot := gobot.NewRobot("blinkBot",
 		[]gobot.Connection{home.GetRelayAdaptor()},
-		[]gobot.Device{home.GetRelHeat(), home.GetRelHeatPump()},
+		[]gobot.Device{home.GetRelHeat(), home.GetRelHeatPump(),
+			home.SmokeAlarmSauna, home.SmokeAlarmKitchen},
 		work,
 	)
 
