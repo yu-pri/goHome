@@ -1,7 +1,6 @@
 package home
 
 import (
-	"goHome/home"
 	"log"
 
 	"github.com/hybridgroup/gobot"
@@ -23,7 +22,7 @@ var SmokeAlarmSauna = gpio.NewButtonDriver(r, "alm2", "18") //24
 
 func init() {
 	log.Println("Initialise smoke alarms")
-	gobot.On(home.SmokeAlarmKitchen.Event("release"), func(data interface{}) {
+	gobot.On(SmokeAlarmKitchen.Event("release"), func(data interface{}) {
 		log.Println("Smoke alarm in the kitchen: On")
 		/*
 			err = home.Sms("Test", "Smoke/Gas detected in the Kitchen", home.Recipients)
@@ -34,7 +33,11 @@ func init() {
 		*/
 	})
 
-	gobot.On(home.SmokeAlarmKitchen.Event("push"), func(data interface{}) {
+	gobot.On(SmokeAlarmKitchen.Event("push"), func(data interface{}) {
+		if firstTimeKitchen {
+			firstTimeKitchen = false
+			return
+		}
 		log.Println("Smoke alarm in the kitchen: Off")
 		/*
 			err = home.Sms("Test", "Smoke/Gas in the Kitchen - all good", home.Recipients)
@@ -45,7 +48,8 @@ func init() {
 		*/
 	})
 
-	gobot.On(home.SmokeAlarmSauna.Event("release"), func(data interface{}) {
+	gobot.On(SmokeAlarmSauna.Event("release"), func(data interface{}) {
+
 		log.Println("Smoke alarm in the Sauna: On")
 		/*
 			err = home.Sms("Test", "Smoke/Gas detected in the Sauna", home.Recipients)
@@ -57,9 +61,13 @@ func init() {
 		*/
 	})
 
-	gobot.On(home.SmokeAlarmSauna.Event("push"), func(data interface{}) {
-		log.Println("Smoke alarm in the Sauna: Off")
+	gobot.On(SmokeAlarmSauna.Event("push"), func(data interface{}) {
+		if firstTimeSauna {
+			firstTimeSauna = false
+			return
+		}
 
+		log.Println("Smoke alarm in the Sauna: Off")
 		/*
 			err = home.Sms("Test", "Smoke/Gas in Sauna - all good", home.Recipients)
 			if err != nil {
