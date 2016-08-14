@@ -30,10 +30,12 @@ func reportSensors(s *home.Sensors) {
 	}
 
 	/*report to Cloud*/
-	err = home.IOTReportTempInternal(v)
-	if err != nil {
-		home.ReportAlert(err.Error(), "Cannot report internal Temp to IOT Cloud")
-	}
+	/*
+		err = home.IOTReportTempInternal(v)
+		if err != nil {
+			home.ReportAlert(err.Error(), "Cannot report internal Temp to IOT Cloud")
+		}
+	*/
 
 	reverse, err := s.ReverseSensor()
 	if err != nil {
@@ -76,10 +78,12 @@ func reportSensors(s *home.Sensors) {
 	//x.Timestamp = int(time.Now().Unix())
 
 	historyData.Push(&x)
-	err = home.IOTReportDev(x)
-	if err != nil {
-		home.ReportAlert(err.Error(), "Cannot report values to dev server")
-	}
+	/*
+		err = home.IOTReportDev(x)
+		if err != nil {
+			home.ReportAlert(err.Error(), "Cannot report values to dev server")
+		}
+	*/
 }
 
 func schedule(what func(*home.Sensors), delay time.Duration, s *home.Sensors) chan bool {
