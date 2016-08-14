@@ -9,12 +9,12 @@ import (
 /*
 SmokeAlarmKitchen smoke/gas sensor in the kitchen
 */
-var SmokeAlarmKitchen = gpio.NewButtonDriver(r, "alm1", "18") //24
+var SmokeAlarmKitchen = gpio.NewButtonDriver(r, "alm1", "35") //24
 
 /*
 SmokeAlarmSauna smoke/gas sensor in the sauna
 */
-var SmokeAlarmSauna = gpio.NewButtonDriver(r, "alm2", "16") //23
+var SmokeAlarmSauna = gpio.NewButtonDriver(r, "alm2", "33") //23
 
 func init() {
 	log.Println("Initialise smoke alarms")
