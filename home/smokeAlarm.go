@@ -1,6 +1,7 @@
 package home
 
 import (
+	"goHome/home"
 	"log"
 	"time"
 
@@ -34,12 +35,11 @@ func init() {
 		alarmTimeKitchen = now
 
 		log.Println("Smoke alarm in the kitchen: On")
-		/*
-			err = home.Sms("Test", "Smoke/Gas detected in the Kitchen", home.Recipients)
-			if err != nil {
-				log.Println(err.Error())
-			}
-		*/
+
+		err = home.Sms("Test", "Smoke/Gas detected in the Kitchen", home.Recipients)
+		if err != nil {
+			log.Println(err.Error())
+		}
 
 		ReportAlert("Something is really not OK", "Smoke/Gas detected in the Kitchen")
 
@@ -58,12 +58,12 @@ func init() {
 		alarmTimeKitchen = now
 
 		log.Println("Smoke alarm in the kitchen: Off")
-		/*
-			err = home.Sms("Test", "Smoke/Gas in the Kitchen - all good", home.Recipients)
-			if err != nil {
-				log.Println(err.Error())
-			}
-		*/
+
+		err = home.Sms("Test", "Smoke/Gas in the Kitchen - all good", home.Recipients)
+		if err != nil {
+			log.Println(err.Error())
+		}
+
 		ReportAlert("Now it's better", "Smoke/Gas in the Kitchen - all good")
 
 	})
@@ -77,14 +77,14 @@ func init() {
 		alarmTimeSauna = now
 
 		log.Println("Smoke alarm in the Sauna: On")
-		/*
-			err = home.Sms("Test", "Smoke/Gas detected in the Sauna", home.Recipients)
-			if err != nil {
-				log.Println(err.Error())
-				}
 
-			home.ReportAlert("Something is really not OK", "Smoke/Gas detected in the Sauna")
-		*/
+		err = home.Sms("Test", "Smoke/Gas detected in the Sauna", home.Recipients)
+		if err != nil {
+			log.Println(err.Error())
+		}
+
+		home.ReportAlert("Something is really not OK", "Smoke/Gas detected in the Sauna")
+
 	})
 
 	gobot.On(SmokeAlarmSauna.Event("push"), func(data interface{}) {
@@ -101,12 +101,12 @@ func init() {
 		alarmTimeSauna = now
 
 		log.Println("Smoke alarm in the Sauna: Off")
-		/*
-			err = home.Sms("Test", "Smoke/Gas in Sauna - all good", home.Recipients)
-			if err != nil {
-				log.Println(err.Error())
-			}
-			home.ReportAlert("Now it's better", "Smoke/Gas in Sauna - all good")
-		*/
+
+		err = home.Sms("Test", "Smoke/Gas in Sauna - all good", home.Recipients)
+		if err != nil {
+			log.Println(err.Error())
+		}
+		home.ReportAlert("Now it's better", "Smoke/Gas in Sauna - all good")
+
 	})
 }
