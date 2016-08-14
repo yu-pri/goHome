@@ -49,6 +49,10 @@ func init() {
 			firstTimeKitchen = false
 			return
 		}
+
+		now := int32(time.Now().Unix())
+		alarmTimeKitchen = now
+
 		log.Println("Smoke alarm in the kitchen: Off")
 		/*
 			err = home.Sms("Test", "Smoke/Gas in the Kitchen - all good", home.Recipients)
