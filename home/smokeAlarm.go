@@ -28,7 +28,7 @@ func init() {
 	gobot.On(SmokeAlarmKitchen.Event("release"), func(data interface{}) {
 		now := int32(time.Now().Unix())
 		log.Println(now - alarmTimeKitchen)
-		if (now - alarmTimeKitchen) < 10 {
+		if (now - alarmTimeKitchen) < 1 {
 			return
 		}
 
