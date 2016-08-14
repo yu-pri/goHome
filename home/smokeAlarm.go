@@ -27,11 +27,10 @@ func init() {
 	log.Println("Initialise smoke alarms")
 	gobot.On(SmokeAlarmKitchen.Event("release"), func(data interface{}) {
 		now := int32(time.Now().Unix())
-		log.Println(now - alarmTimeKitchen)
+		//log.Println(now - alarmTimeKitchen)
 		if (now - alarmTimeKitchen) < 2 {
 			return
 		}
-
 		alarmTimeKitchen = now
 
 		log.Println("Smoke alarm in the kitchen: On")
@@ -40,8 +39,10 @@ func init() {
 			if err != nil {
 				log.Println(err.Error())
 			}
-			home.ReportAlert("Something is really not OK", "Smoke/Gas detected in the Kitchen")
 		*/
+
+		ReportAlert("Something is really not OK", "Smoke/Gas detected in the Kitchen")
+
 	})
 
 	gobot.On(SmokeAlarmKitchen.Event("push"), func(data interface{}) {
@@ -54,7 +55,6 @@ func init() {
 		if (now - alarmTimeKitchen) < 2 {
 			return
 		}
-
 		alarmTimeKitchen = now
 
 		log.Println("Smoke alarm in the kitchen: Off")
@@ -63,11 +63,18 @@ func init() {
 			if err != nil {
 				log.Println(err.Error())
 			}
-			home.ReportAlert("Now it's better", "Smoke/Gas in the Kitchen - all good")
 		*/
+		ReportAlert("Now it's better", "Smoke/Gas in the Kitchen - all good")
+
 	})
 
 	gobot.On(SmokeAlarmSauna.Event("release"), func(data interface{}) {
+		now := int32(time.Now().Unix())
+		//log.Println(now - alarmTimeKitchen)
+		if (now - alarmTimeSauna) < 2 {
+			return
+		}
+		alarmTimeSauna = now
 
 		log.Println("Smoke alarm in the Sauna: On")
 		/*
@@ -85,6 +92,13 @@ func init() {
 			firstTimeSauna = false
 			return
 		}
+
+		now := int32(time.Now().Unix())
+		//log.Println(now - alarmTimeKitchen)
+		if (now - alarmTimeSauna) < 2 {
+			return
+		}
+		alarmTimeSauna = now
 
 		log.Println("Smoke alarm in the Sauna: Off")
 		/*
