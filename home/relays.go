@@ -21,8 +21,8 @@ const (
 )
 
 var r = raspi.NewRaspiAdaptor("raspi")
-var relHeatPump = gpio.NewLedDriver(r, "led", "11")
-var relHeat = gpio.NewLedDriver(r, "led", "12")
+var relHeatPump = gpio.NewLedDriver(r, "led", "11") //17
+var relHeat = gpio.NewLedDriver(r, "led", "12")     //18
 
 var heatMode = AUTO
 var heatPumpMode = AUTO
@@ -113,7 +113,7 @@ func OnHeatPump() error {
 		log.Println("Heat Pump already on")
 		return nil
 	}
-	return relHeatPump.On()
+	return relHeatPump.Off()
 }
 
 /*
@@ -129,7 +129,7 @@ func OnHeat() error {
 }
 
 /*
-OffHeatPump switches state for heatmotor
+OffHeatPump switches state for heatmotor, please note it's reversed
 */
 func OffHeatPump() error {
 	log.Println("off heat motor r1")
@@ -138,7 +138,7 @@ func OffHeatPump() error {
 		return nil
 	}
 
-	return relHeatPump.Off()
+	return relHeatPump.On()
 }
 
 /*
@@ -212,10 +212,10 @@ func GetHeat() bool {
 }
 
 /*
-GetPump returns rely status
+GetPump returns rely status, reverse it
 */
 func GetPump() bool {
-	return relHeatPump.State()
+	return !relHeatPump.State()
 }
 
 /*

@@ -35,10 +35,12 @@ func init() {
 
 		log.Println("Smoke alarm in the kitchen: On")
 
-		err := Sms("Test", "Smoke/Gas detected in the Kitchen", Recipients)
-		if err != nil {
-			log.Println(err.Error())
-		}
+		/*
+			err := Sms("Test", "Smoke/Gas detected in the Kitchen", Recipients)
+			if err != nil {
+				log.Println(err.Error())
+			}
+		*/
 
 		ReportAlert("Something is really not OK", "Smoke/Gas detected in the Kitchen")
 
@@ -58,10 +60,12 @@ func init() {
 
 		log.Println("Smoke alarm in the kitchen: Off")
 
-		err := Sms("Test", "Smoke/Gas in the Kitchen - all good", Recipients)
-		if err != nil {
-			log.Println(err.Error())
-		}
+		/*
+			err := Sms("Test", "Smoke/Gas in the Kitchen - all good", Recipients)
+			if err != nil {
+				log.Println(err.Error())
+			}
+		*/
 
 		ReportAlert("Now it's better", "Smoke/Gas in the Kitchen - all good")
 
@@ -76,11 +80,12 @@ func init() {
 		alarmTimeSauna = now
 
 		log.Println("Smoke alarm in the Sauna: On")
-
-		err := Sms("Test", "Smoke/Gas detected in the Sauna", Recipients)
-		if err != nil {
-			log.Println(err.Error())
-		}
+		/*
+			err := Sms("Test", "Smoke/Gas detected in the Sauna", Recipients)
+			if err != nil {
+				log.Println(err.Error())
+			}
+		*/
 
 		ReportAlert("Something is really not OK", "Smoke/Gas detected in the Sauna")
 
@@ -100,11 +105,12 @@ func init() {
 		alarmTimeSauna = now
 
 		log.Println("Smoke alarm in the Sauna: Off")
-
-		err := Sms("Test", "Smoke/Gas in Sauna - all good", Recipients)
-		if err != nil {
-			log.Println(err.Error())
-		}
+		/*
+			err := Sms("Test", "Smoke/Gas in Sauna - all good", Recipients)
+			if err != nil {
+				log.Println(err.Error())
+			}
+		*/
 		ReportAlert("Now it's better", "Smoke/Gas in Sauna - all good")
 
 	})
