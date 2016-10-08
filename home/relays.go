@@ -205,10 +205,10 @@ func SetHeatPumpMode(state string) error {
 }
 
 /*
-GetHeat returns rely status
+GetHeat returns rely status, reversing
 */
 func GetHeat() bool {
-	return relHeat.State()
+	return !relHeat.State()
 }
 
 /*
