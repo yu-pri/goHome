@@ -117,7 +117,7 @@ func OnHeatPump() error {
 }
 
 /*
-OnHeat switches state for heatmotor
+OnHeat switches state for heat, reversed
 */
 func OnHeat() error {
 	log.Println("on heat r1")
@@ -125,7 +125,7 @@ func OnHeat() error {
 		log.Println("Heat already on")
 		return nil
 	}
-	return relHeat.On()
+	return relHeat.Off()
 }
 
 /*
@@ -142,7 +142,7 @@ func OffHeatPump() error {
 }
 
 /*
-OffHeat switches state for heatmotor
+OffHeat switches state for heat, note that it's reversed
 */
 func OffHeat() error {
 	log.Println("off heat r1")
@@ -153,7 +153,7 @@ func OffHeat() error {
 		return nil
 	}
 
-	return relHeat.Off()
+	return relHeat.On()
 }
 
 /*
