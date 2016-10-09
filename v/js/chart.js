@@ -8,6 +8,8 @@ var ChartTimeLimit = 60*60;
 function setChartTimeLimit(t) {
   if (t === "1 Day") {
     window.ChartTimeLimit = 60*24*60;
+  else if (t === "1 Week") {
+      window.ChartTimeLimit = 60*24*7*60;    
   } else if (t === "1 Month") {
     window.ChartTimeLimit = 60*24*30*60;
   } else {

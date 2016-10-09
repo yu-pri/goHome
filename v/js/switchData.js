@@ -10,6 +10,8 @@ var ButtonSwitchChart = React.createClass({
       if (this.props.val === "1 Hour") {
         this.props.val = "1 Day";
       } else if (this.props.val === "1 Day") {
+        this.props.val = "1 Week";
+      } else if (this.props.val === "1 Week") {
         this.props.val = "1 Month";
       } else {
         this.props.val = "1 Hour";
