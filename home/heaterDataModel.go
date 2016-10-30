@@ -22,11 +22,13 @@ const LIMIT = 100000
 HData is set of home data values, can be parsed from json
 */
 type HData struct {
-	TempInside    float32 `json:"TempInside, float"`
-	TempOutside   float32 `json:"TempOutside, float"`
-	TempHeater    float32 `json:"TempHeater, float"`
-	TempReverse   float32 `json:"TempReverse, float"`
-	TempEntryRoom float32 `json:"TempEntryRoom, float"`
+	TempInside      float32 `json:"TempInside, float"`
+	TempOutside     float32 `json:"TempOutside, float"`
+	TempHeater      float32 `json:"TempHeater, float"`
+	TempReverse     float32 `json:"TempReverse, float"`
+	TempEntryRoom   float32 `json:"TempEntryRoom, float"`
+	TempWaterBoiler float32 `json:"TempWaterBoiler, float"`
+	TempRecuperator float32 `json:"TempRecuperator, float"`
 
 	PumpState   bool `json:"PumpState, bool"`
 	HeaterState bool `json:"HeaterState, bool"`

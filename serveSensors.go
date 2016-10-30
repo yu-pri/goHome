@@ -55,11 +55,17 @@ func reportSensors(s *home.Sensors) {
 	}
 	//log.Println("heater \t", entry)
 
+	waterBoiler, err := s.WaterBoilerSensor()
+	if err != nil {
+		log.Println(err.Error())
+	}
+
 	//x := &home.HData{}
 	currentState.TempInside = v
 	currentState.TempReverse = reverse
 	currentState.TempEntryRoom = entry
 	currentState.TempHeater = heater
+	currentState.TempWaterBoiler = waterBoiler
 	currentState.Timestamp = int(time.Now().Unix())
 
 	managePump(&currentState)
