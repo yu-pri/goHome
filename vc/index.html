@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://polygit2.appspot.com/components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="proto-element.html">
+    <link rel="import" href="https://polygit2.appspot.com/components/paper-button/paper-button.html">
+    <link rel="import" href="https://polygit2.appspot.com/components/paper-input/paper-input.html">
+  </head>
+  <body>
+    <app-toolbar>
+      <paper-icon-button icon="menu"></paper-icon-button>
+      <div main-title>App name</div>
+      <paper-icon-button icon="search"></paper-icon-button>
+    </app-toolbar>
+
+    <proto-element></proto-element>
+
+    <paper-input label="Your name here"></paper-input>
+      <paper-button>Say Hello</paper-button>
+      <div id="greeting"></div>
+
+      <script>
+        // To ensure that elements are ready on polyfilled browsers,
+        // wait for WebComponentsReady.
+        document.addEventListener('WebComponentsReady', function() {
+          var input = document.querySelector('paper-input');
+          var button = document.querySelector('paper-button');
+          var greeting = document.getElementById("greeting");
+          button.addEventListener('click', function() {
+            greeting.textContent = 'Hello, ' + input.value;
+          });
+        });
+      </script>    
+  </body>
+</html>
