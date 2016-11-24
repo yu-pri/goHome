@@ -11,6 +11,7 @@
 
     <link rel="import" href="proto-element.html">
     <link rel="import" href="sample-content.html">
+    <link rel="import" href="data-value.html">
 
     <base href="https://polygit2.appspot.com/components/">
     <script src="webcomponentsjs/webcomponents-lite.js"></script>
@@ -21,6 +22,8 @@
     <link rel="import" href="paper-icon-button/paper-icon-button.html">
     <link rel="import" href="paper-radio-button/paper-radio-button.html">
     <link rel="import" href="paper-radio-group/paper-radio-group.html">
+    <link rel="import" href="paper-card/paper-card.html">
+
 
     <link rel="import" href="app-layout/app-drawer-layout/app-drawer-layout.html">
     <link rel="import" href="app-layout/app-drawer/app-drawer.html">
@@ -86,31 +89,35 @@
                     <paper-radio-button name="off">Off</paper-radio-button>
                 </paper-radio-group>
 
-              <paper-icon-item>
-                <iron-icon icon="inbox" item-icon></iron-icon> <span>Inbox</span>
-              </paper-icon-item>
-              <paper-icon-item>
-                <iron-icon icon="query-builder" item-icon></iron-icon> <span>Snoozed</span>
-              </paper-icon-item>
-              <paper-icon-item>
-                <iron-icon icon="done" item-icon></iron-icon> <span>Done</span>
-              </paper-icon-item>
-              <paper-icon-item>
-                <iron-icon icon="drafts" item-icon></iron-icon> <span>Drafts</span>
-              </paper-icon-item>
-              <paper-icon-item>
-                <iron-icon icon="send" item-icon></iron-icon> <span>Sent</span>
-              </paper-icon-item>
-              <paper-icon-item>
-                <iron-icon icon="delete" item-icon></iron-icon> <span>Trash</span>
-              </paper-icon-item>
-              <paper-icon-item>
-                <iron-icon icon="report" item-icon></iron-icon> <span>Spam</span>
-              </paper-icon-item>
+                <label id="label2">Boiler:</label>
+                <paper-radio-group name="boiler" selected="auto">
+                    <paper-radio-button name="auto">Auto</paper-radio-button>
+                    <paper-radio-button name="on">On</paper-radio-button>
+                    <paper-radio-button name="off">Off</paper-radio-button>
+                </paper-radio-group>
+
             </div>
           </app-drawer>
 
-          <sample-content size="100"></sample-content>
+          <!-- paper-card heading="Measurements:">
+            <div class="card-content">
+              <div id="Kitchen_temp"><label>Kitchen:</label> 20 C</div>
+            </div>
+            < div class="card-actions">
+              <paper-button>Some action</paper-button>
+            </div>
+          </paper-card -->
+
+          <!--paper-card heading="Measurements:">
+            <div class="card-content">
+              <div id="Kitchen_temp"><label>Kitchen:</label> 20 C</div>
+            </div>
+            < div class="card-actions">
+              <paper-button>Some action</paper-button>
+            </div>
+          </paper-card-->
+
+          <data-value label="Kitchen", val=20, me="C"></data-value>
 
         </app-drawer-layout>
 
