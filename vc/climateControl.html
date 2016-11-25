@@ -117,7 +117,7 @@
             </div>
           </paper-card-->
 
-          <data-value label="Kitchen", val=20, me="C"></data-value>
+          <data-value id="info-panel" kitchen_temp="5C" ></data-value>
 
         </app-drawer-layout>
 
@@ -132,6 +132,10 @@
             drawerLayout.drawer.toggle();
           }
         });
+
+        var info = document.getElementById('info-panel');
+        info.set("kitchen_temp", "7 K");
+
       </script>
 </body>
 </html>
