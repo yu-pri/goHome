@@ -16,6 +16,16 @@ HeaterOnThreshold - getting cold and need heater
 var HeaterOnThreshold = 18.0
 
 /*
+ElectroOnFrom - timezone for electricity metter - from
+*/
+const ElectroOnFrom = 23
+
+/*
+ElectroOnTo - timezone for electricity metter - from
+*/
+const ElectroOnTo = 7
+
+/*
 Sensors Reference to sensor
 */
 type Sensors struct {
