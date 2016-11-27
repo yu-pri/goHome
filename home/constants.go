@@ -19,7 +19,9 @@ const (
 	reverseSensorID         = "28-0115a32c38ff"
 	entryRoomSensorID       = "28-0115a3752aff"
 	heaterSensorID          = "28-0115a32295ff"
-	waterBoilerSensorID     = "28-0415a1cbb3ff"
+	_waterBoilerSensorID    = "28-0415a1cbb3ff"
+	outsideSensorID         = "28-0315a1a9cfff"
+	recuperatorSensorID     = "28-0315a1d318ff"
 
 	iotDevURL             = "http://al.dev-iot.touchpanelcontrol.com/v1"
 	iotDevCloudAPIKey     = "ea85d840-2a96-11e6-b9d4-e7f016c54c9f"
