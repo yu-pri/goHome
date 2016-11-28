@@ -23,7 +23,7 @@
     <link rel="import" href="paper-radio-button/paper-radio-button.html">
     <link rel="import" href="paper-radio-group/paper-radio-group.html">
     <link rel="import" href="paper-card/paper-card.html">
-
+    <link rel="import" href="paper-slider/paper-slider.html">
 
     <link rel="import" href="app-layout/app-drawer-layout/app-drawer-layout.html">
     <link rel="import" href="app-layout/app-drawer/app-drawer.html">
@@ -63,6 +63,12 @@
          height: calc(100% - 80px);
          overflow: auto;
        }
+
+       .caption {
+         padding-left: 12px;
+         color: #a0a0a0;
+       }
+
      </style>
 
 </head>
@@ -95,6 +101,9 @@
                     <paper-radio-button name="on">On</paper-radio-button>
                     <paper-radio-button name="off">Off</paper-radio-button>
                 </paper-radio-group>
+
+                <div>Desired t: <span id="desired_temp_label" class="caption"></span></div><br>
+                <paper-slider id="desired_temp" pin snaps min="10" max="22" max-markers="12" step="1"></paper-slider>
 
             </div>
           </app-drawer>
@@ -131,6 +140,14 @@
           } else {
             drawerLayout.drawer.toggle();
           }
+        });
+
+        document.addEventListener('WebComponentsReady', function() {
+          var desired_temp = document.querySelector('#desired_temp');
+          desired_temp.addEventListener('value-change', function() {
+            document.querySelector('#desired_temp_label').textContent = desired_temp.value;
+          });
+
         });
 
         var info = document.getElementById('info-panel');
