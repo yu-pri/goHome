@@ -116,3 +116,13 @@ const CommandOffHeater2 = "offHeaterr2"
 
 /*Recipients is SMS recipients*/
 var Recipients = []string{"380939760324"}
+
+/*
+ElectroOnFrom - timezone for electricity metter - from
+*/
+const ElectroOnFrom = 23
+
+/*
+ElectroOnTo - timezone for electricity metter - from
+*/
+const ElectroOnTo = 7

@@ -10,6 +10,7 @@ import (
 	"os/exec"
 	"strings"
 	"sync"
+	"time"
 
 	"gopkg.in/gomail.v2"
 )
@@ -155,4 +156,17 @@ func Sms(from string, msg string, recipients []string) error {
 	}
 
 	return nil
+}
+
+/*
+IsChipTimeZone - returns true between 23 - 7 local time where we have the chipest electricity
+*/
+func IsChipTimeZone() bool {
+	hour := time.Now().Hour() + 1
+	ret := false
+	if hour >= ElectroOnFrom || hour < ElectroOnTo {
+		ret = true
+	}
+
+	return ret
 }

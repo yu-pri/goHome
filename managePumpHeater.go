@@ -1,9 +1,9 @@
 package main
 
 import (
+	//	"goHome/home"
 	"goHome/home"
 	"log"
-	"time"
 )
 
 func managePump(dat *home.HData) error {
@@ -44,10 +44,9 @@ func manageHeater(dat *home.HData) error {
 		return err
 	}
 
-	//холодно и мы в ночном режиме...
-	hour := time.Now().Hour() + 1
+	//hour := time.Now().Hour() + 1
 	if dat.TempEntryRoom < float32(home.HeaterOnThreshold) &&
-		hour >= home.ElectroOnFrom && hour < home.ElectroOnTo {
+		home.IsChipTimeZone() {
 		err = home.OnHeat()
 		if err != nil {
 			home.ReportAlert(err.Error(), "ALARM: cannot turn on Heater")
