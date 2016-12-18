@@ -41,8 +41,8 @@ func NewSensors() (*Sensors, error) {
 	err = s.AssignAlias("rev", reverseSensorID)
 	err = s.AssignAlias("heater", heaterSensorID)
 	//err = s.AssignAlias("waterBoiler", waterBoilerSensorID)
-	err = s.AssignAlias("recuperator", recuperatorSensorID)
-	err = s.AssignAlias("outside", outsideSensorID)
+	//err = s.AssignAlias("recuperator", recuperatorSensorID)
+	//err = s.AssignAlias("outside", outsideSensorID)
 
 	//TODO: More sensors should be declared here
 
@@ -67,6 +67,7 @@ func (s Sensors) InternalSensor() (float32, error) {
 /*
 RecuperatorSensor returns temperature from the sensor
 */
+/*
 func (s Sensors) RecuperatorSensor() (float32, error) {
 	//err := s.Temp.Update()
 
@@ -74,10 +75,12 @@ func (s Sensors) RecuperatorSensor() (float32, error) {
 
 	return temp.Celsius(), err
 }
+*/
 
 /*
 OutsideSensor returns temperature from the sensor
 */
+/*
 func (s Sensors) OutsideSensor() (float32, error) {
 	//err := s.Temp.Update()
 
@@ -85,6 +88,7 @@ func (s Sensors) OutsideSensor() (float32, error) {
 
 	return temp.Celsius(), err
 }
+*/
 
 /*
 WaterBoilerSensor returns temperature from the sensor

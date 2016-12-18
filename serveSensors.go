@@ -60,15 +60,17 @@ func reportSensors(s *home.Sensors) {
 	//	log.Println(err.Error())
 	//}
 
-	recuperator, err := s.RecuperatorSensor()
-	if err != nil {
-		log.Println(err.Error())
-	}
+	/*
+		recuperator, err := s.RecuperatorSensor()
+		if err != nil {
+			log.Println(err.Error())
+		}
 
-	outside, err := s.OutsideSensor()
-	if err != nil {
-		log.Println(err.Error())
-	}
+		outside, err := s.OutsideSensor()
+		if err != nil {
+			log.Println(err.Error())
+		}
+	*/
 
 	//x := &home.HData{}
 	currentState.TempInside = v
@@ -76,8 +78,8 @@ func reportSensors(s *home.Sensors) {
 	currentState.TempEntryRoom = entry
 	currentState.TempHeater = heater
 	currentState.TempWaterBoiler = 0
-	currentState.TempRecuperator = recuperator
-	currentState.TempOutside = outside
+	//currentState.TempRecuperator = recuperator
+	//currentState.TempOutside = outside
 
 	currentState.Timestamp = int(time.Now().Unix())
 
