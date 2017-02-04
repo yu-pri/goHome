@@ -22,7 +22,9 @@ const (
 
 var r = raspi.NewRaspiAdaptor("raspi")
 var relHeatPump = gpio.NewLedDriver(r, "led", "11") //17
-var relHeat = gpio.NewLedDriver(r, "led", "13")     //18
+
+//physical port 12 (BCM 18) seems broken, do not use it.
+var relHeat = gpio.NewLedDriver(r, "led", "13") //27
 
 var heatMode = AUTO
 var heatPumpMode = AUTO
