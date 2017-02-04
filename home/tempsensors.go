@@ -11,11 +11,6 @@ var (
 )
 
 /*
-HeaterOnThreshold - getting cold and need heater
-*/
-var HeaterOnThreshold = 22.0
-
-/*
 Sensors Reference to sensor
 */
 type Sensors struct {
