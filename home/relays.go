@@ -22,7 +22,7 @@ const (
 
 var r = raspi.NewRaspiAdaptor("raspi")
 var relHeatPump = gpio.NewLedDriver(r, "led", "11") //17
-var relHeat = gpio.NewLedDriver(r, "led", "12")     //18
+var relHeat = gpio.NewLedDriver(r, "led", "13")     //18
 
 var heatMode = AUTO
 var heatPumpMode = AUTO
