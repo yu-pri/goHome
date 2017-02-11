@@ -1,5 +1,5 @@
 var N = function(){};
-N.HOST = "alprihodko.asuscomm.com:1234";
+N.HOST = "alprihodko.hopto.org:1234";
 
 N.DataHandler = new Object();
 N.TempDataHandler = new Object();
@@ -72,7 +72,7 @@ function wsConnect(wsurl, handler) {
 
     ws.onclose = function(evt) {
       ws = null;
-       
+
       console.log('ws error: ' + evt.type);
       setTimeout(function(){wsConnect(wsurl, handler)}, 30000);
     };

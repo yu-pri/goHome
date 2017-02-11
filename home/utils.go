@@ -168,5 +168,7 @@ func IsChipTimeZone() bool {
 		ret = true
 	}
 
+	log.Println("hour: ", hour, " electro: ", ret)
+
 	return ret
 }
