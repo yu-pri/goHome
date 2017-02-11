@@ -45,8 +45,8 @@ func manageHeater(dat *home.HData) error {
 	}
 
 	//hour := time.Now().Hour() + 1
-	home.IsChipTimeZone()
-	if dat.TempEntryRoom < float32(home.HeaterOnThreshold) {
+
+	if dat.TempEntryRoom < float32(home.HeaterOnThreshold) && home.IsChipTimeZone() {
 		log.Println("Heater should be ON!")
 		err = home.OnHeat()
 		if err != nil {
