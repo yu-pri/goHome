@@ -163,12 +163,17 @@ IsChipTimeZone - returns true between 23 - 7 local time where we have the chipes
 */
 func IsChipTimeZone() bool {
 	hour := time.Now().Hour()
+	year := time.Now().Year()
+
+	if year < 2000 {
+		log.Println("Year: ", year, "Device is not configured")
+		return false
+	}
+
 	ret := false
 	if hour >= ElectroOnFrom || hour < ElectroOnTo {
 		ret = true
 	}
-
-	log.Println("hour: ", hour, " electro: ", ret)
 
 	return ret
 }
