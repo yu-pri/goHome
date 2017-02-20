@@ -1,5 +1,5 @@
 var N = function(){};
-N.HOST = "alprihodko.hopto.org:1234";
+N.HOST = "sasha123.ddns.ukrtel.net:1234";
 
 N.DataHandler = new Object();
 N.TempDataHandler = new Object();
