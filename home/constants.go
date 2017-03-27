@@ -37,7 +37,7 @@ const (
 /*
 HeaterOnThreshold - getting cold and need heater
 */
-const HeaterOnThreshold = 16.0
+const HeaterOnThreshold = 20.0
 
 /*
 DropboxClientid - client id
