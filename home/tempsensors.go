@@ -56,7 +56,7 @@ func (s Sensors) InternalSensor() (float32, error) {
 
 	temp, err := s.Temp.ReadSingleAlias("int")
 
-	return temp.Celsius(), err
+	return Round32(temp.Celsius(), 0.5, 1), err
 }
 
 /*
@@ -93,7 +93,7 @@ func (s Sensors) WaterBoilerSensor() (float32, error) {
 
 	temp, err := s.Temp.ReadSingleAlias("waterboiler")
 
-	return Round32(temp.Celsius(), 0.5, 0), err
+	return Round32(temp.Celsius(), 0.5, 1), err
 }
 
 /*
@@ -104,7 +104,7 @@ func (s Sensors) ReverseSensor() (float32, error) {
 
 	temp, err := s.Temp.ReadSingleAlias("rev")
 
-	return Round32(temp.Celsius(), 0.5, 0), err
+	return Round32(temp.Celsius(), 0.5, 1), err
 }
 
 /*
@@ -115,7 +115,7 @@ func (s Sensors) EntryRoomSensor() (float32, error) {
 
 	temp, err := s.Temp.ReadSingleAlias("entry")
 
-	return Round32(temp.Celsius(), 0.5, 0), err
+	return Round32(temp.Celsius(), 0.5, 1), err
 }
 
 /*
@@ -126,5 +126,5 @@ func (s Sensors) HeaterSensor() (float32, error) {
 
 	temp, err := s.Temp.ReadSingleAlias("heater")
 
-	return Round32(temp.Celsius(), 0.5, 0), err
+	return Round32(temp.Celsius(), 0.5, 1), err
 }
