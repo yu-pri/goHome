@@ -11,11 +11,6 @@ var (
 )
 
 /*
-HeaterOnThreshold - getting cold and need heater
-*/
-var HeaterOnThreshold = 18.0
-
-/*
 Sensors Reference to sensor
 */
 type Sensors struct {
@@ -41,8 +36,8 @@ func NewSensors() (*Sensors, error) {
 	s.AssignAlias("rev", reverseSensorID)
 	s.AssignAlias("heater", heaterSensorID)
 	//err = s.AssignAlias("waterBoiler", waterBoilerSensorID)
-	s.AssignAlias("recuperator", recuperatorSensorID)
-	s.AssignAlias("outside", outsideSensorID)
+	//err = s.AssignAlias("recuperator", recuperatorSensorID)
+	//err = s.AssignAlias("outside", outsideSensorID)
 
 	//TODO: More sensors should be declared here
 
@@ -67,6 +62,7 @@ func (s Sensors) InternalSensor() (float32, error) {
 /*
 RecuperatorSensor returns temperature from the sensor
 */
+/*
 func (s Sensors) RecuperatorSensor() (float32, error) {
 	//err := s.Temp.Update()
 
@@ -74,10 +70,12 @@ func (s Sensors) RecuperatorSensor() (float32, error) {
 	//c := float64(temp.Celsius())
 	return Round32(temp.Celsius(), 0.5, 1), err
 }
+*/
 
 /*
 OutsideSensor returns temperature from the sensor
 */
+/*
 func (s Sensors) OutsideSensor() (float32, error) {
 	//err := s.Temp.Update()
 
@@ -85,6 +83,7 @@ func (s Sensors) OutsideSensor() (float32, error) {
 
 	return Round32(temp.Celsius(), 0.5, 1), err
 }
+*/
 
 /*
 WaterBoilerSensor returns temperature from the sensor

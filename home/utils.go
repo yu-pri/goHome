@@ -163,7 +163,14 @@ func Sms(from string, msg string, recipients []string) error {
 IsChipTimeZone - returns true between 23 - 7 local time where we have the chipest electricity
 */
 func IsChipTimeZone() bool {
-	hour := time.Now().Hour() + 1
+	hour := time.Now().Hour()
+	year := time.Now().Year()
+
+	if year < 2000 {
+		log.Println("Year: ", year, "Device is not configured")
+		return false
+	}
+
 	ret := false
 	if hour >= ElectroOnFrom || hour < ElectroOnTo {
 		ret = true
