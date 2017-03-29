@@ -7,17 +7,19 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
 
     <link rel="import" href="proto-element.html">
     <link rel="import" href="sample-content.html">
-    <!--link rel="import" href="data-value.html"-->
 
-    <!-- base href="https://polygit2.appspot.com/components/"-->
-    <base href="https://polygit.org/components/">
+    <link rel="import" href="data-value.html">
+    <script src="https://polygit2.appspot.com/components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="js/app.js"></script>
 
-    <script src="webcomponentsjs/webcomponents-lite.min.js"></script>
-    <link rel="import" href="font-roboto/roboto.html">
+    <base href="https://polygit2.appspot.com/components/">
+        <link rel="import" href="font-roboto/roboto.html">
+
     <link rel="import" href="iron-icons/iron-icons.html">
     <link rel="import" href="paper-item/paper-icon-item.html">
     <link rel="import" href="paper-button/paper-button.html">
@@ -144,25 +146,7 @@
       </app-header-layout>
 
       <script>
-        var drawerLayout = document.getElementById('drawerLayout');
-        document.getElementById('toggle').addEventListener('tap', function() {
-          if (drawerLayout.forceNarrow || !drawerLayout.narrow) {
-            drawerLayout.forceNarrow = !drawerLayout.forceNarrow;
-          } else {
-            drawerLayout.drawer.toggle();
-          }
-        });
 
-        document.addEventListener('WebComponentsReady', function() {
-          var desired_temp = document.querySelector('#desired_temp');
-          desired_temp.addEventListener('value-change', function() {
-            document.querySelector('#desired_temp_label').textContent = desired_temp.value;
-          });
-
-        });
-
-        //var info = document.getElementById('info-panel');
-        //info.set("kitchen_temp", "7 K");
 
       </script>
 </body>

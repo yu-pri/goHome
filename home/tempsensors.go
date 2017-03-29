@@ -31,10 +31,10 @@ func NewSensors() (*Sensors, error) {
 		return nil, err
 	}
 
-	err = s.AssignAlias("int", internalSensorID)
-	err = s.AssignAlias("entry", entryRoomSensorID)
-	err = s.AssignAlias("rev", reverseSensorID)
-	err = s.AssignAlias("heater", heaterSensorID)
+	s.AssignAlias("int", internalSensorID)
+	s.AssignAlias("entry", entryRoomSensorID)
+	s.AssignAlias("rev", reverseSensorID)
+	s.AssignAlias("heater", heaterSensorID)
 	//err = s.AssignAlias("waterBoiler", waterBoilerSensorID)
 	//err = s.AssignAlias("recuperator", recuperatorSensorID)
 	//err = s.AssignAlias("outside", outsideSensorID)
@@ -56,7 +56,7 @@ func (s Sensors) InternalSensor() (float32, error) {
 
 	temp, err := s.Temp.ReadSingleAlias("int")
 
-	return temp.Celsius(), err
+	return Round32(temp.Celsius(), 0.5, 1), err
 }
 
 /*
@@ -67,8 +67,8 @@ func (s Sensors) RecuperatorSensor() (float32, error) {
 	//err := s.Temp.Update()
 
 	temp, err := s.Temp.ReadSingleAlias("recuperator")
-
-	return temp.Celsius(), err
+	//c := float64(temp.Celsius())
+	return Round32(temp.Celsius(), 0.5, 1), err
 }
 */
 
@@ -81,7 +81,7 @@ func (s Sensors) OutsideSensor() (float32, error) {
 
 	temp, err := s.Temp.ReadSingleAlias("outside")
 
-	return temp.Celsius(), err
+	return Round32(temp.Celsius(), 0.5, 1), err
 }
 */
 
@@ -93,7 +93,7 @@ func (s Sensors) WaterBoilerSensor() (float32, error) {
 
 	temp, err := s.Temp.ReadSingleAlias("waterboiler")
 
-	return temp.Celsius(), err
+	return Round32(temp.Celsius(), 0.5, 1), err
 }
 
 /*
@@ -104,7 +104,7 @@ func (s Sensors) ReverseSensor() (float32, error) {
 
 	temp, err := s.Temp.ReadSingleAlias("rev")
 
-	return temp.Celsius(), err
+	return Round32(temp.Celsius(), 0.5, 1), err
 }
 
 /*
@@ -115,7 +115,7 @@ func (s Sensors) EntryRoomSensor() (float32, error) {
 
 	temp, err := s.Temp.ReadSingleAlias("entry")
 
-	return temp.Celsius(), err
+	return Round32(temp.Celsius(), 0.5, 1), err
 }
 
 /*
@@ -126,5 +126,5 @@ func (s Sensors) HeaterSensor() (float32, error) {
 
 	temp, err := s.Temp.ReadSingleAlias("heater")
 
-	return temp.Celsius(), err
+	return Round32(temp.Celsius(), 0.5, 1), err
 }
