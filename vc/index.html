@@ -2,16 +2,34 @@
 <html lang="en">
   <head>
 
-    <link rel="import" href="proto-element.html">
-    <link rel="import" href="sample-content.html">
+    <title>My Home Control</title>
 
-    <base href="https://polygit2.appspot.com/components/">
-    <script src="webcomponentsjs/webcomponents-lite.js"></script>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+
+    <!-- link rel="import" href="proto-element.html"-->
+    <!-- link rel="import" href="sample-content.html"-->
+    <!-- link rel="import" href="data-value.html" -->
+
+    <link rel="import" href="temp-sensor.html">
+
+
+    <!-- base href="https://polygit2.appspot.com/components/"-->
+    <base href="https://polygit.org/components/">
+
+    <script src="webcomponentsjs/webcomponents-lite.min.js"></script>
     <link rel="import" href="font-roboto/roboto.html">
     <link rel="import" href="iron-icons/iron-icons.html">
     <link rel="import" href="paper-item/paper-icon-item.html">
     <link rel="import" href="paper-button/paper-button.html">
     <link rel="import" href="paper-icon-button/paper-icon-button.html">
+    <link rel="import" href="paper-radio-button/paper-radio-button.html">
+    <link rel="import" href="paper-radio-group/paper-radio-group.html">
+
+    <link rel="import" href="paper-slider/paper-slider.html">
+
     <link rel="import" href="app-layout/app-drawer-layout/app-drawer-layout.html">
     <link rel="import" href="app-layout/app-drawer/app-drawer.html">
 
@@ -20,9 +38,10 @@
     <link rel="import" href="app-layout/app-header/app-header.html">
     <link rel="import" href="app-layout/app-header-layout/app-header-layout.html">
     <link rel="import" href="app-layout/app-toolbar/app-toolbar.html">
+    <link rel="import" href="paper-material/paper-material.html">
 
-
-    <style is="custom-style">
+    <custom-style>
+    <style>
        body {
          margin: 0;
          font-family: 'Roboto', 'Noto', sans-serif;
@@ -48,8 +67,14 @@
          height: calc(100% - 80px);
          overflow: auto;
        }
-     </style>
 
+       .caption {
+         padding-left: 12px;
+         color: #a0a0a0;
+       }
+
+     </style>
+   </custom-style>
 </head>
 <body>
   <body unresolved>
@@ -59,7 +84,7 @@
         <app-header fixed effects="waterfall">
           <app-toolbar>
             <paper-icon-button id="toggle" icon="menu"></paper-icon-button>
-            <div main-title>Inbox</div>
+            <div main-title> Home control </div>
           </app-toolbar>
         </app-header>
 
@@ -67,31 +92,39 @@
 
           <app-drawer>
             <div class="drawer-content">
-              <paper-icon-item>
-                <iron-icon icon="inbox" item-icon></iron-icon> <span>Inbox</span>
-              </paper-icon-item>
-              <paper-icon-item>
-                <iron-icon icon="query-builder" item-icon></iron-icon> <span>Snoozed</span>
-              </paper-icon-item>
-              <paper-icon-item>
-                <iron-icon icon="done" item-icon></iron-icon> <span>Done</span>
-              </paper-icon-item>
-              <paper-icon-item>
-                <iron-icon icon="drafts" item-icon></iron-icon> <span>Drafts</span>
-              </paper-icon-item>
-              <paper-icon-item>
-                <iron-icon icon="send" item-icon></iron-icon> <span>Sent</span>
-              </paper-icon-item>
-              <paper-icon-item>
-                <iron-icon icon="delete" item-icon></iron-icon> <span>Trash</span>
-              </paper-icon-item>
-              <paper-icon-item>
-                <iron-icon icon="report" item-icon></iron-icon> <span>Spam</span>
-              </paper-icon-item>
+                <label id="label1">Boiler pump:</label>
+                <br/><hr/>
+                <paper-radio-group name="boiler_pump" selected="auto">
+                    <paper-radio-button name="auto">Auto</paper-radio-button>
+                    <br/>
+                    <paper-radio-button name="on">On</paper-radio-button>
+                    <br/>
+                    <paper-radio-button name="off">Off</paper-radio-button>
+                </paper-radio-group>
+                <br/>
+                </br>
+                <label id="label2">Boiler:</label>
+                <br/><hr/>
+                <paper-radio-group name="boiler" selected="auto">
+                    <paper-radio-button name="auto">Auto</paper-radio-button>
+                    <br/>
+                    <paper-radio-button name="on">On</paper-radio-button>
+                    <br/>
+                    <paper-radio-button name="off">Off</paper-radio-button>
+                </paper-radio-group>
+                <br/>
+                <br/>
+
             </div>
           </app-drawer>
 
-          <sample-content size="100"></sample-content>
+
+
+          <temp-sensor id="kitchen"></temp-sensor>
+
+          <br/>
+          <div>Desired t: <span id="desired_temp_label" class="caption"></span></div>
+          <paper-slider id="desired_temp" pin snaps min="10" max="22" max-markers="12" step="1"></paper-slider>
 
         </app-drawer-layout>
 
@@ -106,6 +139,21 @@
             drawerLayout.drawer.toggle();
           }
         });
+
+        document.addEventListener('WebComponentsReady', function() {
+          var desired_temp = document.querySelector('#desired_temp');
+          desired_temp.addEventListener('value-change', function() {
+            document.querySelector('#desired_temp_label').textContent = desired_temp.value;
+          });
+
+        });
+
+        /*
+        var info = document.getElementById('info-panel');
+        info.set("kitchen_temp", "7 K");
+        info.set("entry_temp", "8 K");
+        */
+
       </script>
 </body>
 </html>

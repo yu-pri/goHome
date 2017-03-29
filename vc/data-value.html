@@ -1,87 +1,93 @@
-<link rel="import"  href="https://polygit2.appspot.com/components/polymer/polymer.html">
-<base href="https://polygit2.appspot.com/components/">
-<link rel="import" href="paper-card/paper-card.html">
+<link rel="import"  href="https://polygit.org/components/polymer/polymer.html">
+<base href="https://polygit.org/components/">
+<script src="webcomponentsjs/webcomponents-lite.min.js"></script>
+<link rel="import" href="paper-material/paper-material.html">
 
 <dom-module id="data-value">
   <template>
     <style>
       :host {
         display: inline-block;
+        padding: 5px;
+        margin: 5px;
       }
 
       .card-content {
           font-size: 30px;
+          min-width: 30px;
+          min-height: 30px;
           vertical-align: middle;
           text-align: center;
           padding: 5px;
+          display: inline-block;
       }
 
-      paper-card {
-          --paper-card-header-color: #ff0000;
-      }
     </style>
 
-    <paper-card heading="System status:">
-      <div class="card-content">
-      <paper-card heading="Heater:">
-        <div class="card-content">
-          <div id="heater">On</div>
-        </div>
-      </paper-card>
+    <paper-material elevation="1" >
+      Measurements:
+      <paper-material elevation="2" class="card-content">
+            <div id="kitchen_temp">{{kitchen_temp}}</div>
+      </paper-material>
 
-      <paper-card heading="Heater Pump:">
-        <div class="card-content">
-          <div id="heater_content">Off</div>
-        </div>
-      </paper-card>
-      </div>
-    </paper-card>
-
-    <paper-card heading="Measurements:">
-      <div class="card-content">
-
-    <paper-card heading="Kitchen:">
-      <div class="card-content">
-        <div id="kitchen_temp">{{kitchen_temp}}</div>
-      </div>
-    </paper-card>
-
-    <paper-card heading="Entry room:">
-      <div class="card-content">
+      <paper-material elevation="2" class="card-content">
         <div id="entry_temp">{{entry_temp}}</div>
-      </div>
-    </paper-card>
-
-    <paper-card heading="Heater:">
-      <div class="card-content">
-        <div id="entry_temp">{{entry_temp}}</div>
-      </div>
-    </paper-card>
-
-    <paper-card heading="Heater Reverse:">
-      <div class="card-content">
-        <div id="entry_temp">{{entry_temp}}</div>
-      </div>
-    </paper-card>
-
-    <paper-card heading="Recuperator:">
-      <div class="card-content">
-        <div id="entry_temp">{{entry_temp}}</div>
-      </div>
-    </paper-card>
-
-    <paper-card heading="Outside:">
-      <div class="card-content">
-        <div id="entry_temp">{{entry_temp}}</div>
-      </div>
-    </paper-card>
-  </div>
-</paper-card>
+      </paper-material>
+    </paper-material>
 
   </template>
 
 
 <script>
+"use strict";
+
+class DataValue  {
+  static get is() { return 'data-value'; }
+
+  /*
+  beforeRegister() {
+          this.is = "data-value";
+          this.properties = {
+            name: {
+              type: String,
+              value: "I'm a data-binded prop"
+            }
+          }
+    }
+*/
+
+    connectedCallback() {
+      super.connectedCallback();
+      console.log('data-value created!');
+    }
+
+    ready() {
+      super.ready();
+      console.log('data-value ready!');
+    }
+
+    static get properties() {
+        return {
+          kitchen_temp: {
+            type: String,
+            value: "1 C",
+            readOnly: false,
+            notify: true,
+            reflectToAttribute: true
+          },
+          entry_temp: {
+            type: String,
+            readOnly: false,
+            notify: true,
+            value: 'auto',
+            reflectToAttribute: true
+          }
+        }
+    }
+}
+
+  Polymer(DataValue);
+/*
   Polymer({
     is: "data-value",
     properties: {
@@ -97,6 +103,8 @@
     observers: [
       '_render(label, val, me, padding, margin, boxShadow)'
     ],
+
+
     ready: function() {
       this.style.display = 'block';
     },
@@ -111,6 +119,7 @@
       //    this.innerHTML = html;
     }
   });
+  */
 </script>
 
 </dom-module>

@@ -11,10 +11,12 @@
 
     <link rel="import" href="proto-element.html">
     <link rel="import" href="sample-content.html">
-    <link rel="import" href="data-value.html">
+    <!--link rel="import" href="data-value.html"-->
 
-    <base href="https://polygit2.appspot.com/components/">
-    <script src="webcomponentsjs/webcomponents-lite.js"></script>
+    <!-- base href="https://polygit2.appspot.com/components/"-->
+    <base href="https://polygit.org/components/">
+
+    <script src="webcomponentsjs/webcomponents-lite.min.js"></script>
     <link rel="import" href="font-roboto/roboto.html">
     <link rel="import" href="iron-icons/iron-icons.html">
     <link rel="import" href="paper-item/paper-icon-item.html">
@@ -89,33 +91,39 @@
           <app-drawer>
             <div class="drawer-content">
                 <label id="label1">Boiler pump:</label>
+                <br/><hr/>
                 <paper-radio-group name="boiler_pump" selected="auto">
                     <paper-radio-button name="auto">Auto</paper-radio-button>
+                    <br/>
                     <paper-radio-button name="on">On</paper-radio-button>
+                    <br/>
                     <paper-radio-button name="off">Off</paper-radio-button>
                 </paper-radio-group>
-
+                <br/>
+                </br>
                 <label id="label2">Boiler:</label>
+                <br/><hr/>
                 <paper-radio-group name="boiler" selected="auto">
                     <paper-radio-button name="auto">Auto</paper-radio-button>
+                    <br/>
                     <paper-radio-button name="on">On</paper-radio-button>
+                    <br/>
                     <paper-radio-button name="off">Off</paper-radio-button>
                 </paper-radio-group>
-
-                <div>Desired t: <span id="desired_temp_label" class="caption"></span></div><br>
-                <paper-slider id="desired_temp" pin snaps min="10" max="22" max-markers="12" step="1"></paper-slider>
+                <br/>
+                <br/>
 
             </div>
           </app-drawer>
 
-          <!-- paper-card heading="Measurements:">
+          <paper-card heading="Measurements:">
             <div class="card-content">
               <div id="Kitchen_temp"><label>Kitchen:</label> 20 C</div>
             </div>
-            < div class="card-actions">
+            <div class="card-actions">
               <paper-button>Some action</paper-button>
             </div>
-          </paper-card -->
+          </paper-card>
 
           <!--paper-card heading="Measurements:">
             <div class="card-content">
@@ -125,6 +133,9 @@
               <paper-button>Some action</paper-button>
             </div>
           </paper-card-->
+
+          <div>Desired t: <span id="desired_temp_label" class="caption"></span></div><br>
+          <paper-slider id="desired_temp" pin snaps min="10" max="22" max-markers="12" step="1"></paper-slider>
 
           <data-value id="info-panel" kitchen_temp="5C" ></data-value>
 
@@ -150,8 +161,8 @@
 
         });
 
-        var info = document.getElementById('info-panel');
-        info.set("kitchen_temp", "7 K");
+        //var info = document.getElementById('info-panel');
+        //info.set("kitchen_temp", "7 K");
 
       </script>
 </body>
