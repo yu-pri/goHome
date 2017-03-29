@@ -36,9 +36,9 @@ func reportPump() error {
 }
 
 func pump(w http.ResponseWriter, r *http.Request) {
-
 	defer reportPump()
 
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	state := r.FormValue("state")
 	log.Println(state)
 

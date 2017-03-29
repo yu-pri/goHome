@@ -38,6 +38,7 @@ func reportHeat() error {
 func heat(w http.ResponseWriter, r *http.Request) {
 
 	defer reportHeat()
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 
 	state := r.FormValue("state")
 	log.Println(state)
