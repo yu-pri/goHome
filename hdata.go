@@ -8,6 +8,8 @@ import (
 )
 
 func hdata(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
 	from, errx := strconv.Atoi(r.URL.Query().Get("from"))
 	if errx != nil {
 		log.Println(errx.Error())
