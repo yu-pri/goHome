@@ -100,6 +100,7 @@ func main() {
 
 	http.HandleFunc("/control/hdata", hdata)
 	http.HandleFunc("/control/currentState", cState)
+	http.HandleFunc("/control/config", configHandler)
 
 	if !SENSORS {
 		go func() {

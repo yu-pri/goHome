@@ -4,10 +4,12 @@ import (
 	//	"goHome/home"
 	"goHome/home"
 	"log"
+	"strconv"
 )
 
 func managePump(dat *home.HData) error {
 	var err error
+
 	if home.GetHeatPumpMode() != home.AUTO {
 		dat.HeaterState = home.GetHeat()
 		dat.PumpState = home.GetPump()
@@ -37,6 +39,7 @@ func managePump(dat *home.HData) error {
 
 func manageHeater(dat *home.HData) error {
 	var err error
+	var heaterOnThr int
 	if home.GetHeatMode() != home.AUTO {
 		dat.HeaterState = home.GetHeat()
 		dat.PumpState = home.GetPump()
@@ -45,8 +48,14 @@ func manageHeater(dat *home.HData) error {
 	}
 
 	//hour := time.Now().Hour() + 1
+	heaterOnThr, err = strconv.Atoi(conf.DesiredTemp)
 
-	if dat.TempEntryRoom < float32(home.HeaterOnThreshold) && home.IsChipTimeZone() {
+	if err != nil {
+		log.Println(err.Error())
+		heaterOnThr = 16
+	}
+
+	if dat.TempEntryRoom < float32(heaterOnThr) && home.IsChipTimeZone() {
 		log.Println("Heater should be ON!")
 		err = home.OnHeat()
 		if err != nil {

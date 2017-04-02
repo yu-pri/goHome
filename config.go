@@ -11,19 +11,24 @@ import (
 type config struct {
 	PumpState   string `json:"PumpState, string"`
 	HeaterState string `json:"HeaterState, string"`
+	DesiredTemp string `json:"DesiredTemp, number"`
 }
 
 /*Config contains user preferences*/
 type Config config
 
 /*
-func init() {
-	log.Println("Loading user preferences")
-	Config.HeaterState = home.AUTO
-	Config.PumpState = home.AUTO
-	//runtime.se
-}
+ToJSON returns serialized date
 */
+func (q *Config) ToJSON() (d []byte, err error) {
+	//now := int(time.Now().Unix())
+
+	b, err := json.Marshal(q)
+	if err != nil {
+		return nil, err
+	}
+	return b, nil
+}
 
 func (q *Config) saveConfig() error {
 	b, err := json.Marshal(q)
