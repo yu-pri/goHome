@@ -50,6 +50,7 @@ func configHandler(w http.ResponseWriter, r *http.Request) {
 	state := r.FormValue("state")
 	if len(state) == 0 {
 		log.Println("config requested:")
+		io.WriteString(w, string(d))
 		return
 	}
 	_, errs = strconv.Atoi(state)
