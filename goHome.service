@@ -1,0 +1,17 @@
+[Unit]
+Description=goHome
+After=rc-local.service blaster.service
+
+
+[Service]
+Type=simple
+EnvironmentFile=
+ExecStart=/home/pi/w/go/src/goHome/goHome 
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=control-group
+RestartSec=10
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+Alias=goHome.service
