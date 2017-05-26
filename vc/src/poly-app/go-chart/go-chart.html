@@ -1,4 +1,61 @@
-<html><head><link rel="import" href="../../../bower_components/polymer/polymer.html"><link rel="import" href="../../../bower_components/iron-ajax/iron-ajax.html"><link rel="import" href="../../../bower_components/paper-slider/paper-slider.html"><link rel="import" href="../../../bower_components/paper-material/paper-material.html"><script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script></head><body><dom-module id="go-chart"><template><style>:host{}.title{vertical-align:middle;padding:5px;min-width:20px;display:inline-block;}.card-content{font-size:15px;min-width:15px;min-height:15px;vertical-align:middle;text-align:center;padding:5px;margin:5px;display:inline-block;}</style><iron-ajax id="loadChart" url="http://[[host]]/control/hdata?from={{chart_time_limit}}" handle-as="json" on-response="_handleChartResponse"></iron-ajax><paper-material elevation="1" class="title">Period:<paper-material elevation="2" class="card-content"><span id="time_period">Now</span></paper-material><paper-material elevation="1" class="title"><paper-slider id="period_slider" pin="" snaps="" min="1" max="5" step="1" toggles=""></paper-slider></paper-material></paper-material><div id="curve_chart"></div></template><script>
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../../bower_components/paper-slider/paper-slider.html">
+<link rel="import" href="../../../bower_components/paper-material/paper-material.html">
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<dom-module id="go-chart">
+  <template>
+    <style>
+      :host {
+
+      }
+
+      .title {
+          vertical-align: middle;
+          padding: 5px;
+          min-width: 20px;
+          display: inline-block;
+      }
+      .card-content {
+          font-size: 15px;
+          min-width: 15px;
+          min-height: 15px;
+          vertical-align: middle;
+          text-align: center;
+          padding: 5px;
+          margin: 5px;
+          display: inline-block;
+      }
+
+    </style>
+    <iron-ajax
+               id="loadChart"
+               url="http://[[host]]/control/hdata?from={{chart_time_limit}}"
+               handle-as="json"
+               on-response="_handleChartResponse">
+    </iron-ajax>
+<paper-material elevation="1" class="title">
+    Period:
+    <paper-material elevation="2" class="card-content">
+        <span id="time_period">Now</span>
+    </paper-material>
+    <paper-material elevation="1" class="title">
+        <paper-slider id="period_slider"
+          pin snaps min="1" max="5" step="1" toggles
+          >
+        </paper-slider>
+    </paper-material>
+</paper-material>
+
+    <div id="curve_chart" ></div>
+
+
+  </template>
+
+
+<script>
 "use strict";
 
 class GoChart  extends Polymer.Element {
@@ -158,4 +215,6 @@ class GoChart  extends Polymer.Element {
 
 customElements.define(GoChart.is, GoChart);
 
-</script></dom-module></body></html>
+</script>
+
+</dom-module>

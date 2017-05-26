@@ -144,15 +144,6 @@ func (q *HistoryData) ToJSON(from int) (d []byte, err error) {
 }
 
 /*
-// update modifies the priority and value of an Item in the queue.
-func (q *historyData) update(item *Item, value string, priority int) {
-	item.value = value
-	item.priority = priority
-	heap.Fix(pq, item.index)
-}
-*/
-
-/*
 ToGOB64 encodes to string
 */
 func (q *HistoryData) ToGOB64() (string, error) {

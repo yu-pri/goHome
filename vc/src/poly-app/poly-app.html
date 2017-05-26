@@ -1,4 +1,178 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html"><link rel="import" href="../../bower_components/font-roboto/roboto.html"><link rel="import" href="../../bower_components/paper-material/paper-material.html"><link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html"><link rel="import" href="../../bower_components/paper-radio-button/paper-radio-button.html"><link rel="import" href="../../bower_components/paper-radio-group/paper-radio-group.html"><link rel="import" href="../../bower_components/app-layout/app-layout.html"><link rel="import" href="../../bower_components/paper-slider/paper-slider.html"><link rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html"><link rel="import" href="../../bower_components/app-layout/app-scroll-effects/effects/waterfall.html"><link rel="import" href="../../bower_components/app-layout/app-header/app-header.html"><link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html"><link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html"><link rel="import" href="../../bower_components/iron-icons/iron-icons.html"><link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html"><link rel="import" href="temp-sensor/temp-sensor.html"><link rel="import" href="state-card/state-card.html"><link rel="import" href="go-chart/go-chart.html"><script src="app.js"></script></head><body><dom-module id="poly-app"><template><style>:host{display:block;padding:16px;font-family:'Roboto', 'Noto', sans-serif;background-color:#eee;}app-header{background-color:#22AFFF;color:#fff;}app-header paper-icon-button{--paper-icon-button-ink-color:#fff;}app-drawer-layout{--app-drawer-layout-content-transition:margin 0.2s;}app-drawer{--app-drawer-scrim-background:rgba(0, 0, 100, 0.5);--app-drawer-content-container:{background-color:#B0BEC5;};}.drawer-content{padding:16px;overflow:auto;}.card-content{font-size:15px;min-width:15px;min-height:15px;vertical-align:middle;text-align:center;padding:5px;margin:5px;display:inline-block;}.title{vertical-align:middle;padding:5px;min-width:220px;display:inline-block;}</style><app-header reveals="" effects="waterfall"><app-toolbar><paper-icon-button id="toggle" icon="menu"></paper-icon-button><div main-title="">Home control</div><temp-sensor name="Kitchen" sensor="[[current_state.TempInside]]"></temp-sensor><temp-sensor name="Entry room" sensor="[[current_state.TempEntryRoom]]"></temp-sensor><state-card name="Heater" state="[[current_state.HeaterState]]"></state-card><state-card name="Heater Pump" state="[[current_state.PumpState]]"></state-card></app-toolbar></app-header><br><temp-sensor name="Heater" sensor="[[current_state.TempHeater]]"></temp-sensor><temp-sensor name="Reverse" sensor="[[current_state.TempReverse]]"></temp-sensor><paper-material elevation="1" class="title">Desired t:<paper-material elevation="2" class="card-content"><span id="desired_temp_label"></span>℃</paper-material><paper-slider id="desired_temp" pin="" snaps="" min="10" max="22" max-markers="12" step="1"></paper-slider></paper-material><br><hr><br><go-chart id="chart"></go-chart><iron-ajax id="requestStatus" url="http://[[host]]/control/currentState" handle-as="json" on-response="_handleResponse"><div>ajax</div></iron-ajax><iron-ajax auto="" id="configStatusChange" url="http://[[host]]/control/config?state={{desired_temp_value}}" handle-as="json" on-response="_handleConfigDesiredTemp"><div>ajax</div></iron-ajax><iron-ajax auto="" id="boilerPumpStatusChange" url="http://[[host]]/control/pump?state={{pump_state}}" handle-as="text" on-response="_handleBoilerPumpStatus"><div>ajax</div></iron-ajax><iron-ajax auto="" id="heaterStatusChange" url="http://[[host]]/control/heat?state={{heater_state}}" handle-as="text" on-response="_handleHeatStatus"><div>ajax</div></iron-ajax><app-drawer id="drawer" swipe-open=""><div class="drawer-content"><h2>[[prop1]]</h2><label id="label1">Boiler pump:</label><br><hr><paper-radio-group id="boiler_pump" name="boiler_pump" selected="auto"><paper-radio-button name="Auto">Auto</paper-radio-button><paper-radio-button name="On">On</paper-radio-button><paper-radio-button name="Off">Off</paper-radio-button></paper-radio-group><br><br><label id="label2">Heater:</label><br><hr><paper-radio-group id="heater" name="heater" elected="auto"><paper-radio-button name="Auto">Auto</paper-radio-button><paper-radio-button name="On">On</paper-radio-button><paper-radio-button name="Off">Off</paper-radio-button></paper-radio-group><br></div></app-drawer></template><script>
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/font-roboto/roboto.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../bower_components/paper-radio-button/paper-radio-button.html">
+<link rel="import" href="../../bower_components/paper-radio-group/paper-radio-group.html">
+
+<link rel="import" href="../../bower_components/app-layout/app-layout.html">
+
+<link rel="import" href="../../bower_components/paper-slider/paper-slider.html">
+
+<!-- link rel="import" href="../../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html"-->
+<link rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
+
+<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/effects/waterfall.html">
+
+<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
+<!-- link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html"-->
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+
+
+<link rel="import" href="temp-sensor/temp-sensor.html">
+<link rel="import" href="state-card/state-card.html">
+<link rel="import" href="go-chart/go-chart.html">
+
+<script src="app.js"></script>
+
+<dom-module id="poly-app">
+    <template>
+    <style>
+      :host {
+        display: block;
+         padding: 16px;
+         font-family: 'Roboto', 'Noto', sans-serif;
+         background-color: #eee;
+      }
+
+      app-header {
+        background-color: #22AFFF;
+        color: #fff;
+      }
+      app-header paper-icon-button {
+        --paper-icon-button-ink-color: #fff;
+      }
+      app-drawer-layout {
+        --app-drawer-layout-content-transition: margin 0.2s;
+      }
+
+
+      app-drawer {
+        --app-drawer-scrim-background: rgba(0, 0, 100, 0.5);
+        --app-drawer-content-container: {
+          background-color: #B0BEC5;
+        }
+      }
+
+      .drawer-content {
+        padding: 16px;
+        overflow: auto;
+      }
+
+      .card-content {
+          font-size: 15px;
+          min-width: 15px;
+          min-height: 15px;
+          vertical-align: middle;
+          text-align: center;
+          padding: 5px;
+          margin: 5px;
+          display: inline-block;
+      }
+
+      .title {
+          vertical-align: middle;
+          padding: 5px;
+          min-width: 220px;
+          display: inline-block;
+      }
+    </style>
+
+    <app-header reveals effects="waterfall">
+      <app-toolbar>
+        <paper-icon-button id="toggle" icon="menu"></paper-icon-button>
+        <div main-title> Home control </div>
+        <temp-sensor name="Kitchen" sensor=[[current_state.TempInside]]></temp-sensor>
+        <temp-sensor name="Entry room" sensor=[[current_state.TempEntryRoom]]></temp-sensor>
+        <state-card name="Heater" state=[[current_state.HeaterState]]></state-card>
+        <state-card name="Heater Pump" state=[[current_state.PumpState]]></state-card>
+
+        </app-toolbar>
+    </app-header>
+    <br/>
+    <temp-sensor name="Heater" sensor=[[current_state.TempHeater]]></temp-sensor>
+    <temp-sensor name="Reverse" sensor=[[current_state.TempReverse]]></temp-sensor>
+    <paper-material elevation="1" class="title">
+    Desired t:
+      <paper-material elevation="2" class="card-content">
+        <span id="desired_temp_label"></span>&#8451;
+      </paper-material>
+    <paper-slider id="desired_temp" pin snaps min="10" max="22" max-markers="12" step="1"></paper-slider>
+    </paper-material>
+    <br/> <hr/><br/>
+    <go-chart id="chart">   </go-chart>
+
+    <iron-ajax
+               id="requestStatus"
+               url="http://[[host]]/control/currentState"
+               handle-as="json"
+               on-response="_handleResponse">
+               <div>ajax</div>
+    </iron-ajax>
+
+
+    <iron-ajax
+              auto
+              id="configStatusChange"
+              url="http://[[host]]/control/config?state={{desired_temp_value}}"
+              handle-as="json"
+              on-response="_handleConfigDesiredTemp">
+              <div>ajax</div>
+    </iron-ajax>
+
+    <iron-ajax
+               auto
+               id="boilerPumpStatusChange"
+               url="http://[[host]]/control/pump?state={{pump_state}}"
+               handle-as="text"
+               on-response="_handleBoilerPumpStatus">
+               <div>ajax</div>
+    </iron-ajax>
+
+    <iron-ajax
+               auto
+               id="heaterStatusChange"
+               url="http://[[host]]/control/heat?state={{heater_state}}"
+               handle-as="text"
+               on-response="_handleHeatStatus">
+               <div>ajax</div>
+    </iron-ajax>
+
+        <app-drawer id="drawer" swipe-open>
+            <div class="drawer-content">
+            <h2>[[prop1]]</h2>
+
+            <label id="label1">Boiler pump:</label>
+            <br/>
+            <hr/>
+            <paper-radio-group id="boiler_pump" name="boiler_pump" selected="auto">
+                <paper-radio-button name="Auto">Auto</paper-radio-button>
+                <paper-radio-button name="On">On</paper-radio-button>
+                <paper-radio-button name="Off">Off</paper-radio-button>
+            </paper-radio-group>
+            <br/>
+            </br>
+            <label id="label2">Heater:</label>
+            <br/>
+            <hr/>
+            <paper-radio-group id="heater" name="heater" elected="auto">
+                <paper-radio-button name="Auto">Auto</paper-radio-button>
+                <paper-radio-button name="On">On</paper-radio-button>
+                <paper-radio-button name="Off">Off</paper-radio-button>
+            </paper-radio-group>
+            <br/>
+          </div>
+        </app-drawer>
+
+  </template>
+
+    <script>
         class MyApplication extends Polymer.Element {
             static get is() {
                 return 'poly-app';
@@ -175,7 +349,7 @@
 
                         console.log('ws error: ' + evt.type);
                         setTimeout(function() {
-                            wsConnect(wsurl, handler)
+                            ctx._wsconnect(wsurl, handler, ctx)
                         }, 30000);
                     };
 
@@ -222,4 +396,5 @@
         };
 
         window.customElements.define(MyApplication.is, MyApplication);
-    </script></dom-module></body></html>
+    </script>
+</dom-module>
