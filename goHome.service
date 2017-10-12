@@ -6,7 +6,8 @@ After=rc-local.service blaster.service
 [Service]
 Type=simple
 EnvironmentFile=
-ExecStart=/home/pi/w/go/src/goHome/goHome 
+WorkingDirectory=/home/pi/goHome
+ExecStart=/usr/local/bin/goHome 
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=control-group
 RestartSec=10
