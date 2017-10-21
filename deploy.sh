@@ -24,7 +24,7 @@ export GOARM=7
 ssh pi\@$HOST "mkdir -p /home/pi/$SERVICE" || exit 1
 ssh pi\@$HOST "mkdir -p /home/pi/$SERVICE/ui" || exit 1
 
-scp -r ui/build/defailt $deploy_ui 
+scp -r ui/build/default $deploy_ui 
 
 if [ "$1" == "all" ]; then
     go build || exit 1
