@@ -12,7 +12,7 @@ SERVICE=goHome
 
 deploy=pi\@"$HOST":/usr/local/bin
 deploy_home=pi\@"$HOST":/home/pi/$SERVICE
-deploy_ui=pi\@"$HOST":/home/pi/"$SERVICE"/ui
+deploy_ui=pi\@"$HOST":/home/pi/"$SERVICE"/vc
 
 
 export GOOS=linux
@@ -29,7 +29,7 @@ scp -r ui/build/default $deploy_ui
 if [ "$1" == "all" ]; then
     go build || exit 1
     ssh pi\@$HOST "sudo service $SERVICE stop" || exit 1
-    scp raspi-alarm $deploy || exit 1
+    scp $SERVICE $deploy || exit 1
     ssh pi\@$HOST "sudo service $SERVICE start" || exit 1
 fi
 
