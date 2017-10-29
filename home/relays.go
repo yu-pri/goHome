@@ -21,10 +21,14 @@ const (
 )
 
 var r = raspi.NewRaspiAdaptor("raspi")
-var relHeatPump = gpio.NewLedDriver(r, "led", "11") //17
+
+//var relHeatPump = gpio.NewLedDriver(r, "led", "11") //17
+var relHeatPump = gpio.NewLedDriver(r, "led", "16") //23
+//var relHeatPump = gpio.NewLedDriver(r, "led", "33") //just test
 
 //physical port 12 (BCM 18) seems broken, do not use it.
-var relHeat = gpio.NewLedDriver(r, "led", "13") //27
+//var relHeat = gpio.NewLedDriver(r, "led", "13") //27
+var relHeat = gpio.NewLedDriver(r, "led", "18") //24
 
 var heatMode = AUTO
 var heatPumpMode = AUTO
@@ -115,11 +119,11 @@ func OnHeatPump() error {
 		log.Println("Heat Pump already on")
 		return nil
 	}
-	return relHeatPump.Off()
+	return relHeatPump.On()
 }
 
 /*
-OnHeat switches state for heat, reversed
+OnHeat switches state for heat,  reversed
 */
 func OnHeat() error {
 	log.Println("on heat r1")
@@ -140,7 +144,7 @@ func OffHeatPump() error {
 		return nil
 	}
 
-	return relHeatPump.On()
+	return relHeatPump.Off()
 }
 
 /*
@@ -214,10 +218,10 @@ func GetHeat() bool {
 }
 
 /*
-GetPump returns rely status, reverse it
+GetPump returns rely status, DO NOT reverse it
 */
 func GetPump() bool {
-	return !relHeatPump.State()
+	return relHeatPump.State()
 }
 
 /*

@@ -1,0 +1,63 @@
+<link rel="import"  href="https://polygit.org/components/polymer/polymer.html">
+<base href="https://polygit.org/components/">
+<script src="webcomponentsjs/webcomponents-lite.min.js"></script>
+<link rel="import" href="paper-material/paper-material.html">
+
+<dom-module id="temp-sensor">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        padding: 5px;
+        margin: 5px;
+      }
+
+      .card-content {
+          font-size: 30px;
+          min-width: 30px;
+          min-height: 30px;
+          vertical-align: middle;
+          text-align: center;
+          padding: 5px;
+          display: inline-block;
+      }
+
+    </style>
+
+    <paper-material elevation="1" >
+      Measurements:
+      <paper-material elevation="2" class="card-content">
+            <div id="sensor">{{this.sensor}} &#8451;</div>
+      </paper-material>
+    </paper-material>
+
+  </template>
+
+
+<script>
+"use strict";
+
+class TempSensor  {
+  static get is() { return 'temp-sensor'; }
+
+    ready() {
+      super.ready();
+    }
+
+    static get properties() {
+        return {
+          sensor: {
+            type: String,
+            readOnly: false,
+            notify: true,
+            value: "n/a",
+            reflectToAttribute: true
+          }
+        }
+    }
+}
+
+Polymer(TempSensor);
+</script>
+
+</dom-module>

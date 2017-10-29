@@ -19,12 +19,12 @@ var kitchenAlarmStatus = false
 /*
 SmokeAlarmKitchen smoke/gas sensor in the kitchen
 */
-var SmokeAlarmKitchen = gpio.NewButtonDriver(r, "alm1", "16") //23
+var SmokeAlarmKitchen = gpio.NewButtonDriver(r, "alm1", "11") //17
 
 /*
 SmokeAlarmSauna smoke/gas sensor in the sauna
 */
-var SmokeAlarmSauna = gpio.NewButtonDriver(r, "alm2", "18") //24
+var SmokeAlarmSauna = gpio.NewButtonDriver(r, "alm2", "13") //27
 
 func init() {
 	log.Println("Initialise smoke alarms")

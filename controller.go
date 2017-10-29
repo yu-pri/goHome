@@ -23,7 +23,7 @@ const configFileName = "/etc/goHome.conf"
 /*
 HISTORYDATASERIAL file which contains history data for my home
 */
-const HISTORYDATASERIAL = "/home/pi/goHomeHistoryData.b64"
+const HISTORYDATASERIAL = "goHomeHistoryData.b64"
 
 /*
 SENSORS  Sensors exists
@@ -94,7 +94,7 @@ func main() {
 	http.Handle("/echo", websocket.Handler(echoHandler))
 	http.Handle("/relays", websocket.Handler(relHandler))
 
-	http.Handle("/", http.FileServer(http.Dir("/home/pi/w/go/src/goHome")))
+	http.Handle("/", http.FileServer(http.Dir("ui")))
 	http.HandleFunc("/control/pump", pump)
 	http.HandleFunc("/control/heat", heat)
 
