@@ -94,7 +94,7 @@ func main() {
 	http.Handle("/echo", websocket.Handler(echoHandler))
 	http.Handle("/relays", websocket.Handler(relHandler))
 
-	http.Handle("/", http.FileServer(http.Dir("ui")))
+	http.Handle("/", http.FileServer(http.Dir("ui/")))
 	http.HandleFunc("/control/pump", pump)
 	http.HandleFunc("/control/heat", heat)
 
@@ -144,8 +144,7 @@ func main() {
 	//home.GetRelHeatMotor2()
 	robot := gobot.NewRobot("blinkBot",
 		[]gobot.Connection{home.GetRelayAdaptor()},
-		[]gobot.Device{home.GetRelHeat(), home.GetRelHeatPump(),
-			home.SmokeAlarmSauna, home.SmokeAlarmKitchen},
+		[]gobot.Device{home.GetRelHeat(), home.GetRelHeatPump()},
 		work,
 	)
 

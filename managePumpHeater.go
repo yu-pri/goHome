@@ -52,7 +52,7 @@ func manageHeater(dat *home.HData) error {
 
 	if err != nil {
 		log.Println(err.Error())
-		heaterOnThr = 16
+		heaterOnThr = 22
 	}
 
 	if dat.TempEntryRoom < float32(heaterOnThr) && home.IsChipTimeZone() {
