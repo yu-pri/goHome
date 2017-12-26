@@ -23,7 +23,7 @@ const configFileName = "/etc/goHome.conf"
 /*
 HISTORYDATASERIAL file which contains history data for my home
 */
-const HISTORYDATASERIAL = "goHomeHistoryData.b64"
+const HISTORYDATASERIAL = "/home/pi/goHome/goHomeHistoryData.b64"
 
 /*
 SENSORS  Sensors exists

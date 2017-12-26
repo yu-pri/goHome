@@ -207,6 +207,7 @@ func (q *HistoryData) SerializeToFile(name string) error {
 RestoreFromFile writes slice to file
 */
 func (q *HistoryData) RestoreFromFile(name string) error {
+	log.Println("Reading from:" + name)
 	dat, err := ioutil.ReadFile(name)
 
 	if err != nil {
