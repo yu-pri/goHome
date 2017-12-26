@@ -49,6 +49,7 @@ func (q *Config) saveConfig() error {
 func (q *Config) setDefault() {
 	q.HeaterState = home.AUTO
 	q.PumpState = home.AUTO
+	q.DesiredTemp = "22"
 }
 
 func (q *Config) loadConfig() error {

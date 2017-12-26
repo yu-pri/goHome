@@ -7,7 +7,9 @@ err() {
 trap 'err $LINENO' ERR
 
 HOST=192.168.1.20
-HOST=sasha123.ddns.ukrtel.net
+#HOST=sasha123.ddns.ukrtel.net
+PORT=22
+
 SERVICE=goHome
 
 deploy=pi\@"$HOST":/usr/local/bin
@@ -21,16 +23,16 @@ export GOARM=7
 
 
 
-ssh -p75 pi\@$HOST "mkdir -p /home/pi/$SERVICE" || exit 1
-ssh -p75 pi\@$HOST "mkdir -p /home/pi/$SERVICE/ui" || exit 1
+ssh -p$PORT pi\@$HOST "mkdir -p /home/pi/$SERVICE" || exit 1
+ssh -p$PORT pi\@$HOST "mkdir -p /home/pi/$SERVICE/ui" || exit 1
 
-scp -P75 -r vc/build/default $deploy_ui 
+scp -P$PORT -r vc/build/default $deploy_ui
 
 if [ "$1" == "all" ]; then
     go build || exit 1
-    ssh -p75 pi\@$HOST "sudo service $SERVICE stop" || exit 1
-    scp -P75 $SERVICE $deploy || exit 1
-    ssh -p75 pi\@$HOST "sudo service $SERVICE start" || exit 1
+    ssh -p$PORT pi\@$HOST "sudo service $SERVICE stop" || exit 1
+    scp -P$PORT $SERVICE $deploy || exit 1
+    ssh -p$PORT pi\@$HOST "sudo service $SERVICE start" || exit 1
 fi
 
 echo "Success"

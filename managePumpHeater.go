@@ -54,7 +54,7 @@ func manageHeater(dat *home.HData) error {
 		log.Println(err.Error())
 		heaterOnThr = 22
 	}
-
+	log.Println("Desired: "+strconv.Itoa(heaterOnThr)+", ChipTime: ", home.IsChipTimeZone())
 	if dat.TempEntryRoom < float32(heaterOnThr) && home.IsChipTimeZone() {
 		log.Println("Heater should be ON!")
 		err = home.OnHeat()
