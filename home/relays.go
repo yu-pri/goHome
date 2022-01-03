@@ -3,9 +3,10 @@ package home
 import (
 	"log"
 	"os"
-	//"github.com/hybridgroup/gobot"
-	"github.com/hybridgroup/gobot/platforms/gpio"
-	"github.com/hybridgroup/gobot/platforms/raspi"
+
+	//"gobot.io/x/gobot"
+	"gobot.io/x/gobot/drivers/gpio"
+	"gobot.io/x/gobot/platforms/raspi"
 )
 
 const (
@@ -20,15 +21,15 @@ const (
 	//TESTS = true
 )
 
-var r = raspi.NewRaspiAdaptor("raspi")
+var r = raspi.NewAdaptor()
 
 //var relHeatPump = gpio.NewLedDriver(r, "led", "11") //17
-var relHeatPump = gpio.NewLedDriver(r, "led", "16") //23
+var relHeatPump = gpio.NewLedDriver(r, "16") //23
 //var relHeatPump = gpio.NewLedDriver(r, "led", "33") //just test
 
 //physical port 12 (BCM 18) seems broken, do not use it.
 //var relHeat = gpio.NewLedDriver(r, "led", "13") //27
-var relHeat = gpio.NewLedDriver(r, "led", "18") //24
+var relHeat = gpio.NewLedDriver(r, "18") //24
 
 var heatMode = AUTO
 var heatPumpMode = AUTO
@@ -76,7 +77,7 @@ func init() {
 /*
 GetRelayAdaptor returns raspi adaptor for robot
 */
-func GetRelayAdaptor() *raspi.RaspiAdaptor {
+func GetRelayAdaptor() *raspi.Adaptor {
 	return r
 }
 
@@ -171,15 +172,12 @@ func SetHeatMode(state string) error {
 	switch state {
 	case AUTO:
 		err = OffHeat()
-		break
 
 	case ON:
 		err = OnHeat()
-		break
 
 	case OFF:
 		err = OffHeat()
-		break
 
 	}
 
@@ -195,15 +193,12 @@ func SetHeatPumpMode(state string) error {
 	switch state {
 	case AUTO:
 		err = OnHeatPump()
-		break
 
 	case ON:
 		err = OnHeatPump()
-		break
 
 	case OFF:
 		err = OffHeatPump()
-		break
 
 	}
 

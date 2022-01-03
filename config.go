@@ -9,9 +9,9 @@ import (
 )
 
 type config struct {
-	PumpState   string `json:"PumpState, string"`
-	HeaterState string `json:"HeaterState, string"`
-	DesiredTemp string `json:"DesiredTemp, number"`
+	PumpState   string `json:"PumpState,string"`
+	HeaterState string `json:"HeaterState,string"`
+	DesiredTemp string `json:"DesiredTemp,string"`
 }
 
 /*Config contains user preferences*/

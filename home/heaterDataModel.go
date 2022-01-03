@@ -22,18 +22,18 @@ const LIMIT = 100000
 HData is set of home data values, can be parsed from json
 */
 type HData struct {
-	TempInside      float32 `json:"TempInside, float"`
-	TempOutside     float32 `json:"TempOutside, float"`
-	TempHeater      float32 `json:"TempHeater, float"`
-	TempReverse     float32 `json:"TempReverse, float"`
-	TempEntryRoom   float32 `json:"TempEntryRoom, float"`
-	TempWaterBoiler float32 `json:"TempWaterBoiler, float"`
-	TempRecuperator float32 `json:"TempRecuperator, float"`
+	TempInside      float32 `json:"TempInside"`
+	TempOutside     float32 `json:"TempOutside"`
+	TempHeater      float32 `json:"TempHeater"`
+	TempReverse     float32 `json:"TempReverse"`
+	TempEntryRoom   float32 `json:"TempEntryRoom"`
+	TempWaterBoiler float32 `json:"TempWaterBoiler"`
+	TempRecuperator float32 `json:"TempRecuperator"`
 
-	PumpState   bool `json:"PumpState, bool"`
-	HeaterState bool `json:"HeaterState, bool"`
-	Timestamp   int  `json:"Timestamp, int"`
-	Index       int  `json:"index, int"`
+	PumpState   bool `json:"PumpState"`
+	HeaterState bool `json:"HeaterState"`
+	Timestamp   int  `json:"Timestamp"`
+	Index       int  `json:"index"`
 }
 
 /*
@@ -182,11 +182,12 @@ SerializeToFile writes slice to file
 */
 func (q *HistoryData) SerializeToFile(name string) error {
 	f, err := os.Create(name)
-	defer f.Close()
 	if err != nil {
 		log.Println(err.Error())
 		return err
 	}
+	defer f.Close()
+
 	w := bufio.NewWriter(f)
 	str, err := q.ToGOB64()
 	if err != nil {

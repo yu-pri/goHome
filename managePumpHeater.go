@@ -17,7 +17,7 @@ func managePump(dat *home.HData) error {
 	}
 
 	if (dat.TempHeater >= home.HeaterPumpRunThreshold &&
-		(dat.TempHeater-dat.TempInside) > 5) || (home.GetHeat() == true) {
+		(dat.TempHeater-dat.TempInside) > 5) || home.GetHeat() {
 		err = home.OnHeatPump()
 		if err != nil {
 			home.ReportAlert(err.Error(), "ALARM: cannot turn on Heater Pump")

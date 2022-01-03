@@ -16,10 +16,10 @@ MsgCommand - simple comm protocol to deliver infor to server
 */
 type MsgCommand struct {
 	sync.Mutex
-	Command string `json:"Command, string"`
-	Object  string `json:"Object, string"`
-	Param1  string `json:"Param1, string"`
-	Param2  string `json:"Param2, string"`
+	Command string `json:"Command"`
+	Object  string `json:"Object"`
+	Param1  string `json:"Param1"`
+	Param2  string `json:"Param2"`
 }
 
 func echoHandler(ws *websocket.Conn) {

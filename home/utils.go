@@ -129,18 +129,18 @@ func Sms(from string, msg string, recipients []string) error {
 	text += "</message></request>"
 	//log.Println(text)
 
-	req, err := http.NewRequest("POST", SmsEndpoint, bytes.NewBuffer([]byte(text)))
+	req, _ := http.NewRequest("POST", SmsEndpoint, bytes.NewBuffer([]byte(text)))
 	//req.Header.Set("X-Custom-Header", "myvalue")
 	//req.Header.Set("Content-Type", "application/json")
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
-	defer resp.Body.Close()
 
 	if err != nil {
 		log.Println("Cannot send alert: " + err.Error())
 		return err
 	}
+	defer resp.Body.Close()
 
 	log.Println("response Status:", resp.Status)
 	if resp.StatusCode != http.StatusOK {
@@ -152,7 +152,7 @@ func Sms(from string, msg string, recipients []string) error {
 	sbody := string(body)
 	log.Println("response Body:", sbody)
 
-	if strings.IndexAny(sbody, "Complete") < 0 {
+	if !strings.ContainsAny(sbody, "Complete") {
 		return errors.New(sbody)
 	}
 

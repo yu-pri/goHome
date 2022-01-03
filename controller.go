@@ -13,7 +13,7 @@ import (
 
 	//_ "github.com/icattlecoder/godaemon"
 
-	"github.com/hybridgroup/gobot"
+	"gobot.io/x/gobot"
 
 	"golang.org/x/net/websocket"
 )
@@ -51,7 +51,7 @@ var currentState home.HData
 var historyData home.HistoryData
 var sensors *home.Sensors
 
-//var stop chan bool
+// var stop chan bool
 
 func main() {
 
@@ -60,7 +60,7 @@ func main() {
 		log.Println("Likely use default configuration")
 	}
 
-	gbot := gobot.NewGobot()
+	gbot := gobot.NewMaster()
 
 	conns = socketConns{make(map[int32]*websocket.Conn), &sync.Mutex{}}
 	rconns = socketConns{make(map[int32]*websocket.Conn), &sync.Mutex{}}
@@ -111,7 +111,6 @@ func main() {
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt)
 	signal.Notify(c, syscall.SIGTERM)
-	signal.Notify(c, os.Kill)
 	signal.Notify(c, syscall.SIGABRT)
 
 	go func() {
@@ -209,11 +208,11 @@ func scheduleBackup(what func(*home.HistoryData, string), delay time.Duration,
 }
 
 func backupHistoryData(q *home.HistoryData, local string) {
-	historyData.SerializeToFile(local)
+	// historyData.SerializeToFile(local)
 
-	if _, err := DB.UploadFile(local, "/backup/goHome.b64", true, ""); err != nil {
-		log.Printf("Error uploading %s: %s\n", local, err)
-	} else {
-		log.Printf("File %s successfully uploaded\n", local)
-	}
+	// if _, err := DB.UploadFile(local, "/backup/goHome.b64", true, ""); err != nil {
+	// 	log.Printf("Error uploading %s: %s\n", local, err)
+	// } else {
+	// 	log.Printf("File %s successfully uploaded\n", local)
+	// }
 }

@@ -10,7 +10,7 @@ import (
 ReportInternalSensor reports Sensors to web app and cloud
 */
 func reportSensors(s *home.Sensors) {
-	err := s.Temp.Update()
+	s.Temp.Update()
 
 	v, err := s.InternalSensor()
 	if err != nil {
@@ -105,38 +105,4 @@ func reportSensors(s *home.Sensors) {
 			home.ReportAlert(err.Error(), "Cannot report values to dev server")
 		}
 	*/
-}
-
-func schedule(what func(*home.Sensors), delay time.Duration, s *home.Sensors) chan bool {
-	stop := make(chan bool)
-
-	go func() {
-		for {
-			what(s)
-			select {
-			case <-time.After(delay):
-			case <-stop:
-				return
-			}
-		}
-	}()
-
-	return stop
-}
-
-func scheduleT(what func(id string, t float32) error, delay time.Duration, id string, t float32) chan bool {
-	stop := make(chan bool)
-
-	go func() {
-		for {
-			what(id, t)
-			select {
-			case <-time.After(delay):
-			case <-stop:
-				return
-			}
-		}
-	}()
-
-	return stop
 }
