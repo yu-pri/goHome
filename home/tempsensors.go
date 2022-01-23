@@ -60,32 +60,6 @@ func (s Sensors) InternalSensor() (float32, error) {
 }
 
 /*
-RecuperatorSensor returns temperature from the sensor
-*/
-/*
-func (s Sensors) RecuperatorSensor() (float32, error) {
-	//err := s.Temp.Update()
-
-	temp, err := s.Temp.ReadSingleAlias("recuperator")
-	//c := float64(temp.Celsius())
-	return Round32(temp.Celsius(), 0.5, 1), err
-}
-*/
-
-/*
-OutsideSensor returns temperature from the sensor
-*/
-/*
-func (s Sensors) OutsideSensor() (float32, error) {
-	//err := s.Temp.Update()
-
-	temp, err := s.Temp.ReadSingleAlias("outside")
-
-	return Round32(temp.Celsius(), 0.5, 1), err
-}
-*/
-
-/*
 WaterBoilerSensor returns temperature from the sensor
 */
 func (s Sensors) WaterBoilerSensor() (float32, error) {
