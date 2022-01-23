@@ -1,5 +1,5 @@
 class StaticGlobals {
-  //const HOST = "sasha123.ddns.ukrtel.net:1234";
+  //const HOST = "homeautomationkp.ddns.net:1234";
 
   constructor() {
     console.log("constants initiates");
@@ -9,7 +9,7 @@ class StaticGlobals {
     var host = window.location.hostname
     var port = window.location.port
     if (host == "localhost") {
-      host = "sasha123.ddns.ukrtel.net:1234";
+      host = "homeautomationkp.ddns.net:1234";
     } else {
       host = host + ":" + port;
     }

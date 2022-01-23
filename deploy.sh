@@ -6,8 +6,8 @@ err() {
 
 trap 'err $LINENO' ERR
 
-HOST=192.168.1.20
-#HOST=sasha123.ddns.ukrtel.net
+HOST=192.168.100.3
+# HOST=homeautomationkp.ddns.net
 PORT=22
 
 SERVICE=goHome
