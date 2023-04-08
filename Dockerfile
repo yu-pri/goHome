@@ -1,15 +1,18 @@
-FROM arm32v7/golang as build
+FROM golang as build
 
 WORKDIR /build
 COPY go.* ./
 RUN go mod download
 
 COPY . .
-RUN go build -v -o ./goHome
+RUN GOOS=linux GOARCH=arm GOARM=7 go build -v -o ./goHome
+RUN chmod -R 755 goHome
 
-FROM scratch
+
+FROM debian
 
 COPY --from=build /build/goHome goHome
-
+RUN apt-get update && apt-get install -y file
+RUN file /goHome > file.txt
 EXPOSE 3000
-ENTRYPOINT goHome
+CMD ["/goHome"]
