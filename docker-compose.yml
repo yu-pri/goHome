@@ -1,0 +1,22 @@
+version: "3.1"
+
+services:
+  api:
+    image: yuriprykh/homeauto/api
+    build:
+      context: ./hardware-api
+      dockerfile: ../Dockerfile
+    platform: linux/armhf
+#    devices:
+#      - /dev/gpiomem
+    ports:
+      - 3000:8080
+
+  nginx:
+    image: yuriprykh/homeauto/nginx
+    build:
+      context: ./frontend
+      dockerfile: ../Dockerfile.static
+    platform: linux/armhf
+    ports:
+      - 80:8081
