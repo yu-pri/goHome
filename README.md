@@ -1,3 +1,6 @@
+[![$solid_lints](https://nokycucwgzweensacwfy.supabase.co/functions/v1/get_project_badge?projectName=solid_lints)](https://www.worklog.ai)
+
+
 Private home automation on raspberry PI
 
 TODO:
